@@ -38,18 +38,3 @@ def aggregate_json_values(json_array):
     result_json_data = json.dumps(result, ensure_ascii=False)
 
     return result_json_data
-
-# Example usage:
-json_data = '''
-[
-    {"name": "John Doe", "location": "New York", "occupation": "Developer"},
-    {"name": "Jane Doe", "location": "Los Angeles", "occupation": "Designer"}
-]
-'''
-
-# Call the function with the JSON data
-result_json = aggregate_json_values(json_data)
-
-# Print the result
-print("Resulting JSON data:")
-print(result_json)

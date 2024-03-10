@@ -1,0 +1,5 @@
+.venv
+pdfs
+/.env
+/.idea
+.ipynb_checkpoints

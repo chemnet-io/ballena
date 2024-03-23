@@ -1,5 +1,9 @@
 .venv
-pdfs
 /.env
 /.idea
 .ipynb_checkpoints
+.idea
+__pycache__
+__pycache__/*
+# just ignore the pdfs
+/pdfs/*.pdf

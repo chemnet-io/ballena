@@ -5,6 +5,7 @@ import json
 
 splits = 'path to test splits here'
 csv_output_data_location = 'desired output location here'
+gpt_input = 'path to your gpt input here'
 
 def extract_edge_groups(text, edge_type):
     try:
@@ -38,11 +39,11 @@ def extract_result(gpt_input: json, split):
     pd.DataFrame.to_csv(merged_df, csv_output_data_location + f"{filename}", index=False)
 
 for file in os.listdir(splits):
-    gpt_input = pd.read_csv("/home/p.froehlich/PycharmProjects/natuke/gpt_output/converted_gpt_output.csv")
+    gpt_input = pd.read_csv("gpt_input")
     gpt_input['doi'] = gpt_input['doi'].str.replace('@', '/')
     gpt_input = gpt_input.drop(labels='file_name', axis=1)
     filename = os.fsdecode(file)
-    split = pd.read_csv(f'/home/p.froehlich/PycharmProjects/natuke/splits/{filename}')
+    split = pd.read_csv(f'{splits}{filename}')
     extract_result(gpt_input, split)
 
 

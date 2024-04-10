@@ -3,8 +3,8 @@ import pandas as pd
 import os
 import json
 
-splits = '/home/p.froehlich/PycharmProjects/natuke/splits'
-csv_output_data_location = '/home/p.froehlich/PycharmProjects/natuke/formatted_splits/'
+splits = 'path to test splits here'
+csv_output_data_location = 'desired output location here'
 
 def extract_edge_groups(text, edge_type):
     try:

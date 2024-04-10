@@ -39,7 +39,7 @@ def extract_result(gpt_input: json, split):
     pd.DataFrame.to_csv(merged_df, csv_output_data_location + f"{filename}", index=False)
 
 for file in os.listdir(splits):
-    gpt_input = pd.read_csv("gpt_input")
+    gpt_input = pd.read_csv(gpt_input)
     gpt_input['doi'] = gpt_input['doi'].str.replace('@', '/')
     gpt_input = gpt_input.drop(labels='file_name', axis=1)
     filename = os.fsdecode(file)

@@ -35,3 +35,107 @@ algorithms = ['deep_walk', 'node2vec', 'metapath2vec', 'regularization']
 k_at = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 dynamic_stages = ['1st', '2nd', '3rd', '4th']
 ```
+## Tables 
+
+Table 1 shows the results from experiments extracting five different natural product properties from biochemical academic papers. They are presented on different values of k to the hits@k metric: (1) name, k = 50; (2) bioactivity, k = 5; (3) specie, k = 50; (4) collection site, k = 20; and (5) isolation type, k = 1. The final k value for each extraction is defined either when a score higher than 0.50 is achieved at any evaluation stage or the upper limit of k = 50.
+
+**Table 1**
+
+Results table for extracting: chemical compound (C), bioactivity (B), specie (S), collection site (L), and isolation type (T). Performance metric with the average and standard deviation of the metric hits@k and k is respectively: 50, 5, 50, 20, and 1.
+
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0pky">Property</th>
+    <th class="tg-0pky">Evaluation Stage</th>
+    <th class="tg-0pky">GPT4</th>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky" rowspan="4">C</td>
+    <td class="tg-0pky">1st</td>
+    <td class="tg-0pky">0.25 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">2nd</td>
+    <td class="tg-0pky">0.25 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">3rd</td>
+    <td class="tg-0pky">0.22 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">4th</td>
+    <td class="tg-0pky">0.19 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="4">B</td>
+    <td class="tg-0pky">1st</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">2nd</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">3rd</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">4th</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="4">S</td>
+    <td class="tg-0pky">1st</td>
+    <td class="tg-0pky">0.34 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">2nd</td>
+    <td class="tg-0pky">0.35 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">3rd</td>
+    <td class="tg-0pky">0.37 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">4th</td>
+    <td class="tg-0pky">0.37 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="4">L</td>
+    <td class="tg-0pky">1st</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">2nd</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">3rd</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">4th</td>
+    <td class="tg-0pky">0.00 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky" rowspan="4">T</td>
+    <td class="tg-0pky">1st</td>
+    <td class="tg-0pky">0.02 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">2nd</td>
+    <td class="tg-0pky">0.02 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">3rd</td>
+    <td class="tg-0pky">0.02 ± 0.00</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">4th</td>
+    <td class="tg-0pky">0.01 ± 0.00</td>
+  </tr>
+</tbody>
+</table>
+

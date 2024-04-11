@@ -3,9 +3,8 @@ import pandas as pd
 import os
 import json
 
-splits = 'path to test splits here'
-csv_output_data_location = 'desired output location here'
-gpt_input = 'path to your gpt input here'
+splits = 'path to splits from natuke here'
+csv_output_data_location = 'desired location for splits here'
 
 def extract_edge_groups(text, edge_type):
     try:
@@ -36,14 +35,15 @@ def extract_result(gpt_input: json, split):
     merged_df = merged_df[['true', 'text', 'type']]
     merged_df = merged_df.rename(columns={'text': 'restored', 'type': 'edge_type'})
 
-    pd.DataFrame.to_csv(merged_df, csv_output_data_location + f"{filename}", index=False)
+    pd.DataFrame.to_csv(merged_df, csv_output_data_location + f"llm_results_gpt4_0.8_{filename_without_test}", index=False)
 
 for file in os.listdir(splits):
-    gpt_input = pd.read_csv(gpt_input)
+    gpt_input = pd.read_csv("path to gpt input here)
     gpt_input['doi'] = gpt_input['doi'].str.replace('@', '/')
     gpt_input = gpt_input.drop(labels='file_name', axis=1)
     filename = os.fsdecode(file)
-    split = pd.read_csv(f'{splits}{filename}')
+    filename_without_test = filename.replace("test_", "")
+    split = pd.read_csv(f'{csv_output_data_location}{filename}')
     extract_result(gpt_input, split)
 
 

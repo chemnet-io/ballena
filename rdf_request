@@ -1,0 +1,42 @@
+import rdflib
+
+# Create an RDF graph
+g = rdflib.Graph()
+
+# Initialize a variable to store SPARQL query results
+sparql_result = []
+offset = 0
+batch_size = 100
+more_results = True
+
+while more_results:
+    try:
+        # Define the SPARQL query with OFFSET and LIMIT
+        sparql_query = f"""
+                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                        select ?label where {{
+                            SERVICE <https://nubbekg.aksw.org/sparql> {{
+                                ?s a <http://nubbekg.aksw.org/ontology#IsolationSite> .
+                                ?s rdfs:label ?label .
+                            }}
+                        }} LIMIT {batch_size} OFFSET {offset}
+                        """
+        # Execute the SPARQL query
+        current_results = g.query(sparql_query)
+        current_results = list(current_results)
+        if not current_results or len(current_results) < batch_size:
+            more_results = False
+        else:
+            offset += batch_size
+            sparql_result.extend(current_results)
+    except Exception as e:
+        print("Exception when querying SPARQL endpoint" + ": %s" % e)
+        break
+
+# Save the results to a file
+with open('sparql_results.txt', 'w') as file:
+    for result in sparql_result:
+        file.write(f"{result}\n")
+
+print("SPARQL query results have been saved to sparql_results.txt.")

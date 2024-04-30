@@ -1,42 +1,73 @@
+import os
 import rdflib
+import numpy as np
+import faiss
+from langchain.docstore.document import Document
+from langchain.embeddings.openai import OpenAIEmbeddings
 
-# Create an RDF graph
+os.environ['OPENAI_API_KEY'] = 'deleted_for_obvious_reasons'
+OPENAI_API_KEY = 'deleted_for_obvious_reasons'
+
+embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+
+entities = []
+
 g = rdflib.Graph()
 
-# Initialize a variable to store SPARQL query results
-sparql_result = []
-offset = 0
-batch_size = 100
-more_results = True
+def fetch_sparql_results():
+    sparql_result = []
+    offset = 0
+    sparql_batch_size = 100  # Batch size for SPARQL queries
+    more_results = True
 
-while more_results:
-    try:
-        # Define the SPARQL query with OFFSET and LIMIT
-        sparql_query = f"""
-                        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                        select ?label where {{
-                            SERVICE <https://nubbekg.aksw.org/sparql> {{
-                                ?s a <http://nubbekg.aksw.org/ontology#IsolationSite> .
-                                ?s rdfs:label ?label .
-                            }}
-                        }} LIMIT {batch_size} OFFSET {offset}
-                        """
-        # Execute the SPARQL query
-        current_results = g.query(sparql_query)
-        current_results = list(current_results)
-        if not current_results or len(current_results) < batch_size:
-            more_results = False
-        else:
-            offset += batch_size
-            sparql_result.extend(current_results)
-    except Exception as e:
-        print("Exception when querying SPARQL endpoint" + ": %s" % e)
-        break
+    while more_results:
+        try:
+            sparql_query = f"""
+                            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                            select ?label where {{
+                                SERVICE <https://nubbekg.aksw.org/sparql> {{
+                                    ?s a <http://nubbekg.aksw.org/ontology#IsolationSite> .
+                                    ?s rdfs:label ?label .
+                                }}
+                            }} LIMIT {sparql_batch_size} OFFSET {offset}
+                            """
+            current_results = g.query(sparql_query)
+            current_results = list(current_results)
+            if not current_results or len(current_results) < sparql_batch_size:
+                more_results = False
+            else:
+                offset += sparql_batch_size
+                sparql_result.extend(current_results)
+        except Exception as e:
+            print("Exception when querying SPARQL endpoint" + ": %s" % e)
+            break
 
-# Save the results to a file
-with open('sparql_results.txt', 'w') as file:
-    for result in sparql_result:
-        file.write(f"{result}\n")
+    return sparql_result
 
-print("SPARQL query results have been saved to sparql_results.txt.")
+sparq_result = fetch_sparql_results()
+
+for entry in sparq_result:
+    label = entry.label
+    doc = Document(page_content=label, metadata={'label': label})
+    entities.append(doc)
+    print(doc)
+
+# Initialize FAISS index
+dimension = 768  # Assuming embedding dimension is 768, adjust as necessary
+index = faiss.IndexFlatL2(dimension)
+
+# Add documents to FAISS index
+for doc in entities:
+    # Assuming embeddings.get_embedding returns a numpy array
+    embedding = embeddings.get_embedding(doc.page_content)
+    index.add(np.array([embedding]))
+
+# Perform a similarity search
+query = "Minas Gerais"
+query_embedding = embeddings.get_embedding(query)
+k = 5  # Number of nearest neighbors to find
+distances, indices = index.search(np.array([query_embedding]), k)
+
+print("Search results (indices):", indices)
+print("Distances:", distances)

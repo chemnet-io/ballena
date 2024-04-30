@@ -1,12 +1,11 @@
 import os
 import rdflib
-import numpy as np
-import faiss
 from langchain.docstore.document import Document
 from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores.faiss import FAISS
 
-os.environ['OPENAI_API_KEY'] = 'deleted_for_obvious_reasons'
-OPENAI_API_KEY = 'deleted_for_obvious_reasons'
+os.environ['OPENAI_API_KEY'] = ''
+OPENAI_API_KEY = ''
 
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 
@@ -51,23 +50,19 @@ for entry in sparq_result:
     label = entry.label
     doc = Document(page_content=label, metadata={'label': label})
     entities.append(doc)
-    print(doc)
 
-# Initialize FAISS index
-dimension = 768  # Assuming embedding dimension is 768, adjust as necessary
-index = faiss.IndexFlatL2(dimension)
+# Create FAISS index from documents
+faiss_index = FAISS.from_documents(entities, embeddings)
 
-# Add documents to FAISS index
-for doc in entities:
-    # Assuming embeddings.get_embedding returns a numpy array
-    embedding = embeddings.get_embedding(doc.page_content)
-    index.add(np.array([embedding]))
+# Save the FAISS index locally
+faiss_index.save_local("faiss_index")
+
+# Load the FAISS index
+loaded_faiss_index = FAISS.load_local("faiss_index")
 
 # Perform a similarity search
 query = "Minas Gerais"
-query_embedding = embeddings.get_embedding(query)
-k = 5  # Number of nearest neighbors to find
-distances, indices = index.search(np.array([query_embedding]), k)
+docs_with_score = loaded_faiss_index.similarity_search_with_score(query, top_k=5)
 
-print("Search results (indices):", indices)
-print("Distances:", distances)
+for doc, score in docs_with_score:
+    print(f"Document: {doc.page_content}, Score: {score}")

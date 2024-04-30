@@ -1,7 +1,7 @@
 import os
 import rdflib
 from langchain.docstore.document import Document
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings
 from langchain.vectorstores.faiss import FAISS
 
 os.environ['OPENAI_API_KEY'] = ''
@@ -57,8 +57,8 @@ faiss_index = FAISS.from_documents(entities, embeddings)
 # Save the FAISS index locally
 faiss_index.save_local("faiss_index")
 
-# Load the FAISS index
-loaded_faiss_index = FAISS.load_local("faiss_index")
+# Load the FAISS index, allowing deserialization
+loaded_faiss_index = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
 
 # Perform a similarity search
 query = "Minas Gerais"

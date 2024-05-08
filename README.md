@@ -35,6 +35,11 @@ algorithms = ['deep_walk', 'node2vec', 'metapath2vec', 'regularization']
 k_at = [1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 dynamic_stages = ['1st', '2nd', '3rd', '4th']
 ```
+### Prepare Chat GPT Output 
+1. run the convert_to_correct_input_for_natuke.ipynb with the consolidated output from GPT in this project it is consolidated_output_full.csv
+2. run the convert_to_splits.py to get the results from GPT matched with the splits from the Natuke pipeline
+3. run the dynamic_benchmark_evaluation.py in Natuke with the newly generated splits
+
 ## Tables 
 
 Table 1 shows the results from experiments extracting five different natural product properties from biochemical academic papers. They are presented on different values of k to the hits@k metric: (1) name, k = 50; (2) bioactivity, k = 5; (3) specie, k = 50; (4) collection site, k = 20; and (5) isolation type, k = 1. The final k value for each extraction is defined either when a score higher than 0.50 is achieved at any evaluation stage or the upper limit of k = 50.

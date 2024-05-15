@@ -1,0 +1,436 @@
+node,neighbor,type
+10.1002/cbdv.200800342,"Cytotoxic activity against human leukemia (MOLT-4), melanoma (MDA-MB-435), colon (HCT-8), and glyoblastoma (SF-295) cancer cell lines, and against L-929 (normal fibroblasts).",doi_bioActivity
+10.1002/cbdv.200800342,Cytotoxic activity against human tumor cell lines.,doi_bioActivity
+10.1002/cbdv.200800342,Cytotoxic activity against human tumor cell lines.,doi_bioActivity
+10.1002/cbdv.200800342,Cytotoxic activity against human tumor cell lines.,doi_bioActivity
+10.1002/cbdv.200800342,Cytotoxic activity against human tumor cell lines.,doi_bioActivity
+10.1002/cbdv.200800342,"Strongest cytotoxicity against all tumor cell lines tested, compared to normal L-929 cells. Comparable with the positive control doxorubicin.",doi_bioActivity
+10.1002/cbdv.200800342,"No cytotoxic activity to cancer cells, indicating that the presence of these CO groups at C(18) and C(19) is incompatible with the cytotoxic activity. Derived from degradation of casearin X in CDCl3.",doi_bioActivity
+10.1002/hlca.200890147,Moderate antifungal activities against Candida albicans and C. krusei,doi_bioActivity
+10.1002/hlca.200890147,Moderate antifungal activities against Candida albicans and C. krusei,doi_bioActivity
+10.1002/hlca.200890147,Moderate antifungal activities against Candida albicans and C. krusei,doi_bioActivity
+10.1002/hlca.200890147,Moderate antifungal activities against Candida albicans and C. krusei,doi_bioActivity
+10.1002/hlca.200890147,Moderate antifungal activities against Candida albicans and C. krusei,doi_bioActivity
+10.1002/jobm.200800093,Weak cytotoxic activity against tumor cell lines,doi_bioActivity
+10.1002/jobm.200800093,Moderate cytotoxic activity against tumor cell lines when combined with Compound 5,doi_bioActivity
+10.1002/jobm.200800093,"Weak cytotoxic activity, potential synergy with Compound 4",doi_bioActivity
+10.1002/jobm.200800093,Remarkable cytotoxic activity against tumor cell lines,doi_bioActivity
+10.1002/jobm.200800093,Not mentioned,doi_bioActivity
+10.1002/jobm.200800093,Cytotoxic activity not mentioned,doi_bioActivity
+10.1002/ps.1278,"Moderate larval weight loss in Spodoptera frugiperda after 10 days of treatment, suggesting some antifeedant or toxicity effect, but further details are not mentioned",doi_bioActivity
+10.1002/ps.1278,Possible feeding deterrence causing larval weight loss in Spodoptera frugiperda,doi_bioActivity
+10.1002/ps.1278,"High larval mortality in Spodoptera frugiperda, suggest insecticidal or antifeedant properties",doi_bioActivity
+10.1002/ps.1278,High larval mortality in Spodoptera frugiperda,doi_bioActivity
+10.1002/ps.1278,Possible feeding deterrence causing larval weight loss in Spodoptera frugiperda similar to tannin's bioactivity,doi_bioActivity
+10.1002/ps.478,"Growth inhibiting activity by stomach ingesting, insecticidal against Anticarsia gemmatalis and Spodoptera frugiperda",doi_bioActivity
+10.1007/s10295-012-1165-2,Cytotoxic; anti-inflammatory; antifeedant activities.,doi_bioActivity
+10.1007/s10295-012-1165-2,Cytotoxic; similar activity against HL-60 cells as Tagitinin C.,doi_bioActivity
+10.1016/0031-9422(81)80027-1,Anesthetic action on the mucous membranes of the mouth,doi_bioActivity
+10.1016/0031-9422(81)80027-1,Responsible for anesthetic activity,doi_bioActivity
+10.1016/0040-4020(95)00254-6,Active in a mechanism-based DNA-modifying yeast assay and cytotoxic in Vero monkey and Chinese hamster ovary cell assays,doi_bioActivity
+10.1016/0040-4020(95)00254-6,Moderately active in Vero monkey and Chinese hamster ovary cell cytotoxicity assays,doi_bioActivity
+10.1016/0040-4020(95)00254-6,Unknown specific bioactivity from the provided data,doi_bioActivity
+10.1016/0040-4020(95)00254-6,Assumed bioactive but no specific bioactivity profile provided,doi_bioActivity
+10.1016/0040-4020(95)00254-6,Assumed bioactive but no specific bioactivity profile provided,doi_bioActivity
+10.1016/0040-4020(95)00254-6,Unknown specific bioactivity from the provided data,doi_bioActivity
+10.1016/0040-4020(95)00254-6,Assumed bioactive but no specific bioactivity profile provided,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Antibacterial and antifungal activity,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Antibacterial and antifungal activity,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Inhibited only S. aureus and C. albicans,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Inhibited only S. aureus and C. albicans,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Inhibited only S. aureus and C. albicans,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Antibacterial and antifungal activity,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Antibacterial and antifungal activity,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Inhibited only S. aureus and C. albicans,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Inhibited only S. aureus and C. albicans,doi_bioActivity
+10.1016/S0031-9422(00)00225-9,Inhibited only S. aureus and C. albicans,doi_bioActivity
+10.1016/S0031-9422(00)00477-5,antioxidant activity,doi_bioActivity
+10.1016/S0031-9422(00)00477-5,antioxidant activity,doi_bioActivity
+10.1016/S0031-9422(00)00477-5,inhibiting the bleaching of β-carotene,doi_bioActivity
+10.1016/S0031-9422(00)00477-5,antioxidant activity,doi_bioActivity
+10.1016/S0031-9422(00)00477-5,inhibiting the bleaching of β-carotene,doi_bioActivity
+10.1016/S0031-9422(00)00477-5,inhibiting the bleaching of β-carotene,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium sphaerospermum,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium sphaerospermum,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium sphaerospermum,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium sphaerospermum and Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(01)00431-9,Antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1016/S0031-9422(03)00153-5,In vitro activity against trypomastigote forms of Trypanosoma cruzi with IC50 value of 59.0 mg/mL,doi_bioActivity
+10.1016/S0031-9422(03)00153-5,In vitro activity against trypomastigote forms of Trypanosoma cruzi with IC50 value of 90.2 mg/mL,doi_bioActivity
+10.1016/S0031-9422(03)00153-5,In vitro activity against trypomastigote forms of Trypanosoma cruzi,doi_bioActivity
+10.1016/S0031-9422(97)00238-0,Antifungal activity against C. cladosporioides and C. esphaerospermum,doi_bioActivity
+10.1016/S0031-9422(97)00238-0,Antifungal activity against C. cladosporioides and C. esphaerospermum,doi_bioActivity
+10.1016/S0031-9422(97)00238-0,Antifungal activity against C. cladosporioides and C. esphaerospermum,doi_bioActivity
+10.1016/S0031-9422(97)00238-0,Antifungal activity against C. cladosporioides and C. esphaerospermum,doi_bioActivity
+10.1016/S0031-9422(98)00249-0,"DNA-damaging activity, selective activity in the Rad 52Y and RS 321 yeast assay compared with the wild type Rad+ strain",doi_bioActivity
+10.1016/S0031-9422(98)00249-0,"DNA-damaging activity, selective activity in the Rad 52Y and RS 321 yeast assay compared with the wild type Rad+ strain",doi_bioActivity
+10.1016/S0031-9422(98)00249-0,"DNA-damaging activity, selective activity in the Rad 52Y and RS 321 yeast assay compared with the wild type Rad+ strain",doi_bioActivity
+10.1016/j.biortech.2010.01.041,Weak inhibition of protease (subtilisin and pepsin),doi_bioActivity
+10.1016/j.biortech.2010.01.041,Weak inhibition of protease (subtilisin and pepsin),doi_bioActivity
+10.1016/j.biortech.2010.01.041,Weak inhibition of protease (subtilisin and pepsin),doi_bioActivity
+10.1016/j.biortech.2010.01.041,Weak inhibition of protease (subtilisin and pepsin),doi_bioActivity
+10.1016/j.biortech.2010.01.041,Weak inhibition of protease (subtilisin and pepsin),doi_bioActivity
+10.1016/j.biortech.2010.01.041,Weak inhibition of protease (subtilisin and pepsin),doi_bioActivity
+10.1016/j.chroma.2009.02.009,"Activity against Plasmodium falciparum (IC50 >100 µM), Trypanosoma brucei rhodesiense (IC50 >100 µM), not toxic to KB cells (cytotoxicity IC50 >100 µM)",doi_bioActivity
+10.1016/j.chroma.2009.02.009,"Activity against Xylella fastidiosa (MIC 4.2 ×10^3 µM), no appreciable activity against Plasmodium falciparum (IC50 >100 µM) and Trypanosoma brucei rhodesiense (IC50 >100 µM)",doi_bioActivity
+10.1016/j.chroma.2009.02.009,Active against Plasmodium falciparum (IC50 23.6 µM) and Trypanosoma brucei rhodesiense (IC50 15.6 µM). Not toxic to KB cells (IC50 >100 µM),doi_bioActivity
+10.1016/j.chroma.2009.02.009,No appreciable activity against Plasmodium falciparum and Trypanosoma brucei rhodesiense (IC50 >100 µM),doi_bioActivity
+10.1016/j.chroma.2009.02.009,"New compound, no appreciable activity against Plasmodium falciparum and Trypanosoma brucei rhodesiense (IC50 >100 µM)",doi_bioActivity
+10.1016/j.chroma.2009.02.009,No appreciable activity against Plasmodium falciparum and Trypanosoma brucei rhodesiense (IC50 >100 µM),doi_bioActivity
+10.1016/j.chroma.2009.02.066,Inhibition of symbiotic fungus (Leucoagaricus gongylophorus) of leaf-cutting ant (Atta sexdens rubropilosa),doi_bioActivity
+10.1016/j.chroma.2009.02.066,"Not explicitly stated in the provided content, further studies are mentioned for identification, mechanism, and transformation",doi_bioActivity
+10.1016/j.chroma.2009.02.066,Not explicitly mentioned,doi_bioActivity
+10.1016/j.chroma.2009.02.066,Not explicitly mentioned,doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, potential preventive effect against kidney stone",doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, potential preventive effect against kidney stone",doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, preventive effect against kidney stone",doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, preventive effect against kidney stone",doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, antinociceptive and antioxidant",doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, antinociceptive and antioxidant",doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, antinociceptive and antioxidant",doi_bioActivity
+10.1016/j.jep.2007.09.020,"anti-inflammatory, antinociceptive and antioxidant",doi_bioActivity
+10.1016/j.jfca.2003.09.013,Antioxidant; free radical scavenging activity,doi_bioActivity
+10.1016/j.jfca.2003.09.013,Antioxidant; free radical scavenging activity,doi_bioActivity
+10.1016/j.jfca.2003.09.013,Antioxidant; free radical scavenging activity,doi_bioActivity
+10.1016/j.jfca.2003.09.013,Antioxidant; free radical scavenging activity,doi_bioActivity
+10.1016/j.jfca.2003.09.013,Antioxidant; free radical scavenging activity,doi_bioActivity
+10.1016/j.jfca.2003.09.013,Antioxidant,doi_bioActivity
+10.1016/j.jpba.2012.08.028,"cytotoxicity, antiangiogenic, antibacterial, trypanocidal, larvicidal against Aedes aegypti, trypanocidal against Trypanossoma cruzi, antinociceptive and anti-inflammatory, protective effect against cyclophosphamide-induced mutagenicity in mice",doi_bioActivity
+10.1016/j.jpba.2012.08.028,Metabolite of (−)-grandisin formed during the biotransformation by rat liver microsomes,doi_bioActivity
+10.1016/j.micres.2004.06.003,"{'M. luteus': 'The MIC values against M. luteus was 99 mg/mL.', 'S. aureus': 'The MIC values against S. aureus was 137 mg/mL.'}",doi_bioActivity
+10.1016/j.phytochem.2005.04.043,Weak in vitro antifungal activity against Cladosporium sphaerospermum and Cladosporioides.,doi_bioActivity
+10.1016/j.phytochem.2005.04.043,"Weak in vitro antifungal activity against Cladosporium sphaerospermum and Cladosporioides, induces cell proliferation: 70% on HeLa cells and 25% on CHO cells.",doi_bioActivity
+10.1016/j.phytochem.2005.04.043,Not described.,doi_bioActivity
+10.1016/j.phytochem.2005.04.043,No antifungal activity noted.,doi_bioActivity
+10.1016/j.phytochem.2005.06.019,Inactive in DPPH free radical scavenging activity,doi_bioActivity
+10.1016/j.phytochem.2005.06.019,Weak free radical scavenging activity towards DPPH,doi_bioActivity
+10.1016/j.phytochem.2005.06.019,"Strong antioxidant activity, comparable with that of caffeic acid",doi_bioActivity
+10.1016/j.phytochem.2005.06.019,"Strong antioxidant activity, comparable with that of caffeic acid",doi_bioActivity
+10.1016/j.phytochem.2005.06.019,Weak free radical scavenging activities towards DPPH,doi_bioActivity
+10.1016/j.phytochem.2006.09.005,No effect on HeLa and CHO cell lines compared to control,doi_bioActivity
+10.1016/j.phytochem.2006.09.005,"Induction of slight increase in cell proliferation of HeLa and CHO cell lines, strong antifungal activity",doi_bioActivity
+10.1016/j.phytochem.2006.09.005,"Potent cytotoxic activity against HeLa and CHO cell lines, with an IC50 of 8.0 μM; relatively weak antifungal activity",doi_bioActivity
+10.1016/j.phytochem.2006.09.005,No effect on HeLa and CHO cell lines compared to control,doi_bioActivity
+10.1016/j.phytochem.2006.09.005,"Induction of slight increase in cell proliferation of HeLa and CHO cell lines, strong antifungal activity",doi_bioActivity
+10.1016/j.phytochem.2006.09.005,"Potent cytotoxic activity against HeLa and CHO cell lines, with an IC50 of 8.0 μM; relatively weak antifungal activity",doi_bioActivity
+10.1016/j.phytochem.2009.08.013,"Antimicrobial activity; suggested to play a role in plant–pathogen interaction, probably as a phytoanticipin",doi_bioActivity
+10.1016/j.phytol.2010.11.003,Antifungal and acetylcholinesterase (AChE) inhibitory activities,doi_bioActivity
+10.1016/j.phytol.2010.11.003,Antifungal and weak acetylcholinesterase (AChE) inhibitory activities,doi_bioActivity
+10.1016/j.phytol.2010.11.003,Antifungal and weak acetylcholinesterase (AChE) inhibitory activities,doi_bioActivity
+10.1016/j.tiv.2008.01.003,Antiproliferative; induce apoptosis in HL-60 cells by inhibiting DNA synthesis,doi_bioActivity
+10.1021/jf00030a035,Moderate cytotoxic activity against BT-20 breast and HeLa epithelioid cervix carcinoma cells,doi_bioActivity
+10.1021/jf00030a035,Moderate cytotoxic activity against BT-20 breast and HeLa epithelioid cervix carcinoma cells,doi_bioActivity
+10.1021/jf00030a035,Moderate cytotoxic activity against BT-20 breast and HeLa epithelioid cervix carcinoma cells,doi_bioActivity
+10.1021/jf00030a035,Moderate cytotoxic activity against BT-20 breast and HeLa epithelioid cervix carcinoma cells,doi_bioActivity
+10.1021/jf00030a035,Moderate cytotoxic activity against BT-20 breast and HeLa epithelioid cervix carcinoma cells,doi_bioActivity
+10.1021/jf00030a035,Moderate cytotoxic activity against BT-20 breast and HeLa epithelioid cervix carcinoma cells,doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Moderate inhibition of COX enzymes at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited COX-2 enzyme by 31% at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 86% at 10ppm and showed less than 20% inhibition of COX-2 at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 77% at 10ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 88% at 10ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 76% at 100ppm and COX-1 by 98% and COX-2 by 84% at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Poor inhibitory activities of LPO and COX-1 and -2 enzymes', 'value': ''}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Poor lipoperoxidation inhibitory activity', 'value': 'Low ability to protect liposomes from oxidation'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 79%'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': '>95% inhibition at 100ppm. COX-1 inhibition by 75% and weak activity toward COX-2 at 100 ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Moderate inhibition of COX enzymes at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited COX-2 enzyme by 31% at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 86% at 10ppm and showed less than 20% inhibition of COX-2 at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 77% at 10ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 88% at 10ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 76% at 100ppm and COX-1 by 98% and COX-2 by 84% at 100ppm'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Poor inhibitory activities of LPO and COX-1 and -2 enzymes', 'value': ''}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Poor lipoperoxidation inhibitory activity', 'value': 'Low ability to protect liposomes from oxidation'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': 'Inhibited LPO by 79%'}]",doi_bioActivity
+10.1021/jf063451x,"[{'activity': 'Lipoperoxidation inhibitory activity', 'value': '>95% inhibition at 100ppm. COX-1 inhibition by 75% and weak activity toward COX-2 at 100 ppm'}]",doi_bioActivity
+10.1021/jf100233y,"Antioxidant, Antibacterial, Anti-inflammatory, Antimutagenic, Chemopreventive properties",doi_bioActivity
+10.1021/jf100233y,More effective than gallic acid at inhibiting oral bacterial growth and the formation of Streptococcus mutans biofilms,doi_bioActivity
+10.1021/jf100233y,"Inhibition of cell adhesion, alteration of cell redox status by depletion of both glutathione (GSH) and ATP",doi_bioActivity
+10.1021/jf100233y,"More efficient than gallic acid as an inhibitor of the enzyme xanthine oxidase, endogenous source of superoxide anion, and of mitochondrial lipid peroxidation induced by FeIII-NADPH",doi_bioActivity
+10.1021/jf100233y,Generates radicals that induce oxidative stress and hemolysis,doi_bioActivity
+10.1021/jf60217a066,"Anesthetic properties, flavor similar to anise seed oil",doi_bioActivity
+10.1021/jf60217a066,"Potent anesthetic, likely responsible for the pharmacological activity of plant infusions",doi_bioActivity
+10.1021/np0103970,Weak inhibitory activity against trypomastigote forms of Trypanosoma cruzi,doi_bioActivity
+10.1021/np0103970,Weak inhibitory activity against trypomastigote forms of Trypanosoma cruzi,doi_bioActivity
+10.1021/np0103970,Inactive in brine shrimp lethality test,doi_bioActivity
+10.1021/np0103970,Inactive in brine shrimp lethality test,doi_bioActivity
+10.1021/np0103970,Inactive in brine shrimp lethality test,doi_bioActivity
+10.1021/np0303963,DNA-damaging activity on mutant yeast strains of Saccharomyces cerevisiae,doi_bioActivity
+10.1021/np0303963,Inactive on DNA-damaging activity assay,doi_bioActivity
+10.1021/np0303963,Inactive on DNA-damaging activity assay,doi_bioActivity
+10.1021/np0303963,DNA-damaging activity on mutant yeast strains of Saccharomyces cerevisiae,doi_bioActivity
+10.1021/np049863m,Strong antioxidant activity; moderate inhibitory activity against acetylcholinesterase (AchE) at 0.1 μM concentration in TLC screening,doi_bioActivity
+10.1021/np049863m,Antioxidant activity,doi_bioActivity
+10.1021/np049863m,Strong free-radical scavenging activity,doi_bioActivity
+10.1021/np049863m,Antioxidant activity,doi_bioActivity
+10.1021/np049863m,Antioxidant activity,doi_bioActivity
+10.1021/np049863m,Antioxidant activity,doi_bioActivity
+10.1021/np049863m,"Moderate acetylcholinesterase inhibitors at a concentration of 0.1 μM, Moderate activity (IC50 1.86 μM) in vitro rat brain assay",doi_bioActivity
+10.1021/np049863m,Moderate acetylcholinesterase inhibitors at a concentration of 1.0 μM in TLC screening,doi_bioActivity
+10.1021/np049863m,Antioxidant activity,doi_bioActivity
+10.1021/np060254j,Anxiolytic effects similar to diazepam in the elevated T-maze test in mice,doi_bioActivity
+10.1021/np060254j,Anxiolytic effects similar to diazepam in the elevated T-maze test in mice,doi_bioActivity
+10.1021/np060254j,Anxiolytic effects similar to diazepam in the elevated T-maze test in mice,doi_bioActivity
+10.1021/np070312g,"Moderate antioxidant activities (40–70% at 100 ppm), moderate inhibition of COX-1 (ca. 40%) and marginal inhibition of COX-2 enzymes (<10% at 100 ppm)",doi_bioActivity
+10.1021/np070312g,"Moderate antioxidant activity (compared to standard reference compounds), moderate inhibition of lipoperoxidation and COX-1 enzyme (75% and 40% respectively at 100 ppm)",doi_bioActivity
+10.1021/np070312g,"Moderate antioxidant activity (compared to standard reference compounds), moderate inhibition of lipoperoxidation and COX-1 enzyme (75% and 58% respectively at 100 ppm)",doi_bioActivity
+10.1021/np1007476,"Antioxidant activity, with an IC50 value of 7.50 μM against DPPH free radical scavenging.",doi_bioActivity
+10.1021/np1007476,"Antioxidant activity, with an IC50 value of 18.60 μM against DPPH free radical scavenging.",doi_bioActivity
+10.1021/np1007476,"Antioxidant activity, with an IC50 value of 18.50 μM against DPPH free radical scavenging.",doi_bioActivity
+10.1021/np1007476,"Antioxidant activity, with an IC50 value of 7.50 μM against DPPH free radical scavenging.",doi_bioActivity
+10.1021/np1007476,"Antioxidant activity, with an IC50 value of 18.60 μM against DPPH free radical scavenging.",doi_bioActivity
+10.1021/np1007476,"Antioxidant activity, with an IC50 value of 18.50 μM against DPPH free radical scavenging.",doi_bioActivity
+10.1021/np100840w,Cytotoxicity against human melanoma (MDA/MB-435) and human glioblastoma (SF-295) cells with IC50 values of 0.36 μM,doi_bioActivity
+10.1021/np100840w,Cytotoxicity against human cancer cell lines with less potency compared to Molecule_1,doi_bioActivity
+10.1021/np100840w,Cytotoxicity not significant; IC50 values >5 μM,doi_bioActivity
+10.1021/np100840w,Cytotoxicity against human cancer cell lines with nearly similar potency to Molecule_1,doi_bioActivity
+10.1021/np100840w,Decreased cytotoxicity compared to non-acetylated molecules; IC50 values >5 μM,doi_bioActivity
+10.1021/np100840w,Decreased cytotoxicity compared to non-acetylated molecules; IC50 values >5 μM,doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 7.1±0.2 μM and inhibition of cathepsin L with an IC50 value of 1.0±0.2 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 21.6±2.5 μM, inhibition of cathepsin B with an IC50 value of 14.9±1.2 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 14.4±0.6 μM (3D7 strain), 11.7±0.8 μM (Dd2 strain), and 6.7±0.9 μM (W2 strain)",doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 12.0±0.1 μM and inhibition of cathepsin L with an IC50 value of 3.3±0.5 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 8.7±2.0 μM, inhibition of cathepsin B with an IC50 value of 8.5±0.8 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 17.7±1.4 μM (3D7 strain), 12.4±0.6 μM (Dd2 strain), and 8.5±0.7 μM (W2 strain)",doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 7.1±0.2 μM and inhibition of cathepsin L with an IC50 value of 1.0±0.2 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 21.6±2.5 μM, inhibition of cathepsin B with an IC50 value of 14.9±1.2 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 14.4±0.6 μM (3D7 strain), 11.7±0.8 μM (Dd2 strain), and 6.7±0.9 μM (W2 strain)",doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 12.0±0.1 μM and inhibition of cathepsin L with an IC50 value of 3.3±0.5 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 8.7±2.0 μM, inhibition of cathepsin B with an IC50 value of 8.5±0.8 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 17.7±1.4 μM (3D7 strain), 12.4±0.6 μM (Dd2 strain), and 8.5±0.7 μM (W2 strain)",doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 7.1±0.2 μM and inhibition of cathepsin L with an IC50 value of 1.0±0.2 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 21.6±2.5 μM, inhibition of cathepsin B with an IC50 value of 14.9±1.2 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 14.4±0.6 μM (3D7 strain), 11.7±0.8 μM (Dd2 strain), and 6.7±0.9 μM (W2 strain)",doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 12.0±0.1 μM and inhibition of cathepsin L with an IC50 value of 3.3±0.5 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 8.7±2.0 μM, inhibition of cathepsin B with an IC50 value of 8.5±0.8 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 17.7±1.4 μM (3D7 strain), 12.4±0.6 μM (Dd2 strain), and 8.5±0.7 μM (W2 strain)",doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 7.1±0.2 μM and inhibition of cathepsin L with an IC50 value of 1.0±0.2 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 21.6±2.5 μM, inhibition of cathepsin B with an IC50 value of 14.9±1.2 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 14.4±0.6 μM (3D7 strain), 11.7±0.8 μM (Dd2 strain), and 6.7±0.9 μM (W2 strain)",doi_bioActivity
+10.1021/np500453x,Inhibition of cruzain with an IC50 value of 12.0±0.1 μM and inhibition of cathepsin L with an IC50 value of 3.3±0.5 μM,doi_bioActivity
+10.1021/np500453x,"Inhibition of cruzain with an IC50 value of 8.7±2.0 μM, inhibition of cathepsin B with an IC50 value of 8.5±0.8 μM, and inhibition of Plasmodium falciparum growth with EC50 values of 17.7±1.4 μM (3D7 strain), 12.4±0.6 μM (Dd2 strain), and 8.5±0.7 μM (W2 strain)",doi_bioActivity
+10.1021/np50086a012,Moderate molluscicidal activity against the aquatic snail Biomphalaria glabrata with LC50 of 5 ppm; moderate cytotoxic activity against HeLa epithelioid carcinoma cells with IC50 of 2.5 µg/ml and against BT-20 human breast carcinoma cells,doi_bioActivity
+10.1021/np50086a012,Moderate molluscicidal activity against the aquatic snail Biomphalaria glabrata with LC50 of 20 ppm; moderate cytotoxic activity against HeLa epithelioid carcinoma cells with IC50 of 8.5 µg/ml and against BT-20 human breast carcinoma cells,doi_bioActivity
+10.1021/np9004079,"Cytotoxic activity against human tumor cell lines; however, IC50 values were >5 µM indicating low or no activity in the tests carried out.",doi_bioActivity
+10.1021/np9004079,"Not explicitly tested in the provided document, but similar cytotoxicity could be inferred as it's structurally related to Molecule_1.",doi_bioActivity
+10.1021/np9004079,"Significant cytotoxicity against four cancer cell lines (HL-60, HCT-8, MDA/MB-435, and SF-295), with IC50 values ranging from 0.13 to 1.0 µM",doi_bioActivity
+10.1021/np9004079,"Significant cytotoxicity against human tumor cell lines as part of a mixture with Molecule_3, with similar IC50 values.",doi_bioActivity
+10.1021/np9004079,"Cytotoxic activity against human tumor cell lines; however, IC50 values were >5 µM indicating low or no activity in the tests carried out.",doi_bioActivity
+10.1021/np9703656,Antifungal activity against Cladosporium sphaerospermum,doi_bioActivity
+10.1021/np9704617,Moderate antifungal activity against Cladosporium cladosporioides,doi_bioActivity
+10.1021/np9704617,"Previously obtained from enzymatic hydrolysis, reported for the first time as a natural product",doi_bioActivity
+10.1055/s-0029-1185364,Trypanocidal activity with IC50 of 27.0 µM,doi_bioActivity
+10.1055/s-0029-1185364,"Weak trypanocidal activity, IC50 of 678.2 µM",doi_bioActivity
+10.1055/s-0029-1185364,"Weak trypanocidal activity, IC50 of 93.5 µM",doi_bioActivity
+10.1055/s-0029-1185364,"Weak trypanocidal activity, IC50 of 289.1 µM",doi_bioActivity
+10.1055/s-0029-1185364,"Weak trypanocidal activity, IC50 of 620.1 µM",doi_bioActivity
+10.1055/s-0029-1185364,"Potent trypanocidal activity, IC50 of 3.1 µM",doi_bioActivity
+10.1055/s-0029-1185364,"Trypanocidal activity, IC50 of 47.5 µM",doi_bioActivity
+10.1055/s-2002-36346,"antibacterial activity against Gram-positive bacteria: Staphylococcus aureus, Bacillus cereus, Bacillus subtilis, Bacillus anthracis and Gram-negative bacteria: Klebsiella pneumoniae and fast-acid bacterium Mycobacterium phlei",doi_bioActivity
+10.1055/s-2002-36346,"antibacterial activity against Gram-positive bacteria: Staphylococcus aureus, Bacillus cereus, Bacillus subtilis, Bacillus anthracis and Gram-negative bacteria: Klebsiella pneumoniae and fast-acid bacterium Mycobacterium phlei",doi_bioActivity
+10.1055/s-2002-36346,"antibacterial activity against Gram-positive bacteria: Staphylococcus aureus, Bacillus cereus, Bacillus subtilis, Bacillus anthracis and Gram-negative bacteria: Klebsiella pneumoniae and fast-acid bacterium Mycobacterium phlei",doi_bioActivity
+10.1055/s-2002-36346,"antibacterial activity against Gram-positive bacteria Staphylococcus aureus, Bacillus cereus, Bacillus subtilis, Bacillus anthracis and against Gram-negative bacteria Klebsiella pneumoniae and Pseudomonas termophylla; no inhibition detected at 200 mg/disc for the ethanolic extract; no inhibition detected at 10 mg/disc",doi_bioActivity
+10.1080/14786410802243271,Inhibition of epimastigote forms of Trypanosoma cruzi with IC50 value of 15.8 mg/mL,doi_bioActivity
+10.1080/14786410802243271,Inhibition of epimastigote forms of Trypanosoma cruzi with IC50 value of 16.3 mg/mL,doi_bioActivity
+10.1080/14786410802243271,Inhibition of epimastigote forms of Trypanosoma cruzi with IC50 value of 6.1 mg/mL,doi_bioActivity
+10.1080/14786410802243271,Weak inhibition of epimastigote forms of Trypanosoma cruzi with IC50 value of 119.6 mg/mL,doi_bioActivity
+10.1080/14786410802243271,Weak inhibition of epimastigote forms of Trypanosoma cruzi with IC50 value of 111.7 mg/mL,doi_bioActivity
+10.1080/14786410903335232,"Inhibition of TNF-α induced NF-κB activity; anti-microbial, antioxidant, and cytotoxic properties",doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity; greater inhibitory activity than gallic acid,doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity,doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity,doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity,doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity; most cytotoxic compound evaluated,doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity,doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity,doi_bioActivity
+10.1080/14786410903335232,Inhibition of TNF-α induced NF-κB activity,doi_bioActivity
+10.1080/14786419.2011.647020,anti-allergic activity,doi_bioActivity
+10.1107/S1600536803019913,Inhibitor of adenine phosphoribosyltransferase (APRT) enzyme from Leishmania,doi_bioActivity
+10.1107/S160053680302107X,Inhibition of adenine phosphoribosyltransferase (APRT) enzyme activity from Leishmania tarentolae,doi_bioActivity
+10.1155/2013/835081,Antifungal activity against various Candida species,doi_bioActivity
+10.1155/2013/835081,"Broad spectrum of antifungal activity, especially against Candida species with minimum inhibitory concentration values equivalent to the antifungal nystatin",doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 33.8 mM,doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 558.3 mM,doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 190.1 mM,doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 44.8 mM,doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 33.2 mM,doi_bioActivity
+10.1248/bpb.31.538,"Trypanocidal agent with IC50 value of 2.82 mM, nearly four times more potent than benznidazole",doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 230.7 mM,doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 22.5 mM,doi_bioActivity
+10.1248/bpb.31.538,Trypanocidal agent with IC50 value of 128.5 mM,doi_bioActivity
+10.1248/cpb.56.407,"Antinociceptive, semi-synthetic piperidine alkaloid derivatives showing central analgesic activity.",doi_bioActivity
+10.1248/cpb.56.407,"Significant antinociceptive activity by inhibiting acetic acid-induced abdominal constrictions with 37% of inhibition, no activity shown in the carrageenan-induced rat paw edema test for anti-inflammatory activity at the dose used.",doi_bioActivity
+10.1248/cpb.56.407,"Antinociceptive and anti-inflammatory, inhibited carrageenan-induced rat paw edema with an ED50 value of 56.6 mmol/kg, also acted as a peripheral analgesic.",doi_bioActivity
+10.1248/cpb.56.407,"Significant antinociceptive activity, notably in the formalin-induced pain test during the inflammatory phase, suggesting central analgesic activity without anti-inflammatory effects at the tested dose.",doi_bioActivity
+10.1248/cpb.56.407,"Series of 2,3,6-trisubstituted piperidine alkaloids showing varying levels of antinociceptive activity.",doi_bioActivity
+10.1248/cpb.56.723,MPO inhibitory activity; ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,MPO inhibitory activity; ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,Most active MPO inhibitor; ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,MPO inhibitory activity; ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,MPO inhibitory activity; ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,Most active MPO inhibitor; ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1248/cpb.56.723,ABTS and DPPH radical scavenging activity,doi_bioActivity
+10.1515/znb-2005-0715,Antifungal activity against Leucoagaricus gongylophorus,doi_bioActivity
+10.1515/znb-2005-0715,Showed antifungal activity against Leucoagaricus gongylophorus,doi_bioActivity
+10.1515/znb-2005-0715,Showed antifungal activity against Leucoagaricus gongylophorus,doi_bioActivity
+10.1515/znb-2005-0715,Showed antifungal activity against Leucoagaricus gongylophorus,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity including use against tumors like skin cancer,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity including use against tumors like skin cancer,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity including use against tumors like skin cancer,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity,doi_bioActivity
+10.1515/znc-2002-5-602,Exhibited activity against insects and potential anticarcinogenic activity,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of glycosomal glyceraldehyde-3-phosphate dehydrogenase (gGAPDH),doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and trypanocidal activity,doi_bioActivity
+10.1515/znc-2008-5-611,Limited trypanocidal activity; not tested for enzyme inhibition,doi_bioActivity
+10.1515/znc-2008-5-611,Not established in this document,doi_bioActivity
+10.1515/znc-2008-5-611,Not tested for enzyme inhibition or trypanocidal activity,doi_bioActivity
+10.1515/znc-2008-5-611,Not tested for enzyme inhibition or trypanocidal activity,doi_bioActivity
+10.1515/znc-2008-5-611,Limited trypanocidal activity; not tested for enzyme inhibition,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Trypanocidal activity against T. cruzi,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of T. cruzi trypomastigote lysis,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of TR and strong inhibitory activity on gGAPDH,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of TR and strong inhibitory activity on gGAPDH,doi_bioActivity
+10.1515/znc-2008-5-611,Not tested for enzyme inhibition or trypanocidal activity,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,"Inhibition of gGAPDH, APRT, and trypanocidal activity",doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Limited trypanocidal activity; not tested for enzyme inhibition,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Inhibition of gGAPDH and APRT,doi_bioActivity
+10.1515/znc-2008-5-611,Not tested for enzyme inhibition or trypanocidal activity,doi_bioActivity
+10.1590/S0073-47212009000100009,"Toxicity; Ingestion and topical application tests showed significant mortality rates in worker bees and larvae of Apis mellifera and Scaptotrigona postica, with observable symptoms of intoxication such as sluggish movement, disorientation, leg trembling, paralysis, and eventual death.",doi_bioActivity
+10.1590/S0100-40421998000600005,"Inhibition of C. sphaerospermum, fungitoxic activity five times higher than nistatin",doi_bioActivity
+10.1590/S0100-40421998000600005,"Inhibition of C. sphaerospermum, fungitoxic activity five times higher than nistatin",doi_bioActivity
+10.1590/S0100-40421998000600005,The compound was inactive,doi_bioActivity
+10.1590/S0100-40421998000600005,The compound was inactive,doi_bioActivity
+10.1590/S0100-40421998000600005,The compound was inactive,doi_bioActivity
+10.1590/S0100-40422002000300002,antifungal activity,doi_bioActivity
+10.1590/S0100-40422002000300002,inhibitory,doi_bioActivity
+10.1590/S0100-40422002000300002,moderate inhibition of mutant strain 52Y of S. cerevisiae indicating specific action on DNA,doi_bioActivity
+10.1590/S0100-40422006000300016,antioxidant activity,doi_bioActivity
+10.1590/S0100-40422006000300016,antioxidant activity,doi_bioActivity
+10.1590/S0100-40422006000300016,antioxidant activity,doi_bioActivity
+10.1590/S0100-40422006000300016,antioxidant activity,doi_bioActivity
+10.1590/S0100-40422006000300016,antioxidant activity,doi_bioActivity
+10.1590/S0100-40422006000300016,antioxidant activity,doi_bioActivity
+10.1590/S0100-40422008000400023,Moderate antifungal activity (MIC 100.0 µg/mL),doi_bioActivity
+10.1590/S0100-40422008000400023,Moderate antifungal activity (MIC 100.0 µg/mL),doi_bioActivity
+10.1590/S0100-40422008000400023,Weak antifungal activity (MIC 200.0 µg/mL),doi_bioActivity
+10.1590/S0100-40422008000400023,Inactive,doi_bioActivity
+10.1590/S0100-40422012000700020,"In vitro inhibitors of photosynthesis, specifically inhibiting electron transport at several sites of the photosynthetic process, acting as Hill reaction inhibitors",doi_bioActivity
+10.1590/S0100-40422012000700020,"In vitro inhibitors of photosynthesis, similar to Molecule_1, they participate in the creation of 'silent reaction centers' by interfering with water photolysis",doi_bioActivity
+10.1590/S0102-695X2007000300003,Weak antibacterial activity against Gram-positive bacteria S. aureus and B. subtilis. Weak scavenging activity with IC50 of 50.0 µM against DPPH free radical.,doi_bioActivity
+10.1590/S0102-695X2007000300003,Weak antibacterial activity against Gram-positive bacteria S. aureus and B. subtilis. Weak scavenging activity with IC50 of 40.7 µM against DPPH free radical.,doi_bioActivity
+10.1590/S0102-695X2007000300003,Weak antibacterial activity against Gram-positive bacteria S. aureus and B. subtilis. Weak scavenging activity with IC50 of 35.4 µM against DPPH free radical.,doi_bioActivity
+10.1590/S0102-695X2007000300003,Weak antibacterial activity against Gram-positive bacteria S. aureus and B. subtilis. Moderate scavenging activity with IC50 of 18.5 µM against DPPH free radical.,doi_bioActivity
+10.1590/S0102-695X2008000200010,"Antibacterial activity against Aeromonas hydrophila, Bacillus subtilis, Pseudomonas aeruginosa, and Staphylococcus aureus with MIC values of 0.12, 1.00, 1.00, and 0.25 mg/mL, respectively. Inhibits S. aureus leucine admission, which stops protein synthesis and kills the bacterium.",doi_bioActivity
+10.1590/S0102-695X2009000100002,Low inhibitory activity against T. cruzi gGAPDH enzyme,doi_bioActivity
+10.1590/S0102-695X2009000100002,High inhibitory activity against T. cruzi gGAPDH enzyme,doi_bioActivity
+10.1590/S0102-695X2009000100002,Complete inhibition of T. cruzi gGAPDH enzyme at 268.8 mmol/L,doi_bioActivity
+10.1590/S0102-695X2012005000106,Cytotoxic activity against human cancer cell lines; selective cytotoxicity against oral carcinoma and breast cancer cell lines,doi_bioActivity
+10.1590/S0102-695X2012005000106,"Cytotoxic activity against different cancer cell lines; Leishmanicidal activity against Leishmania braziliensis; Reported activity against other cancer lines, HIV1 virus, and bacterial strains",doi_bioActivity
+10.1590/S0102-695X2012005000106,Cytotoxic activity against human cancer cell lines; selective cytotoxicity against oral carcinoma and breast cancer cell lines,doi_bioActivity
+10.1590/S0102-695X2012005000106,"Cytotoxic activity against different cancer cell lines; Leishmanicidal activity against Leishmania braziliensis; Reported activity against other cancer lines, HIV1 virus, and bacterial strains",doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus,doi_bioActivity
+10.1590/S0103-50532002000100010,Some moderate activity on trypomastigote forms of Trypanosoma cruzi; antifungal activity not explicitly described in provided extract,doi_bioActivity
+10.1590/S0103-50532002000100010,Some moderate activity on trypomastigote forms of Trypanosoma cruzi; antifungal activity not explicitly described in provided extract,doi_bioActivity
+10.1590/S0103-50532002000100010,Biological activities not described in provided extract; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100010,Antifungal activity against Leucoagaricus gongylophorus,doi_bioActivity
+10.1590/S0103-50532002000100010,Some moderate activity on trypomastigote forms of Trypanosoma cruzi; antifungal activity not explicitly described in provided extract,doi_bioActivity
+10.1590/S0103-50532002000100010,Some moderate activity on trypomastigote forms of Trypanosoma cruzi; antifungal activity not explicitly described in provided extract,doi_bioActivity
+10.1590/S0103-50532002000100010,Biological activities not described in provided extract; inactive or weak inhibitory activity against Trypanosoma cruzi trypomastigote forms,doi_bioActivity
+10.1590/S0103-50532002000100019,"Insecticidal activity against Apis mellifera (honeybees), reduces average survival of treated bees",doi_bioActivity
+10.1590/S0103-50532002000100019,"Possible insecticidal activity, further bioassays needed to confirm individual activity",doi_bioActivity
+10.1590/S0103-50532002000100019,"Possible insecticidal activity, further bioassays needed to confirm individual activity",doi_bioActivity
+10.1590/S0103-50532003000500012,Antioxidant activity,doi_bioActivity
+10.1590/S0103-50532003000500012,Antioxidant activity,doi_bioActivity
+10.1590/S0103-50532003000500012,Antioxidant activity,doi_bioActivity
+10.1590/S0103-50532005000400031,Moderate inhibition (40% at 72 µg mL-1) of the symbiotic fungus of leaf-cutting ant Atta sexdens,doi_bioActivity
+10.1590/S0103-50532005000400031,Total inhibition (100% at 64 µg mL-1) of the symbiotic fungus of leaf-cutting ant Atta sexdens,doi_bioActivity
+10.1590/S0103-50532005000400031,Total inhibition (100% at 70 µg mL-1) of the symbiotic fungus of leaf-cutting ant Atta sexdens,doi_bioActivity
+10.1590/S0103-50532005000400031,No effect on the fungal development at a concentration of 75 µg mL-1,doi_bioActivity
+10.1590/S0103-50532005000400031,Total inhibition (100% at 80 µg mL-1) of the symbiotic fungus of leaf-cutting ant Atta sexdens,doi_bioActivity
+10.1590/S0103-50532005000400031,Moderate inhibition (60% at 65 µg mL-1) of the symbiotic fungus of leaf-cutting ant Atta sexdens,doi_bioActivity
+10.1590/S0103-50532005000400031,Total inhibition (100% at 25 µg mL-1) of the symbiotic fungus of leaf-cutting ant Atta sexdens,doi_bioActivity
+10.1590/S0103-50532005000400031,Strong inhibition (80% at 75 µg mL-1) of the symbiotic fungus of leaf-cutting ant Atta sexdens,doi_bioActivity
+10.1590/S0103-50532005000800025,Ichthyotoxic and insect antifeedant activities against Oryzias latipes and Spodoptera littoralis,doi_bioActivity
+10.1590/S0103-50532005000800025,Insect antifeedant activities,doi_bioActivity
+10.1590/S0103-50532005000800025,No toxicity to the leaf-cutting ants Atta sexdens rubropilosa,doi_bioActivity
+10.1590/S0103-50532005000800025,High toxicity to the leaf-cutting ants Atta sexdens rubropilosa,doi_bioActivity
+10.1590/S0103-50532005000800025,Ichthyotoxic and insect antifeedant activities against Oryzias latipes and Spodoptera littoralis,doi_bioActivity
+10.1590/S0103-50532005000800025,Insect antifeedant activities,doi_bioActivity
+10.1590/S0103-50532005000800025,No toxicity to the leaf-cutting ants Atta sexdens rubropilosa,doi_bioActivity
+10.1590/S0103-50532005000800025,High toxicity to the leaf-cutting ants Atta sexdens rubropilosa,doi_bioActivity
+10.1590/S0103-50532005000800029,"Antifungal activity against Cladosporium cladosporioides and C. sphaerospermum, and cytotoxicity against human cervical tumor cell line (HeLa) in vitro",doi_bioActivity
+10.1590/S0103-50532005000800029,"Antifungal activity against Cladosporium cladosporioides and C. sphaerospermum, weak cytotoxicity against human cervical tumor cell line (HeLa) in vitro",doi_bioActivity
+10.1590/S0103-50532005000800029,Strong cytotoxicity against human cervical tumor cell line (HeLa) in vitro,doi_bioActivity
+10.1590/S0103-50532005000800029,"Antifungal activity against Cladosporium cladosporioides and C. sphaerospermum, and cytotoxicity against human cervical tumor cell line (HeLa) in vitro",doi_bioActivity
+10.1590/S0103-50532005000800029,"Antifungal activity against Cladosporium cladosporioides and C. sphaerospermum, weak cytotoxicity against human cervical tumor cell line (HeLa) in vitro",doi_bioActivity
+10.1590/S0103-50532005000800029,Strong cytotoxicity against human cervical tumor cell line (HeLa) in vitro,doi_bioActivity
+10.1590/S0103-50532007000700017,"Antifungal activity, moderate activity with MIC of 100 μg compared to standard nystatin with 1.0 μg",doi_bioActivity
+10.1590/S0103-50532007000700017,"Antifungal activity, moderate activity with MIC of 100 μg compared to standard nystatin with 1.0 μg",doi_bioActivity
+10.1590/S0103-50532009000100029,Trypanocidal activity with IC50 of 9.8 µmol L-1 against Trypanosoma cruzi,doi_bioActivity
+10.1590/S0103-50532009000100029,Trypanocidal activity with IC50 of 3.7 µmol L-1 against Trypanosoma cruzi,doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 2.6 ± 0.4 µM', 'T_b_rhodesiense': 'IC50 9.6 ± 1.1 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 19.8 ± 3.7 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 3.0 ± 0.2 µM', 'T_b_rhodesiense': 'IC50 4.3 ± 0.9 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 > 100 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 11.6 ± 1.2 µM', 'T_b_rhodesiense': 'IC50 28.5 ± 2.9 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 80.7 ± 6.8 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 2.6 ± 0.4 µM', 'T_b_rhodesiense': 'IC50 9.6 ± 1.1 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 19.8 ± 3.7 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 3.0 ± 0.2 µM', 'T_b_rhodesiense': 'IC50 4.3 ± 0.9 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 > 100 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 11.6 ± 1.2 µM', 'T_b_rhodesiense': 'IC50 28.5 ± 2.9 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 80.7 ± 6.8 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 2.6 ± 0.4 µM', 'T_b_rhodesiense': 'IC50 9.6 ± 1.1 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 19.8 ± 3.7 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 3.0 ± 0.2 µM', 'T_b_rhodesiense': 'IC50 4.3 ± 0.9 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 > 100 µM'}",doi_bioActivity
+10.1590/S0103-50532009000400008,"{'P_falciparum': 'IC50 11.6 ± 1.2 µM', 'T_b_rhodesiense': 'IC50 28.5 ± 2.9 µM', 'L_donovani': 'Inactive', 'KB_cells': 'IC50 80.7 ± 6.8 µM'}",doi_bioActivity
+10.1590/S0103-50532010000500016,Insecticidal and Fungicidal,doi_bioActivity
+10.1590/S0103-50532010000500016,"Insecticidal and Fungicidal, weak activity in ants ingestion assay",doi_bioActivity
+10.1590/S0103-50532010000500016,"Insecticidal and Fungicidal, though not toxic to the leaf-cutting ants",doi_bioActivity
+10.1590/S0103-50532010000500016,Toxicity against leaf-cutting ants,doi_bioActivity
+10.1590/S0103-50532010000500016,"Potentially active compound against A. sexdens rubropilosa, significant ant mortality",doi_bioActivity
+10.1590/S0103-50532010000500016,Toxicity against leaf-cutting ants,doi_bioActivity
+10.1590/S1519-566X2008000600013,"Increase in larval mortality, elongation of larval development time, and reduction in larval survival",doi_bioActivity
+10.1590/S1519-566X2008000600013,Less effective than other compounds against T. absoluta,doi_bioActivity
+10.1590/S1519-566X2008000600013,Less effective than other compounds against T. absoluta,doi_bioActivity
+10.1590/S1519-566X2008000600013,"Among the most effective against T. absoluta, causing prolongation of larval development and reduction in larval survival",doi_bioActivity
+10.1590/S1519-566X2008000600013,Less effective than other compounds against T. absoluta,doi_bioActivity
+10.1590/S1519-566X2008000600013,Less effective than other compounds against T. absoluta,doi_bioActivity
+10.1590/S1519-566X2008000600013,"Among the most effective against T. absoluta, causing prolongation of larval development and reduction in larval survival",doi_bioActivity
+10.1590/s0100-40422008000700015,"Inhibition of 89.55% against Jurkat (leukemia) and 57.10% against B16F10 (melanoma) tumoral cells at 0.1 mg mL-1 concentration, weak antibacterial activity against Staphylococcus aureus (MIC 120 µg/mL) and Escherichia coli (MIC 189 µg/mL)",doi_bioActivity
+10.1590/s0100-40422008000700015,"Not specifically mentioned, but chemically similar to Chaetoglobosin B which is typically cytotoxic",doi_bioActivity
+10.1590/s0100-40422008000700015,"Not specifically mentioned, but chemically similar to Chaetoglobosin B which is typically cytotoxic",doi_bioActivity
+10.2174/187152010794728620,induced a cell cycle arrest in the G1 phase,doi_bioActivity
+10.2174/187152010794728620,caused cell cycle arrest in the S phase and was a potent inducer of programmed cell death,doi_bioActivity
+10.2174/187152010794728620,did not affect the cell cycle profile but caused a very small increase in cell death,doi_bioActivity
+10.2174/187152010794728620,arrested cell cycle at the S and G2M phases and was a very potent inducer of programmed cell death,doi_bioActivity
+10.2174/187152010794728620,moderate activity in inhibiting tumor cell growth,doi_bioActivity
+10.2174/187152010794728620,"did not exhibit cytotoxicity against certain tumor cell lines, possible MDR-reversing effects in presence of colchicine",doi_bioActivity
+10.2174/187152010794728620,moderate growth inhibitory activity against MCF-7 and NCI-H460 cells but strong activity against A375-C5 cells,doi_bioActivity
+10.2174/187152010794728620,moderate growth inhibitory activity against certain tumor cell lines,doi_bioActivity
+10.2174/187152010794728620,weak inhibitory activity against tumor cell lines,doi_bioActivity
+10.2174/187152010794728620,inactive against three human tumor cell lines tested,doi_bioActivity
+10.2174/187152010794728620,inactive against three human tumor cell lines tested,doi_bioActivity
+10.2174/187152010794728620,"inactive against three human tumor cell lines tested, moderate antiproliferative activity in breast cancer cell lines",doi_bioActivity
+10.2174/187152010794728620,inactive against three human tumor cell lines tested,doi_bioActivity

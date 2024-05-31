@@ -3,8 +3,8 @@ import pandas as pd
 import os
 import json
 
-splits = 'path to splits from natuke here'
-csv_output_data_location = 'desired location for splits here'
+splits = 'splits'
+csv_output_data_location = 'results/SimSearch'
 
 def extract_edge_groups(text, edge_type):
     try:
@@ -38,7 +38,7 @@ def extract_result(gpt_input: json, split):
     pd.DataFrame.to_csv(merged_df, csv_output_data_location + f"llm_results_gpt4_0.8_{filename_without_test}", index=False)
 
 for file in os.listdir(splits):
-    gpt_input = pd.read_csv("path to gpt input here)
+    gpt_input = pd.read_csv("path to gpt input here")
     gpt_input['doi'] = gpt_input['doi'].str.replace('@', '/')
     gpt_input = gpt_input.drop(labels='file_name', axis=1)
     filename = os.fsdecode(file)

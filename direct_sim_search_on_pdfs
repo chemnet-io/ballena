@@ -1,0 +1,74 @@
+import os
+import csv
+import PyPDF2
+import tiktoken 
+from langchain_openai import OpenAIEmbeddings
+from langchain.vectorstores.faiss import FAISS
+
+OPENAI_API_KEY = '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'
+
+# Initialize embeddings and FAISS index
+embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+loaded_faiss_index = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+
+def extract_text_from_pdf(pdf_path):
+    reader = PyPDF2.PdfReader(pdf_path)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
+
+def chunk_text(text, max_tokens=8000):
+    tokenizer = tiktoken.encoding_for_model('gpt-3.5-turbo')
+    tokens = tokenizer.encode(text)
+    chunks = []
+    current_chunk = []
+
+    for token in tokens:
+        current_chunk.append(token)
+        if len(current_chunk) >= max_tokens:
+            chunks.append(tokenizer.decode(current_chunk))
+            current_chunk = []
+
+    if current_chunk:
+        chunks.append(tokenizer.decode(current_chunk))
+
+    return chunks
+
+def perform_similarity_search(text, faiss_index):
+    chunks = chunk_text(text)
+    results = []
+    for chunk in chunks:
+        docs_with_score = faiss_index.similarity_search_with_score(chunk, top_k=1)
+        if docs_with_score:
+            results.append(docs_with_score[0][0].page_content)
+    return results
+
+def process_pdfs(pdf_folder, output_csv):
+    with open(output_csv, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(['node','neighbor','type'])
+
+        for pdf_name in os.listdir(pdf_folder):
+            if pdf_name.endswith('.pdf'):
+                pdf_path = os.path.join(pdf_folder, pdf_name)
+                print(f"Processing PDF: {pdf_path}")
+
+                # Extract text from PDF
+                text = extract_text_from_pdf(pdf_path)
+
+                # Perform similarity search
+                search_results = perform_similarity_search(text, loaded_faiss_index)
+
+                # Write each chunk's result to CSV
+                for result in search_results:
+                    writer.writerow([pdf_name, result, 'doi_collectionSite'])
+
+    print(f"Finished processing PDFs. Results saved to: {output_csv}")
+
+# Define the folder containing PDFs and the output CSV file
+pdf_folder = 'pdfs'
+output_csv = 'pdf_similarity_results.csv'
+
+# Process the PDFs and save the results
+process_pdfs(pdf_folder, output_csv)

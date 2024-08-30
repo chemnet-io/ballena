@@ -2,6 +2,7 @@
 /.env
 /.idea
 diagrams
+splits
 .ipynb_checkpoints
 .idea
 __pycache__

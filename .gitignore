@@ -1,6 +1,7 @@
 .venv
 /.env
 /.idea
+diagrams
 .ipynb_checkpoints
 .idea
 __pycache__

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONL File Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        #fileSelector, #entitySelector {
+            margin-bottom: 20px;
+        }
+        #content {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .message-container {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .role-input, .content-input {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .role-input label, .content-input label {
+            width: 80px;
+            font-weight: bold;
+        }
+        .role-input input {
+            width: 100px;
+        }
+        .content-input textarea {
+            flex-grow: 1;
+            height: 100px;
+        }
+        .role-input input, .content-input textarea {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 5px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>JSONL File Viewer</h1>
+    <div id="fileSelector">
+        <label for="fileList">Select a JSONL file:</label>
+        <select id="fileList"></select>
+    </div>
+    <div id="entitySelector">
+        <label for="entityList">Select an entity:</label>
+        <select id="entityList"></select>
+    </div>
+    <div id="content"></div>
+
+    <script>
+        const fileList = document.getElementById('fileList');
+        const entityList = document.getElementById('entityList');
+        const content = document.getElementById('content');
+
+        let currentFile = '';
+        let entities = [];
+
+        async function loadJSONLFiles() {
+            const files = await getJSONLFiles();
+            files.forEach(file => {
+                const option = document.createElement('option');
+                option.value = file;
+                option.textContent = file;
+                fileList.appendChild(option);
+            });
+            if (files.length > 0) {
+                loadFile(files[0]);
+            }
+        }
+
+        async function getJSONLFiles() {
+            const response = await fetch('.');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const links = Array.from(doc.querySelectorAll('a'));
+            return links
+                .map(link => link.href)
+                .filter(href => href.endsWith('.jsonl'))
+                .map(href => href.split('/').pop());
+        }
+
+        fileList.addEventListener('change', (e) => {
+            loadFile(e.target.value);
+        });
+
+        entityList.addEventListener('change', (e) => {
+            displayEntity(e.target.value);
+        });
+
+        async function loadFile(filename) {
+            currentFile = filename;
+            const response = await fetch(filename);
+            const text = await response.text();
+            entities = text.trim().split('\n').map(JSON.parse);
+            updateEntityList();
+            if (entities.length > 0) {
+                displayEntity(0);
+            }
+        }
+
+        function updateEntityList() {
+            entityList.innerHTML = '';
+            entities.forEach((_, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `Entity ${index + 1}`;
+                entityList.appendChild(option);
+            });
+        }
+
+        function displayEntity(index) {
+            const entity = entities[index];
+            content.innerHTML = '';
+            
+            entity.messages.forEach((message, msgIndex) => {
+                const messageContainer = document.createElement('div');
+                messageContainer.className = 'message-container';
+                
+                const roleDiv = document.createElement('div');
+                roleDiv.className = 'role-input';
+                const roleLabel = document.createElement('label');
+                roleLabel.textContent = 'Role:';
+                const roleInput = document.createElement('input');
+                roleInput.type = 'text';
+                roleInput.value = message.role;
+                roleInput.readOnly = true;
+                roleDiv.appendChild(roleLabel);
+                roleDiv.appendChild(roleInput);
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'content-input';
+                const contentLabel = document.createElement('label');
+                contentLabel.textContent = 'Content:';
+                const contentTextarea = document.createElement('textarea');
+                contentTextarea.value = message.content;
+                contentTextarea.readOnly = true;
+                contentDiv.appendChild(contentLabel);
+                contentDiv.appendChild(contentTextarea);
+                
+                messageContainer.appendChild(roleDiv);
+                messageContainer.appendChild(contentDiv);
+                content.appendChild(messageContainer);
+            });
+        }
+
+        loadJSONLFiles();
+    </script>
+</body>
+</html>

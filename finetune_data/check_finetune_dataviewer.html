@@ -38,13 +38,28 @@
         }
         .content-input textarea {
             flex-grow: 1;
-            height: 100px;
+            height: 150px; /* Increased height for more readable text */
+            resize: vertical; /* Allow vertical resizing */
         }
         .role-input input, .content-input textarea {
             background-color: #f9f9f9;
             border: 1px solid #ddd;
             padding: 5px;
-            resize: none;
+        }
+        #entityNavigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        #entityNavigation button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #currentEntity {
+            margin: 0 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -54,19 +69,23 @@
         <label for="fileList">Select a JSONL file:</label>
         <select id="fileList"></select>
     </div>
-    <div id="entitySelector">
-        <label for="entityList">Select an entity:</label>
-        <select id="entityList"></select>
+    <div id="entityNavigation">
+        <button id="prevEntity">&lt; Previous</button>
+        <span id="currentEntity">Entity 1 of 1</span>
+        <button id="nextEntity">Next &gt;</button>
     </div>
     <div id="content"></div>
 
     <script>
         const fileList = document.getElementById('fileList');
-        const entityList = document.getElementById('entityList');
         const content = document.getElementById('content');
+        const prevEntityBtn = document.getElementById('prevEntity');
+        const nextEntityBtn = document.getElementById('nextEntity');
+        const currentEntitySpan = document.getElementById('currentEntity');
 
         let currentFile = '';
         let entities = [];
+        let currentEntityIndex = 0;
 
         async function loadJSONLFiles() {
             const files = await getJSONLFiles();
@@ -97,8 +116,18 @@
             loadFile(e.target.value);
         });
 
-        entityList.addEventListener('change', (e) => {
-            displayEntity(e.target.value);
+        prevEntityBtn.addEventListener('click', () => {
+            if (currentEntityIndex > 0) {
+                currentEntityIndex--;
+                displayEntity(currentEntityIndex);
+            }
+        });
+
+        nextEntityBtn.addEventListener('click', () => {
+            if (currentEntityIndex < entities.length - 1) {
+                currentEntityIndex++;
+                displayEntity(currentEntityIndex);
+            }
         });
 
         async function loadFile(filename) {
@@ -106,20 +135,14 @@
             const response = await fetch(filename);
             const text = await response.text();
             entities = text.trim().split('\n').map(JSON.parse);
-            updateEntityList();
-            if (entities.length > 0) {
-                displayEntity(0);
-            }
+            currentEntityIndex = 0;
+            displayEntity(currentEntityIndex);
         }
 
-        function updateEntityList() {
-            entityList.innerHTML = '';
-            entities.forEach((_, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.textContent = `Entity ${index + 1}`;
-                entityList.appendChild(option);
-            });
+        function updateEntityNavigation() {
+            currentEntitySpan.textContent = `Entity ${currentEntityIndex + 1} of ${entities.length}`;
+            prevEntityBtn.disabled = currentEntityIndex === 0;
+            nextEntityBtn.disabled = currentEntityIndex === entities.length - 1;
         }
 
         function displayEntity(index) {
@@ -155,6 +178,8 @@
                 messageContainer.appendChild(contentDiv);
                 content.appendChild(messageContainer);
             });
+
+            updateEntityNavigation();
         }
 
         loadJSONLFiles();

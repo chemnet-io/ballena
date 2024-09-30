@@ -1,0 +1,33 @@
+Anesthetic
+Anti-inflamatory
+Antiallergenic
+Antiangiogenic
+Antibacterial
+Anticancer
+Antichagasic
+Antifungal
+Antileishmanial
+Antimalarial
+Antinociceptive
+Antioxidant
+Antitrypanosomal
+Antiviral
+Anxiolytic
+Cell growth inhbition
+Cytotoxic
+Genotoxic
+Inhibition of ATP synthesis
+Inhibition of Acetylcholinesterase
+Inhibition of Cathepsin B
+Inhibition of Cathepsin L
+Inhibition of Cathepsin V
+Inhibition of Glycosidase
+Inhibition of Myeloperoxodase
+Inhibition of Protease
+Inhibition of basal electron transport
+Inhibition of phosphorylating electron transport
+Inhibition of uncoupled electron transport
+Insect antennae response
+Insecticidal
+Molluscicidal
+Mutagenic

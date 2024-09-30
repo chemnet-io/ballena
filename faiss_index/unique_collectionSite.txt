@@ -1,0 +1,51 @@
+Apore/GO
+Araraquara/SP
+Belem/PA
+Campinas/SP
+Chapada Dos Guimaraes/MT
+Cordeiropolis/SP
+Corumba/MS
+Cuiaba/MT
+Cunha/SP
+Goiania/GO
+Ibate/SP
+Ibirama/SC
+Igarape-acu/PA
+Iguape/SP
+Itacoatiara/AM
+Itaituba/PA
+Itirapina/SP
+Lavras/MG
+Londrina/PR
+Manaus/AM
+Maues/AM
+Mogi Guacu/SP
+Murici/AL
+N/A/AM
+N/A/CE
+N/A/ES
+N/A/MG
+N/A/MS
+N/A/PE
+N/A/SP
+N/A/SP, Cedrela fissilis
+Peruibe/SP
+Piracicaba/SP
+Pirenopolis/GO
+Pocos De Caldas/MG
+Pocos De Caldas/MG, Lonchocarpus atropurpureus
+Recife/PE
+Ribeirao Preto/SP
+Ribeirao Preto/SP, Nigrospora sphaerica
+Rifaina/SP
+Rio Claro/SP
+Rio De Janeiro/RJ
+Rio Verde/GO
+Santarem/PA
+Sao Carlos/SP
+Sao Miguel Arcanjo/SP
+Sao Paulo/SP
+Sao Sebastiao Do Passe/BA
+Teodoro Sampaio/SP
+Urucuca/BA
+Vicosa/MG

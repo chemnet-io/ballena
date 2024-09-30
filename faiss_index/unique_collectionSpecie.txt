@@ -1,0 +1,115 @@
+Adiscanthus fusciflorus
+Alchornea glandulosa (Euphorbiaceae)
+Alibertia edulis (Rubiaceae)
+Alibertia macrophylla (Rubiaceae)
+Alibertia sessilis (Rubiaceae)
+Almeidea rubra (Rutaceae)
+Amorpha fruticosa
+Anacardium occidentale (Anacardiaceae)
+Angostura paniculata (Rutaceae)
+Arrabidaea samydoides (Bignoniaceae)
+Aspergillus fumigatus
+Aspergillus terreus
+Balfourodendron riedelianum (Rutaceae)
+Cabralea canjerana
+Calycophyllum spruceanum (Rubiaceae)
+Carapa guianensis
+Casearia obliqua (Flacourtiaceae)
+Casearia rupestris (Salicaeae)
+Casearia sylvestris (Flacourtiaceae)
+Cassia leptophylla (Fabaceae)
+Cassia spectabilis (Fabaceae)
+Cedrela fissilis
+Cedrela fruticosa (Meliaceae), Neoraputia magnifica (Rutaceae), Neoraputia alba (Rutaceae)
+Cedrela odorata (Meliaceae)
+Chaetomium globosum
+Cheiloclinium cognatum (Hippocrateaceae)
+Chimarrhis turbinata (Rubiaceae)
+Chrysophyllum marginatum (Sapotaceae)
+Cinnamomum australe (Lauraceae)
+Citrus sinensis (Rutaceae)
+Citrus sp. (Rutaceae)
+Cnidoscolus vitifolius (Euphorbiaceae)
+Colletotrichum gloeosporioides (Phyllachoraceae)
+Conchocarpus heterophyllus (Rutaceae)
+Coussarea hydrangeifolia (Rubiaceae)
+Croton zehntneri (Euphorbiaceae)
+Curvularia sp. (Pleosporaceae)
+Dalbergia riparia
+Dimorphandra mollis
+Erythrina mulungu (Fabaceae)
+Esenbeckia leiocarpa
+Eucalyptus maculata
+Fusarium oxysporum
+Galipea bracteata (Rutaceae)
+Himatanthus sucuuba (Apocynaceae)
+Hortia oreadica
+Hortia superba (Rutaceae)
+Humicola grisea
+Iryanthera juruensis (Myristicaceae)
+Khaya ivorensis
+Lantana lilacina (Verbenaceae)
+Maytenus aquifolium (Celastraceae)
+Maytenus ilicifolia (Celastraceae)
+Metrodorea stipularis
+Michelia champaca (Magnoliaceae)
+Murraya paniculata
+Mycoleptodiscus indicus
+Nectandra grandiflora (Lauraceae)
+Neoraputia alba (Rutaceae)
+Neoraputia magnifica (Rutaceae)
+Nigrospora sphaerica
+Ottonia corcovadensis (Piperaceae)
+Ouratea multiflora (Ochnaceae)
+Penicillium corylophilum
+Penicillium sp. (Trichocomaceae)
+Peperomia blanda (Piperaceae)
+Peperomia obtusifolia (Piperaceae)
+Periconia atropurpurea (Annonaceae)
+Petiveria alliacea (Phytolaccaceae)
+Phoma betae
+Phomopsis cassiae (Valsaceae)
+Phomopsis sp. (Valsaceae)
+Picramnia teapensis
+Pilocarpus grandiflorus
+Pilocarpus riedelianus
+Pilocarpus spicatus (Rutaceae)
+Piper aduncum (Piperaceae)
+Piper arboreum (Piperaceae)
+Piper crassinervium (Piperaceae)
+Piper gaudichaudianum (Piperaceae)
+Piper hispidum (Piperaceae)
+Piper hostmannianum (Piperaceae)
+Piper solmsianum
+Piper tuberculatum (Piperaceae)
+Pothomorphe umbellata (Piperaceae)
+Pterogyne nitens (Fabaceae)
+Rapanea lancifolia (Myrsinaceae)
+Rapanea umbellata,Myrsine cuneifolia (Myrsinaceae)
+Raulinoa echinata (Rutaceae)
+Raulinoa echinata (Rutaceae), Swietenia macrophylla (Meliaceae)
+Ricinus communis (Euphorbiaceae)
+Rudgea viburnioides (Rubiaceae)
+Salacia campestris (Celastraceae)
+Senna multijuga (Fabaceae)
+Senna spectabilis (Fabaceae)
+Siphoneugena densiflora (Myrtaceae)
+Spiranthera odoratissima St. odoratissima (Rutaceae)
+Stemodia foliosa (Scrophulariaceae)
+Streptomyces sp.
+Styrax camporum (Styracaceae)
+Styrax ferrugineus (Styracaceae)
+Swartzia langsdorfii (Fabaceae)
+Swinglea glutinosa
+Tephrosia candida
+Tithonia diversifolia
+Tocoyena brasiliensis (Rubiaceae)
+Tocoyena formosa (Rubiaceae)
+Toona ciliata (Meliacee)
+Trichilia claussenii (Meliaceae)
+Trichilia elegans (Meliaceae)
+Trichilia pallida
+Vitex polygama (Verbenaceae)
+Vochysia thyrsoidea
+Xylaria sp. (Xylariaceae)
+Zingiber officinale

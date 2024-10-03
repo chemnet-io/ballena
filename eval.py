@@ -132,7 +132,7 @@ def evaluate_attribute(input_csv_path, output_dir, attribute_name):
     print(f"Missed MRR entries saved to {missed_mrr_output_path}")
 
 # Define paths
-output_dir = 'evaluation_results'  # Changed output directory for clarity
+output_dir = 'ft_evaluation_results'  # Changed output directory for clarity
 os.makedirs(output_dir, exist_ok=True)
 
 # Evaluate bioActivity attribute

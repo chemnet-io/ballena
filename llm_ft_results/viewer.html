@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Restoration Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+        .highlight {
+            background-color: #c8e6c9; /* Light green */
+            font-weight: bold;
+        }
+        .metrics {
+            margin-top: 40px;
+        }
+        .metrics table {
+            width: 50%;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .metrics table, table {
+                width: 100%;
+            }
+        }
+        /* Optional: Zebra striping for better readability */
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+    </style>
+    <!-- Include PapaParse Library for CSV Parsing without Integrity Attribute -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+    <h1>Data Restoration Visualization</h1>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>True Value</th>
+                <th>Restored Values</th>
+                <th>Edge Type</th>
+                <th>Metrics</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be inserted here dynamically -->
+        </tbody>
+    </table>
+
+    <div class="metrics">
+        <h2>Overall Metrics</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody id="overall-metrics">
+                <!-- Overall metrics will be inserted here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Path to the CSV file
+        const csvFilePath = 'llm_results_ft_4o_0.8_doi_collectionSpecie_0_1st.csv';
+
+        // Function to fetch and parse CSV data
+        function fetchCSVData(filePath) {
+            return new Promise((resolve, reject) => {
+                Papa.parse(filePath, {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        resolve(results.data);
+                    },
+                    error: function(error) {
+                        reject(error);
+                    }
+                });
+            });
+        }
+
+        // Function to safely parse string representations of lists
+        function parseListString(str) {
+            try {
+                // Replace single quotes with double quotes
+                let jsonStr = str.replace(/'/g, '"');
+                // Handle nested lists by ensuring proper JSON structure
+                // This is a simplistic approach and may need adjustments based on actual data complexity
+                return JSON.parse(jsonStr);
+            } catch (e) {
+                console.error('Error parsing string:', str, e);
+                return [];
+            }
+        }
+
+        // Function to flatten nested arrays
+        function flattenArray(arr) {
+            return arr.reduce((flat, toFlatten) => {
+                if (Array.isArray(toFlatten)) {
+                    return flat.concat(flattenArray(toFlatten));
+                } else {
+                    return flat.concat(toFlatten);
+                }
+            }, []);
+        }
+
+        // Function to process the parsed data
+        function processData(rawData) {
+            return rawData.map(entry => {
+                // Parse the 'true' column
+                const trueParsed = parseListString(entry.true);
+                // Assuming the second element is the species name
+                const trueValue = trueParsed[1] ? trueParsed[1].trim() : 'N/A';
+
+                // Parse the 'restored' column
+                const restoredParsed = parseListString(entry.restored);
+                // The first element is an identifier, the rest can be nested lists
+                const restoredValuesNested = restoredParsed.slice(1); // Exclude the identifier
+                const restoredValues = flattenArray(restoredValuesNested).map(val => val.trim());
+
+                // Get 'edge_type'
+                const edgeType = entry.edge_type ? entry.edge_type.trim() : 'N/A';
+
+                return {
+                    trueValue: trueValue,
+                    restoredValues: restoredValues,
+                    edgeType: edgeType
+                };
+            });
+        }
+
+        // Function to calculate metrics
+        function calculateMetrics(data) {
+            let totalRestored = 0;
+            let correctRestored = 0;
+
+            data.forEach(entry => {
+                totalRestored += entry.restoredValues.length;
+                if (entry.restoredValues.includes(entry.trueValue)) {
+                    correctRestored += 1;
+                }
+            });
+
+            let precision = totalRestored > 0 ? (correctRestored / totalRestored) * 100 : 0;
+            let recall = data.length > 0 ? (correctRestored / data.length) * 100 : 0;
+            let f1Score = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
+
+            return {
+                precision: precision.toFixed(2),
+                recall: recall.toFixed(2),
+                f1Score: f1Score.toFixed(2)
+            };
+        }
+
+        // Function to render the data table
+        function renderTable(data) {
+            const tbody = document.querySelector('#data-table tbody');
+            tbody.innerHTML = '';
+
+            data.forEach((entry, index) => {
+                // Calculate individual metrics
+                const trueValue = entry.trueValue;
+                const restored = entry.restoredValues;
+                const correct = restored.includes(trueValue) ? 1 : 0;
+                const precision = restored.length > 0 ? (correct / restored.length) * 100 : 0;
+                const recall = correct === 1 ? 100 : 0;
+                const f1Score = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
+
+                // Create table row
+                const tr = document.createElement('tr');
+
+                // Index
+                const tdIndex = document.createElement('td');
+                tdIndex.textContent = index + 1;
+                tr.appendChild(tdIndex);
+
+                // True Value
+                const tdTrue = document.createElement('td');
+                tdTrue.textContent = trueValue;
+                tr.appendChild(tdTrue);
+
+                // Restored Values with Highlight
+                const tdRestored = document.createElement('td');
+                restored.forEach((val, idx) => {
+                    const span = document.createElement('span');
+                    span.textContent = val;
+                    if (val === trueValue) {
+                        span.classList.add('highlight');
+                    }
+                    tdRestored.appendChild(span);
+                    if (idx < restored.length - 1) {
+                        tdRestored.appendChild(document.createTextNode(', '));
+                    }
+                });
+                tr.appendChild(tdRestored);
+
+                // Edge Type
+                const tdEdgeType = document.createElement('td');
+                tdEdgeType.textContent = entry.edgeType;
+                tr.appendChild(tdEdgeType);
+
+                // Metrics
+                const tdMetrics = document.createElement('td');
+                tdMetrics.innerHTML = `
+                    Precision: ${precision.toFixed(2)}%<br>
+                    Recall: ${recall.toFixed(2)}%<br>
+                    F1 Score: ${f1Score.toFixed(2)}%
+                `;
+                tr.appendChild(tdMetrics);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Function to render overall metrics
+        function renderOverallMetrics(metrics) {
+            const tbody = document.getElementById('overall-metrics');
+            tbody.innerHTML = `
+                <tr>
+                    <td>Precision</td>
+                    <td>${metrics.precision}%</td>
+                </tr>
+                <tr>
+                    <td>Recall</td>
+                    <td>${metrics.recall}%</td>
+                </tr>
+                <tr>
+                    <td>F1 Score</td>
+                    <td>${metrics.f1Score}%</td>
+                </tr>
+            `;
+        }
+
+        // Initialize the visualization
+        async function init() {
+            try {
+                const rawData = await fetchCSVData(csvFilePath);
+                const data = processData(rawData);
+                renderTable(data);
+                const overallMetrics = calculateMetrics(data);
+                renderOverallMetrics(overallMetrics);
+            } catch (error) {
+                console.error('Error fetching or parsing CSV data:', error);
+                const tbody = document.querySelector('#data-table tbody');
+                tbody.innerHTML = '<tr><td colspan="5" style="color: red; text-align: center;">Failed to load data.</td></tr>';
+            }
+        }
+
+        // Run initialization on page load
+        window.onload = init;
+    </script>
+
+</body>
+</html>

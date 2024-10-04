@@ -64,7 +64,7 @@ def mrr(true, list_pred):
 
 def evaluate_attribute(input_csv_path, output_dir, attribute_name):
     # Evaluation parameters
-    k_at = [1,2,3,4,5]
+    k_at = [1]  # Only evaluate for k=1
 
     # Initialize metrics storage
     hitsatk_df = {'k': [], 'metric': [], 'value': []}
@@ -135,6 +135,6 @@ def evaluate_attribute(input_csv_path, output_dir, attribute_name):
 output_dir = 'ft_evaluation_results'  # Changed output directory for clarity
 os.makedirs(output_dir, exist_ok=True)
 
-# Evaluate bioActivity attribute
-bioActivity_csv_path = 'llm_ft_results/llm_results_ft_4o_0.8_doi_bioActivity_0_1st.csv'
-evaluate_attribute(bioActivity_csv_path, output_dir, 'bioActivity')
+# Evaluate collectionType attribute
+collectionType_csv_path = 'llm_ft_results/llm_results_ft_4o_0.8_doi_collectionType_0_1st.csv'
+evaluate_attribute(collectionType_csv_path, output_dir, 'collectionType')

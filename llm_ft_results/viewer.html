@@ -47,6 +47,19 @@
         tbody tr:nth-child(odd) {
             background-color: #f9f9f9;
         }
+        /* New styles for column widths */
+        #data-table th:first-child,
+        #data-table td:first-child {
+            width: 10%;
+        }
+        #data-table th:nth-child(2),
+        #data-table td:nth-child(2) {
+            width: 20%;
+        }
+        #data-table th:last-child,
+        #data-table td:last-child {
+            width: 70%;
+        }
     </style>
     <!-- Include PapaParse Library for CSV Parsing without Integrity Attribute -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -61,8 +74,6 @@
                 <th>#</th>
                 <th>True Value</th>
                 <th>Restored Values</th>
-                <th>Edge Type</th>
-                <th>Metrics</th>
             </tr>
         </thead>
         <tbody>
@@ -87,7 +98,7 @@
 
     <script>
         // Path to the CSV file
-        const csvFilePath = 'llm_results_ft_4o_0.8_doi_collectionSpecie_0_1st.csv';
+        const csvFilePath = 'llm_results_ft_4o_0.8_doi_collectionSite_0_1st.csv';
 
         // Function to fetch and parse CSV data
         function fetchCSVData(filePath) {
@@ -109,11 +120,10 @@
         // Function to safely parse string representations of lists
         function parseListString(str) {
             try {
-                // Replace single quotes with double quotes
-                let jsonStr = str.replace(/'/g, '"');
-                // Handle nested lists by ensuring proper JSON structure
-                // This is a simplistic approach and may need adjustments based on actual data complexity
-                return JSON.parse(jsonStr);
+                // Evaluate the string as JavaScript code to parse it into an array
+                // This approach assumes that the input strings are safe and come from a trusted source
+                // If the data source is untrusted, consider using a safer parsing method
+                return Function('"use strict"; return ' + str)();
             } catch (e) {
                 console.error('Error parsing string:', str, e);
                 return [];
@@ -145,13 +155,9 @@
                 const restoredValuesNested = restoredParsed.slice(1); // Exclude the identifier
                 const restoredValues = flattenArray(restoredValuesNested).map(val => val.trim());
 
-                // Get 'edge_type'
-                const edgeType = entry.edge_type ? entry.edge_type.trim() : 'N/A';
-
                 return {
                     trueValue: trueValue,
-                    restoredValues: restoredValues,
-                    edgeType: edgeType
+                    restoredValues: restoredValues
                 };
             });
         }
@@ -185,14 +191,6 @@
             tbody.innerHTML = '';
 
             data.forEach((entry, index) => {
-                // Calculate individual metrics
-                const trueValue = entry.trueValue;
-                const restored = entry.restoredValues;
-                const correct = restored.includes(trueValue) ? 1 : 0;
-                const precision = restored.length > 0 ? (correct / restored.length) * 100 : 0;
-                const recall = correct === 1 ? 100 : 0;
-                const f1Score = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
-
                 // Create table row
                 const tr = document.createElement('tr');
 
@@ -203,37 +201,23 @@
 
                 // True Value
                 const tdTrue = document.createElement('td');
-                tdTrue.textContent = trueValue;
+                tdTrue.textContent = entry.trueValue;
                 tr.appendChild(tdTrue);
 
                 // Restored Values with Highlight
                 const tdRestored = document.createElement('td');
-                restored.forEach((val, idx) => {
+                entry.restoredValues.forEach((val, idx) => {
                     const span = document.createElement('span');
                     span.textContent = val;
-                    if (val === trueValue) {
+                    if (val === entry.trueValue) {
                         span.classList.add('highlight');
                     }
                     tdRestored.appendChild(span);
-                    if (idx < restored.length - 1) {
+                    if (idx < entry.restoredValues.length - 1) {
                         tdRestored.appendChild(document.createTextNode(', '));
                     }
                 });
                 tr.appendChild(tdRestored);
-
-                // Edge Type
-                const tdEdgeType = document.createElement('td');
-                tdEdgeType.textContent = entry.edgeType;
-                tr.appendChild(tdEdgeType);
-
-                // Metrics
-                const tdMetrics = document.createElement('td');
-                tdMetrics.innerHTML = `
-                    Precision: ${precision.toFixed(2)}%<br>
-                    Recall: ${recall.toFixed(2)}%<br>
-                    F1 Score: ${f1Score.toFixed(2)}%
-                `;
-                tr.appendChild(tdMetrics);
 
                 tbody.appendChild(tr);
             });
@@ -269,7 +253,7 @@
             } catch (error) {
                 console.error('Error fetching or parsing CSV data:', error);
                 const tbody = document.querySelector('#data-table tbody');
-                tbody.innerHTML = '<tr><td colspan="5" style="color: red; text-align: center;">Failed to load data.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="3" style="color: red; text-align: center;">Failed to load data.</td></tr>';
             }
         }
 

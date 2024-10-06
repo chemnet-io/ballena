@@ -70,7 +70,7 @@ info = name_info
 print(f"Processing attribute: {attribute}")
 
 # Define the specific fine-tuned model name for 'name' attribute
-model_name = 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-name-0-1st:ADrYkksp'
+model_name = 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-name-0-1st-train-only:AFMpNyLv'
 
 # Define the test split file path for iteration 0 and 1st split
 test_split_filename = f'test_doi_{attribute}_0_1st.csv'

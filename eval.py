@@ -135,6 +135,6 @@ def evaluate_attribute(input_csv_path, output_dir, attribute_name):
 output_dir = 'ft_evaluation_results'  # Changed output directory for clarity
 os.makedirs(output_dir, exist_ok=True)
 
-# Evaluate collectionSite attribute
-collectionSite_csv_path = 'llm_ft_results/llm_results_ft_4o_0.8_doi_collectionSite_0_1st.csv'
-evaluate_attribute(collectionSite_csv_path, output_dir, 'collectionSite')
+# Evaluate bio attribute
+bioactivity_csv_path = 'llm_ft_results/llm_results_ft_4o_0.8_doi_bioActivity_0_1st.csv'
+evaluate_attribute(bioactivity_csv_path, output_dir, 'bioActivity')

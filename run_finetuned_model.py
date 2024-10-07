@@ -4,9 +4,14 @@ import openai
 import json
 import csv
 from tqdm import tqdm
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
 
-# Set your OpenAI API key
-openai.api_key = 'YOUR_OPENAI_API_KEY'  # Replace with your actual API key
+# Ensure the OpenAI API key is set in environment variables
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+if not openai.api_key:
+    raise ValueError("OpenAI API key not found. Please set the 'OPENAI_API_KEY' environment variable.")
 
 # Define the directory paths
 splits_dir = 'splits'
@@ -98,7 +103,7 @@ for attribute, info in attributes_info.items():
     print(f"Processing attribute: {attribute}")
     
     # Define the model name for the fine-tuned model
-    model_name = f'ft-{attribute}-model'  # Replace with your actual fine-tuned model names
+    model_name = ''  # have one model per each attribute, ill put in the names later
     
     # Define the test split file path for iteration 0 and 1st split
     test_split_filename = f'test_doi_{attribute}_0_1st.csv'

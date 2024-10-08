@@ -40,7 +40,6 @@ os.makedirs(output_dir, exist_ok=True)
 
 # Define similarity search parameters
 attributes_k = {
-    'name': 50,
     'bioActivity': 5,
     'collectionSpecie': 50,
     'collectionSite': 20,
@@ -59,17 +58,6 @@ attributes_info = {
             "If the collection sites are not specified, leave it empty like \"\"."
         ),
         'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-site-0-1st-train-only:AF1jozl6'
-    },
-    'name': {
-        'json_key': 'compoundName',
-        'prompt': (
-            "You are a chemist expert in natural products. "
-            "Extract the compound names from the following text. "
-            "Provide the answers in JSON format: "
-            "[{\"compoundName\": \"Example Compound Name 1\"}, {\"compoundName\": \"Example Compound Name 2\"}]. "
-            "If the compound names are not specified, leave it empty like \"\"."
-        ),
-        'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-name-0-1st-train-only:AFMpNyLv'
     },
     'bioActivity': {
         'json_key': 'bioActivity',
@@ -91,7 +79,7 @@ attributes_info = {
             "[{\"species\": \"Example Species 1\"}, {\"species\": \"Example Species 2\"}]. "
             "If the species are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'PLACEHOLDER_MODEL_NAME'  # Replace with actual model name when available
+        'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-specie-0-1st-train-only:AFzNurjL'
     },
     'collectionType': {
         'json_key': 'isolationType',
@@ -166,15 +154,15 @@ def fix_quotes(s):
 
 def process_restored_field(attribute, restored_str, faiss_index, top_k):
     """
-    Process the 'restored' field by performing similarity search and special handling for 'name'.
+    Process the 'restored' field by performing similarity search.
     """
     restored_str = clean_restored_field(restored_str)
     try:
-        restored = ast.literal_eval(restored_str)
-    except (ValueError, SyntaxError):
+        restored = json.loads(restored_str)
+    except json.JSONDecodeError:
         restored_str = fix_quotes(restored_str)
         try:
-            restored = ast.literal_eval(restored_str)
+            restored = json.loads(restored_str)
         except Exception as e:
             logging.error(f"Failed to parse restored field: {restored_str}. Error: {e}")
             return restored_str  # Return original if parsing fails
@@ -191,128 +179,13 @@ def process_restored_field(attribute, restored_str, faiss_index, top_k):
             similar_entries = [doc.page_content for doc, _ in docs_with_score]
             # Update the 'restored' field with similar entries
             new_restored_value = [restored[0], similar_entries]
-            if attribute == 'name':
-                # Apply special quote fixing for 'name' attribute
-                new_restored_value = fix_quotes(str(new_restored_value))
-                try:
-                    new_restored_value = ast.literal_eval(new_restored_value)
-                except Exception as e:
-                    logging.error(f"Failed to fix quotes for 'name' attribute: {new_restored_value}. Error: {e}")
-                    new_restored_value = restored_str  # Revert to original if fixing fails
-            return str(new_restored_value)
+            return json.dumps(new_restored_value)
         else:
             logging.warning(f"No similar entries found for query: {query}")
             return restored_str
     else:
         logging.warning(f"Unexpected 'restored' format: {restored_str}")
         return restored_str
-
-def fix_quotes_name(s):
-    """
-    Replace single quotes with double quotes, but not within words for 'name' attribute.
-    """
-    return re.sub(r"(?<!\w)'|'(?!\w)", '"', s)
-
-def process_true_restored_field_for_name(cell):
-    """
-    Process the 'true' or 'restored' field for the 'name' attribute to ensure proper formatting.
-    """
-    try:
-        # Attempt to parse the cell as a Python list
-        parsed = ast.literal_eval(cell)
-        if isinstance(parsed, list):
-            # Ensure all elements are strings
-            fixed = [str(item) for item in parsed]
-            return str(fixed)
-        else:
-            # If not a list, treat it as a single string
-            return f'["{str(parsed)}"]'
-    except (ValueError, SyntaxError):
-        # If parsing fails, attempt to fix quotes and reformat
-        fixed_str = fix_quotes_name(cell)
-        fixed_str = fixed_str.strip()
-        if not (fixed_str.startswith('[') and fixed_str.endswith(']')):
-            fixed_str = f'[{fixed_str}]'
-        try:
-            content = fixed_str[1:-1]
-            doi, name = content.split(',', 1)
-            doi = doi.strip().strip('"')
-            name = name.strip().strip('"')
-            # Escape any existing double quotes in the name
-            name = name.replace('"', '\\"')
-            return f'["{doi}", "{name}"]'
-        except Exception as e:
-            logging.error(f"Failed to process cell '{cell}': {e}")
-            return cell  # Return the original cell if all else fails
-
-def process_name_csv(input_file, output_file):
-    """
-    Process the 'name' CSV file to fix quotes and ensure proper formatting.
-    Writes to a temporary file to prevent data loss.
-    """
-    try:
-        with open(input_file, 'r', newline='', encoding='utf-8') as infile, \
-             open(output_file, 'w', newline='', encoding='utf-8') as outfile:
-            reader = csv.reader(infile)
-            writer = csv.writer(outfile, quoting=csv.QUOTE_ALL)
-
-            for row in reader:
-                if reader.line_num == 1:
-                    # Write header as is
-                    writer.writerow(row)
-                    continue
-
-                try:
-                    true_col, restored_col, edge_type = row
-                except ValueError:
-                    logging.warning(f"Unexpected number of columns in row {reader.line_num}: {row}")
-                    writer.writerow(row)
-                    continue
-
-                # Process 'true' and 'restored' columns
-                true_col_fixed = process_true_restored_field_for_name(true_col)
-                restored_col_fixed = process_true_restored_field_for_name(restored_col)
-
-                writer.writerow([true_col_fixed, restored_col_fixed, edge_type])
-    except Exception as e:
-        logging.error(f"Error processing name CSV: {e}")
-        raise e  # Re-raise the exception to ensure the temp file is handled appropriately
-
-    logging.debug(f"Processed 'name' file saved as: {output_file}")
-
-def fix_name_quotes_in_similarity_search(processed_attributes, output_dir='llm_ft_results'):
-    """
-    Apply special quote fixing to the 'name' attribute after similarity search.
-    Overwrites the original 'name' CSV file in the output directory.
-    """
-    attribute = 'name'
-    input_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_1st.csv'
-    input_path = os.path.join(output_dir, input_filename)
-
-    if attribute not in processed_attributes:
-        logging.info(f"'name' attribute was not processed. Skipping special quote fixing.")
-        return
-
-    if not os.path.exists(input_path):
-        logging.warning(f"Input 'name' file {input_filename} does not exist. Skipping special processing.")
-        return
-
-    logging.debug(f"Processing 'name' CSV: {input_filename}")
-    temp_file = input_path + '.temp'
-    try:
-        process_name_csv(input_path, temp_file)
-        logging.debug(f"Temporary file created for 'name' attribute: {temp_file}")
-    except Exception as e:
-        logging.error(f"Failed to process 'name' CSV: {e}")
-        return
-
-    # Replace the original file with the temp file
-    try:
-        logging.debug(f"Attempting to replace {input_path} with {temp_file}")
-        os.replace(temp_file, input_path)
-        logging.info(f"Special 'name' processing completed. File overwritten at {input_path}")
-    except Exception as e:
-        logging.error(f"Error replacing the original 'name' file with temp file: {e}")
 
 def hits_at(k, true, list_pred):
     """
@@ -370,24 +243,20 @@ def parse_list(s):
         # Attempt to fix common formatting issues
         s = s.strip()
         if not (s.startswith('[') and s.endswith(']')):
-            s = f'[{s}]'
+            s = f"[{s}]"
         try:
             return ast.literal_eval(s)
         except:
             # As a last resort, split by comma
             return [item.strip().strip('"') for item in s.strip('[]').split(',')]
 
-def evaluate_attribute(input_csv_path, output_dict, attribute_name, is_name=False):
+def evaluate_attribute(input_csv_path, output_dict, attribute_name):
     """
     Evaluate the specified attribute using Hits@k and MRR metrics.
     Accumulates results into the provided output_dict.
     """
     # Evaluation parameters
-    if is_name:
-        k_at = [50]
-    else:
-        # Define k values based on the attributes_k dictionary
-        k_at = [attributes_k.get(attribute_name, 1)]
+    k_at = [attributes_k.get(attribute_name, 1)]
 
     # Load the CSV file
     try:
@@ -402,10 +271,10 @@ def evaluate_attribute(input_csv_path, output_dict, attribute_name, is_name=Fals
 
     # Ensure 'true' and 'restored' columns exist
     if 'true' not in restored_df.columns or 'restored' not in restored_df.columns:
-        logging.error(f"The input CSV must contain 'true' and 'restored' columns.")
+        logging.error("The input CSV must contain 'true' and 'restored' columns.")
         return
 
-    # Apply literal_eval to parse string representations of lists/tuples
+    # Apply parse_list to parse string representations of lists/tuples
     restored_df['true'] = restored_df['true'].apply(parse_list)
     restored_df['restored'] = restored_df['restored'].apply(parse_list)
 
@@ -450,17 +319,14 @@ def evaluate_all_attributes(attributes_info, output_dir='llm_ft_results', evalua
             logging.warning(f"Input file {input_filename} does not exist. Skipping evaluation for attribute: {attribute}")
             continue
 
-        if attribute == 'name':
-            evaluate_attribute(input_path, evaluation_results, attribute, is_name=True)
-        else:
-            evaluate_attribute(input_path, evaluation_results, attribute, is_name=False)
+        evaluate_attribute(input_path, evaluation_results, attribute)
 
     # Convert metrics to DataFrames
     hitsatk_df = pd.DataFrame(evaluation_results['hits_at_k'])
     mrr_df = pd.DataFrame(evaluation_results['mrr'])
 
     # Save Hits@k results
-    hitsatk_output_path = os.path.join(evaluation_output_dir, f'hits@k_evaluation.csv')
+    hitsatk_output_path = os.path.join(evaluation_output_dir, 'hits@k_evaluation.csv')
     try:
         hitsatk_df.to_csv(hitsatk_output_path, index=False)
         logging.info(f"Hits@k results saved to {hitsatk_output_path}")
@@ -468,7 +334,7 @@ def evaluate_all_attributes(attributes_info, output_dir='llm_ft_results', evalua
         logging.error(f"Error saving Hits@k results: {e}")
 
     # Save MRR results
-    mrr_output_path = os.path.join(evaluation_output_dir, f'mrr_evaluation.csv')
+    mrr_output_path = os.path.join(evaluation_output_dir, 'mrr_evaluation.csv')
     try:
         mrr_df.to_csv(mrr_output_path, index=False)
         logging.info(f"MRR results saved to {mrr_output_path}")
@@ -477,11 +343,15 @@ def evaluate_all_attributes(attributes_info, output_dir='llm_ft_results', evalua
 
     logging.debug("Evaluation completed for all attributes.")
 
-def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_dir='llm_ft_results'):
+def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_dir='llm_ft_results', test_mode=False, test_size=20):
     """
     Iterate over each attribute, call GPT API, and save the results.
     Skips attributes if the output file already exists.
     Returns a list of attributes that were processed.
+    
+    Parameters:
+    - test_mode (bool): If True, process only the first `test_size` entries per attribute.
+    - test_size (int): Number of entries to process per attribute when in test mode.
     """
     logging.debug("Starting extract_gpt_data function.")
     processed_attributes = []
@@ -530,6 +400,11 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
         merged_df = pd.merge(test_texts_df, test_split_df, left_on='doi', right_on='node', how='inner')
         logging.debug(f"Merged DataFrame has {len(merged_df)} entries for attribute: {attribute}.")
 
+        # If in test mode, limit the number of entries
+        if test_mode:
+            merged_df = merged_df.head(test_size)
+            logging.info(f"Test mode enabled. Processing only the first {test_size} entries for attribute: {attribute}.")
+
         # Prepare lists to store results
         true_values = []
         restored_values = []
@@ -554,30 +429,33 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
                 restored_values_list = [item.get(info['json_key'], '') for item in restored_data]
                 # Ensure all extracted values are strings
                 restored_values_list = [str(value) for value in restored_values_list if value]
-                # Convert list to string representation with single quotes
-                restored_values_str = "[" + ", ".join(f"'{value}'" for value in restored_values_list) + "]"
+                # Convert list to JSON string
+                restored_values_json = json.dumps(restored_values_list)
             except json.JSONDecodeError:
                 logging.warning(f"JSON decoding failed for DOI {doi}. Raw response: {assistant_reply}")
-                restored_values_str = "[]"
+                restored_values_json = json.dumps([])  # Empty list
             except Exception as e:
                 logging.error(f"Unexpected error for DOI {doi}: {e}")
-                restored_values_str = "[]"
+                restored_values_json = json.dumps([])  # Empty list
 
-            # Assemble the data into the desired format
-            true_entry = f"['{doi}', '{true_value}']"
-            restored_entry = f"['{doi}', {restored_values_str}]"
+            # Serialize 'true' field as JSON
+            true_entry_json = json.dumps([doi, true_value])
 
-            true_values.append(true_entry)
-            restored_values.append(restored_entry)
+            # Serialize 'restored' field as JSON
+            restored_entry_json = json.dumps([doi, restored_values_list])
+
+            # Append to lists
+            true_values.append(true_entry_json)
+            restored_values.append(restored_entry_json)
             edge_types.append(edge_type)
 
-        # Save the results to CSV with proper quoting and without quotes for column names and edge_type
+        # Save the results to CSV with proper quoting
         try:
             with open(output_path, 'w', newline='', encoding='utf-8') as f:
-                writer = csv.writer(f, quoting=csv.QUOTE_MINIMAL)
-                writer.writerow(['true', 'restored', 'edge_type'])  # Write header without quotes
+                writer = csv.writer(f, quoting=csv.QUOTE_ALL)
+                writer.writerow(['true', 'restored', 'edge_type'])  # Write header
                 for true, restored, edge_type in zip(true_values, restored_values, edge_types):
-                    writer.writerow([true, restored, edge_type])  # Write edge_type without quotes
+                    writer.writerow([true, restored, edge_type])
             logging.info(f"GPT extraction results saved to {output_path}\n")
             processed_attributes.append(attribute)  # Mark attribute as processed
         except Exception as e:
@@ -664,7 +542,14 @@ def update_restored_with_similarity_search(attributes_info, attributes_k, output
 # Main Execution Flow
 # =====================
 
-def main():
+def run_gpt_processing(test_mode=False, test_size=20):
+    """
+    Run the GPT processing pipeline.
+
+    Parameters:
+    - test_mode (bool): If True, process only the first `test_size` entries per attribute.
+    - test_size (int): Number of entries to process per attribute when in test mode.
+    """
     try:
         logging.debug("Script started.")
         # Load the extracted texts
@@ -680,27 +565,45 @@ def main():
 
         # Preprocess filenames to extract DOIs
         if 'filename' not in extracted_text_df.columns:
-            logging.error(f"The extracted text DataFrame must contain a 'filename' column.")
+            logging.error("The extracted text DataFrame must contain a 'filename' column.")
             return
 
         extracted_text_df['doi'] = extracted_text_df['filename'].str.replace('.pdf', '').str.replace('@', '/')
         logging.debug("Extracted DOIs from filenames.")
 
         # Step 1: GPT Extraction
-        processed_attributes = extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_dir=output_dir)
+        processed_attributes = extract_gpt_data(
+            attributes_info,
+            attributes_k,
+            extracted_text_df,
+            output_dir=output_dir,
+            test_mode=test_mode,
+            test_size=test_size
+        )
 
         # Step 2: Similarity Search
-        update_restored_with_similarity_search(attributes_info, attributes_k, output_dir=output_dir, processed_attributes=processed_attributes)
+        update_restored_with_similarity_search(
+            attributes_info,
+            attributes_k,
+            output_dir=output_dir,
+            processed_attributes=processed_attributes
+        )
 
-        # Step 3: Special Handling for 'name' Attribute
-        fix_name_quotes_in_similarity_search(processed_attributes, output_dir=output_dir)
-
-        # Step 4: Evaluation
-        evaluate_all_attributes(attributes_info, output_dir=output_dir, evaluation_output_dir='ft_evaluation_results')
+        # Step 3: Evaluation
+        evaluate_all_attributes(
+            attributes_info,
+            output_dir=output_dir,
+            evaluation_output_dir='ft_evaluation_results'
+        )
 
         logging.debug("Master script execution completed successfully.")
-    except Exception as e:
+    except Exception:
         logging.exception("An unexpected error occurred in the main execution flow.")
 
 if __name__ == "__main__":
-    main()
+    # Example usage:
+    # To run in test mode with 20 entries per attribute
+    # run_gpt_processing(test_mode=True, test_size=20)
+
+    # To run normally (process all data)
+    run_gpt_processing(test_mode=True)

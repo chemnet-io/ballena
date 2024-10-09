@@ -1,3 +1,5 @@
+# Script for evaluating a single attribute/results file, for testing purposes
+
 import os
 import pandas as pd
 from ast import literal_eval

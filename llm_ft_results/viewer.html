@@ -31,6 +31,9 @@
             background-color: #c8e6c9; /* Light green */
             font-weight: bold;
         }
+        .not-found {
+            background-color: #ffcccb; /* Light red */
+        }
         .metrics {
             margin-top: 40px;
         }
@@ -82,19 +85,6 @@
         </select>
     </div>
 
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>True Value</th>
-                <th>Restored Values</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data rows will be inserted here dynamically -->
-        </tbody>
-    </table>
-
     <div class="metrics">
         <h2>Overall Metrics</h2>
         <table>
@@ -109,6 +99,19 @@
             </tbody>
         </table>
     </div>
+
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>True Value</th>
+                <th>Restored Values</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data rows will be inserted here dynamically -->
+        </tbody>
+    </table>
 
     <script>
         // List of CSV files
@@ -187,32 +190,50 @@
 
                 return {
                     trueValue: trueValue,
-                    restoredValues: restoredValues
+                    restoredValues: restoredValues,
+                    restoredString: restoredValues.join(' ') // Join all restored values into a single string
                 };
             });
         }
 
         // Function to calculate metrics
-        function calculateMetrics(data) {
+        function calculateMetrics(data, fileName) {
             let totalRestored = 0;
             let correctRestored = 0;
 
             data.forEach(entry => {
-                totalRestored += entry.restoredValues.length;
-                if (entry.restoredValues.includes(entry.trueValue)) {
-                    correctRestored += 1;
+                if (fileName.includes('name')) {
+                    // For name attribute, only count correct restorations
+                    if (entry.restoredString.toLowerCase().includes(entry.trueValue.toLowerCase())) {
+                        correctRestored += 1;
+                    }
+                } else {
+                    // For other attributes, keep the original logic
+                    totalRestored += entry.restoredValues.length;
+                    if (entry.restoredValues.includes(entry.trueValue)) {
+                        correctRestored += 1;
+                    }
                 }
             });
 
-            let precision = totalRestored > 0 ? (correctRestored / totalRestored) * 100 : 0;
-            let recall = data.length > 0 ? (correctRestored / data.length) * 100 : 0;
-            let f1Score = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
+            if (fileName.includes('name')) {
+                // For name attribute, only calculate recall
+                let recall = data.length > 0 ? (correctRestored / data.length) * 100 : 0;
+                return {
+                    recall: recall.toFixed(2)
+                };
+            } else {
+                // For other attributes, calculate all metrics
+                let precision = totalRestored > 0 ? (correctRestored / totalRestored) * 100 : 0;
+                let recall = data.length > 0 ? (correctRestored / data.length) * 100 : 0;
+                let f1Score = (precision + recall) > 0 ? (2 * precision * recall) / (precision + recall) : 0;
 
-            return {
-                precision: precision.toFixed(2),
-                recall: recall.toFixed(2),
-                f1Score: f1Score.toFixed(2)
-            };
+                return {
+                    precision: precision.toFixed(2),
+                    recall: recall.toFixed(2),
+                    f1Score: f1Score.toFixed(2)
+                };
+            }
         }
 
         // Function to render the data table
@@ -236,17 +257,15 @@
 
                 // Restored Values with Highlight
                 const tdRestored = document.createElement('td');
-                entry.restoredValues.forEach((val, idx) => {
-                    const span = document.createElement('span');
-                    span.textContent = val;
-                    if (val === entry.trueValue) {
-                        span.classList.add('highlight');
-                    }
-                    tdRestored.appendChild(span);
-                    if (idx < entry.restoredValues.length - 1) {
-                        tdRestored.appendChild(document.createTextNode(', '));
-                    }
-                });
+                const isFound = entry.restoredString.toLowerCase().includes(entry.trueValue.toLowerCase());
+                if (!isFound) {
+                    tdRestored.classList.add('not-found');
+                }
+                tdRestored.textContent = entry.restoredString;
+                if (isFound) {
+                    const regex = new RegExp(entry.trueValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                    tdRestored.innerHTML = tdRestored.textContent.replace(regex, match => `<span class="highlight">${match}</span>`);
+                }
                 tr.appendChild(tdRestored);
 
                 tbody.appendChild(tr);
@@ -254,22 +273,31 @@
         }
 
         // Function to render overall metrics
-        function renderOverallMetrics(metrics) {
+        function renderOverallMetrics(metrics, fileName) {
             const tbody = document.getElementById('overall-metrics');
-            tbody.innerHTML = `
-                <tr>
-                    <td>Precision</td>
-                    <td>${metrics.precision}%</td>
-                </tr>
-                <tr>
-                    <td>Recall</td>
-                    <td>${metrics.recall}%</td>
-                </tr>
-                <tr>
-                    <td>F1 Score</td>
-                    <td>${metrics.f1Score}%</td>
-                </tr>
-            `;
+            if (fileName.includes('name')) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td>Recall</td>
+                        <td>${metrics.recall}%</td>
+                    </tr>
+                `;
+            } else {
+                tbody.innerHTML = `
+                    <tr>
+                        <td>Precision</td>
+                        <td>${metrics.precision}%</td>
+                    </tr>
+                    <tr>
+                        <td>Recall</td>
+                        <td>${metrics.recall}%</td>
+                    </tr>
+                    <tr>
+                        <td>F1 Score</td>
+                        <td>${metrics.f1Score}%</td>
+                    </tr>
+                `;
+            }
         }
 
         // Modified init function
@@ -282,18 +310,19 @@
                     try {
                         const rawData = await fetchCSVData(selectedFile);
                         const data = processData(rawData);
+                        const overallMetrics = calculateMetrics(data, selectedFile);
+                        renderOverallMetrics(overallMetrics, selectedFile);
                         renderTable(data);
-                        const overallMetrics = calculateMetrics(data);
-                        renderOverallMetrics(overallMetrics);
                     } catch (error) {
                         console.error('Error fetching or parsing CSV data:', error);
+                        document.getElementById('overall-metrics').innerHTML = '';
                         const tbody = document.querySelector('#data-table tbody');
                         tbody.innerHTML = '<tr><td colspan="3" style="color: red; text-align: center;">Failed to load data.</td></tr>';
                     }
                 } else {
-                    // Clear the table and metrics if no file is selected
-                    document.querySelector('#data-table tbody').innerHTML = '';
+                    // Clear the metrics and table if no file is selected
                     document.getElementById('overall-metrics').innerHTML = '';
+                    document.querySelector('#data-table tbody').innerHTML = '';
                 }
             });
         }

@@ -90,7 +90,7 @@ attributes_info = {
             "[{\"isolationType\": \"Example Isolation Type 1\"}, {\"isolationType\": \"Example Isolation Type 2\"}]. "
             "If the isolation types are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'PLACEHOLDER_MODEL_NAME'  # Replace with actual model name when available
+        'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh::AGM1fndV'  # i forgot to assign a attribute name to this model, but it its finetuned on the type attribute.
     }
 }
 

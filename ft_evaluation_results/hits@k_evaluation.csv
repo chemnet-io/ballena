@@ -1,4 +1,6 @@
 attribute,k,value
-collectionSite,20,0.8
-bioActivity,5,0.8
-collectionSpecie,50,0.9
+collectionSite,20,0.8181818181818182
+bioActivity,5,0.6875
+collectionSpecie,50,0.9516129032258065
+collectionType,1,0.9137931034482759
+name,50,0.44192634560906513

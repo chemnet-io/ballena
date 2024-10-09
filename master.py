@@ -606,4 +606,4 @@ if __name__ == "__main__":
     # run_gpt_processing(test_mode=True, test_size=20)
 
     # To run normally (process all data)
-    run_gpt_processing(test_mode=True)
+    run_gpt_processing(test_mode=False)

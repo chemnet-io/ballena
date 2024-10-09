@@ -684,7 +684,7 @@ def main():
     """
     print("Starting Script 1: GPT Processing...")
     # Set `test_mode=True` and `test_size=20` for testing
-    run_gpt_processing(test_mode=True, test_size=4)
+    run_gpt_processing(test_mode=False)
     print("\nScript 1 Completed.\n")
 
     print("Starting Script 2: Similarity Search...")

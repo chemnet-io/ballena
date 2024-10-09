@@ -119,7 +119,8 @@
             'llm_results_ft_4o_0.8_doi_bioActivity_0_1st.csv',
             'llm_results_ft_4o_0.8_doi_collectionSite_0_1st.csv',
             'llm_results_ft_4o_0.8_doi_collectionSpecie_0_1st.csv',
-            'llm_results_ft_4o_0.8_doi_name_0_1st.csv'
+            'llm_results_ft_4o_0.8_doi_name_0_1st.csv',
+            'llm_results_ft_4o_0.8_doi_collectionType_0_1st.csv'
         ];
 
         // Function to populate the file picker
@@ -237,7 +238,7 @@
         }
 
         // Function to render the data table
-        function renderTable(data) {
+        function renderTable(data, fileName) {
             const tbody = document.querySelector('#data-table tbody');
             tbody.innerHTML = '';
 
@@ -261,7 +262,16 @@
                 if (!isFound) {
                     tdRestored.classList.add('not-found');
                 }
-                tdRestored.textContent = entry.restoredString;
+                
+                // Format restored values based on the file type
+                let formattedRestoredValues;
+                if (fileName.includes('name')) {
+                    formattedRestoredValues = entry.restoredValues.map(val => val.replace(/^\[|\]$/g, '')).join(' ');
+                } else {
+                    formattedRestoredValues = entry.restoredValues.join(', ');
+                }
+                
+                tdRestored.textContent = formattedRestoredValues;
                 if (isFound) {
                     const regex = new RegExp(entry.trueValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
                     tdRestored.innerHTML = tdRestored.textContent.replace(regex, match => `<span class="highlight">${match}</span>`);
@@ -312,7 +322,7 @@
                         const data = processData(rawData);
                         const overallMetrics = calculateMetrics(data, selectedFile);
                         renderOverallMetrics(overallMetrics, selectedFile);
-                        renderTable(data);
+                        renderTable(data, selectedFile);
                     } catch (error) {
                         console.error('Error fetching or parsing CSV data:', error);
                         document.getElementById('overall-metrics').innerHTML = '';

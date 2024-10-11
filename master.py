@@ -57,7 +57,7 @@ attributes_info = {
             "[{\"collectionSite\": \"Example Collection Site 1\"}, {\"collectionSite\": \"Example Collection Site 2\"}]. "
             "If the collection sites are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-site-0-1st-train-only:AF1jozl6'
+        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectionsite-0-1st:AH9eAwCH'
     },
     'bioActivity': {
         'json_key': 'bioActivity',
@@ -68,7 +68,7 @@ attributes_info = {
             "[{\"bioActivity\": \"Example BioActivity 1\"}, {\"bioActivity\": \"Example BioActivity 2\"}]. "
             "If the bioActivities are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-bioactivity-0-1st-train-only:AFes8HvM'
+        'model_name': 'PLACEHOLDER_MODEL_NAME'
     },
     'collectionSpecie': {
         'json_key': 'species',
@@ -79,7 +79,7 @@ attributes_info = {
             "[{\"species\": \"Example Species 1\"}, {\"species\": \"Example Species 2\"}]. "
             "If the species are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-specie-0-1st-train-only:AFzNurjL'
+        'model_name': 'PLACEHOLDER_MODEL_NAME'
     },
     'collectionType': {
         'json_key': 'isolationType',
@@ -90,7 +90,7 @@ attributes_info = {
             "[{\"isolationType\": \"Example Isolation Type 1\"}, {\"isolationType\": \"Example Isolation Type 2\"}]. "
             "If the isolation types are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:eccenca-gmbh::AGM1fndV'  # i forgot to assign a attribute name to this model, but it its finetuned on the type attribute.
+        'model_name': 'PLACEHOLDER_MODEL_NAME'  # i forgot to assign a attribute name to this model, but it its finetuned on the type attribute.
     }
 }
 

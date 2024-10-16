@@ -68,7 +68,7 @@ attributes_info = {
             "[{\"bioActivity\": \"Example BioActivity 1\"}, {\"bioActivity\": \"Example BioActivity 2\"}]. "
             "If the bioActivities are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'PLACEHOLDER_MODEL_NAME'
+        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-bioactivity-0-1st:AIAzKPtL'
     },
     'collectionSpecie': {
         'json_key': 'species',
@@ -79,7 +79,7 @@ attributes_info = {
             "[{\"species\": \"Example Species 1\"}, {\"species\": \"Example Species 2\"}]. "
             "If the species are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'PLACEHOLDER_MODEL_NAME'
+        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectionspecie-0-1st:AIXK9y99'
     },
     'collectionType': {
         'json_key': 'isolationType',
@@ -90,7 +90,7 @@ attributes_info = {
             "[{\"isolationType\": \"Example Isolation Type 1\"}, {\"isolationType\": \"Example Isolation Type 2\"}]. "
             "If the isolation types are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'PLACEHOLDER_MODEL_NAME'  # i forgot to assign a attribute name to this model, but it its finetuned on the type attribute.
+        'model_name': 'PLACEHOLDER_MODEL_NAME'  
     }
 }
 
@@ -250,10 +250,10 @@ def parse_list(s):
             # As a last resort, split by comma
             return [item.strip().strip('"') for item in s.strip('[]').split(',')]
 
-def evaluate_attribute(input_csv_path, output_dict, attribute_name):
+def evaluate_attribute(input_csv_path, output_dir, attribute_name, split, output_format='csv'):
     """
     Evaluate the specified attribute using Hits@k and MRR metrics.
-    Accumulates results into the provided output_dict.
+    Saves the results into separate CSV files per split per attribute.
     """
     # Evaluation parameters
     k_at = [attributes_k.get(attribute_name, 1)]
@@ -282,82 +282,84 @@ def evaluate_attribute(input_csv_path, output_dict, attribute_name):
     true_values = restored_df['true'].to_list()  # List of tuples: [(doi, true_value), ...]
     predicted_values = restored_df['restored'].to_list()  # List of lists: [[doi, [pred1, pred2, ...]], ...]
 
+    # Initialize output data structures
+    hits_at_k_results = []
+    mrr_results = []
+
     # Calculate Hits@k
     for k in k_at:
         mean_hits, missed = hits_at(k, true_values, predicted_values)
-        output_dict['hits_at_k'].append({
+        hits_at_k_results.append({
             'attribute': attribute_name,
+            'split': split,
             'k': k,
             'value': mean_hits
         })
 
     # Calculate MRR
     mean_mrr, missed_m = mrr_metric(true_values, predicted_values)
-    output_dict['mrr'].append({
+    mrr_results.append({
         'attribute': attribute_name,
+        'split': split,
         'value': mean_mrr
     })
 
-def evaluate_all_attributes(attributes_info, output_dir='llm_ft_results', evaluation_output_dir='ft_evaluation_results'):
-    """
-    Evaluate all attributes using Hits@k and MRR metrics and save to consolidated CSV files.
-    """
-    logging.debug("Starting evaluation of all attributes.")
-    os.makedirs(evaluation_output_dir, exist_ok=True)
-
-    # Initialize metrics storage
-    evaluation_results = {
-        'hits_at_k': [],
-        'mrr': []
-    }
-
-    for attribute in attributes_info.keys():
-        input_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_1st.csv'  # Updated filename
-        input_path = os.path.join(output_dir, input_filename)
-
-        if not os.path.exists(input_path):
-            logging.warning(f"Input file {input_filename} does not exist. Skipping evaluation for attribute: {attribute}")
-            continue
-
-        evaluate_attribute(input_path, evaluation_results, attribute)
-
-    # Convert metrics to DataFrames
-    hitsatk_df = pd.DataFrame(evaluation_results['hits_at_k'])
-    mrr_df = pd.DataFrame(evaluation_results['mrr'])
-
     # Save Hits@k results
-    hitsatk_output_path = os.path.join(evaluation_output_dir, 'hits@k_evaluation.csv')
+    hitsatk_output_filename = f'hits@k_evaluation_{attribute_name}_{split}.csv'
+    hitsatk_output_path = os.path.join(output_dir, hitsatk_output_filename)
     try:
+        hitsatk_df = pd.DataFrame(hits_at_k_results)
         hitsatk_df.to_csv(hitsatk_output_path, index=False)
         logging.info(f"Hits@k results saved to {hitsatk_output_path}")
     except Exception as e:
         logging.error(f"Error saving Hits@k results: {e}")
 
     # Save MRR results
-    mrr_output_path = os.path.join(evaluation_output_dir, 'mrr_evaluation.csv')
+    mrr_output_filename = f'mrr_evaluation_{attribute_name}_{split}.csv'
+    mrr_output_path = os.path.join(output_dir, mrr_output_filename)
     try:
+        mrr_df = pd.DataFrame(mrr_results)
         mrr_df.to_csv(mrr_output_path, index=False)
         logging.info(f"MRR results saved to {mrr_output_path}")
     except Exception as e:
         logging.error(f"Error saving MRR results: {e}")
 
-    logging.debug("Evaluation completed for all attributes.")
-
-def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_dir='llm_ft_results', test_mode=False, test_size=20):
+def evaluate_all_attributes(attributes_info, output_dir='llm_ft_results', evaluation_output_dir='ft_evaluation_results', splits=['1st']):
     """
-    Iterate over each attribute, call GPT API, and save the results.
+    Evaluate all attributes for each split using Hits@k and MRR metrics and save to separate CSV files.
+    """
+    logging.debug("Starting evaluation of all attributes.")
+    os.makedirs(evaluation_output_dir, exist_ok=True)
+
+    for split in splits:
+        for attribute in attributes_info.keys():
+            input_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_{split}.csv'  # Updated filename
+            input_path = os.path.join(output_dir, input_filename)
+
+            if not os.path.exists(input_path):
+                logging.warning(f"Input file {input_filename} does not exist. Skipping evaluation for attribute: {attribute}, split: {split}")
+                continue
+
+            evaluate_attribute(input_path, evaluation_output_dir, attribute, split)
+
+    logging.debug("Evaluation completed for all attributes and splits.")
+
+def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_dir='llm_ft_results', test_mode=False, test_size=20, split='1st'):
+    """
+    Iterate over each attribute and split, call GPT API, and save the results.
     Skips attributes if the output file already exists.
     Returns a list of attributes that were processed.
     
     Parameters:
     - test_mode (bool): If True, process only the first `test_size` entries per attribute.
     - test_size (int): Number of entries to process per attribute when in test mode.
+    - split (str): The current split identifier (e.g., '1st', '2nd').
     """
     logging.debug("Starting extract_gpt_data function.")
     processed_attributes = []
 
     for attribute, info in attributes_info.items():
-        output_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_1st.csv'  # Updated filename
+        output_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_{split}.csv'  # Updated filename
         output_path = os.path.join(output_dir, output_filename)
 
         # Check if the output file already exists
@@ -365,15 +367,15 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
             logging.info(f"Output file {output_filename} already exists. Skipping attribute: {attribute}")
             continue
 
-        logging.info(f"Processing attribute: {attribute}")
+        logging.info(f"Processing attribute: {attribute} for split: {split}")
         model_name = info.get('model_name', 'PLACEHOLDER_MODEL_NAME')
         
         if model_name == 'PLACEHOLDER_MODEL_NAME':
             logging.warning(f"Model name for attribute '{attribute}' is not set. Skipping processing for this attribute.")
             continue
 
-        # Define the test split file path for iteration 0 and 1st split
-        test_split_filename = f'test_doi_{attribute}_0_1st.csv'
+        # Define the test split file path for iteration 0 and current split
+        test_split_filename = f'test_doi_{attribute}_0_{split}.csv'
         test_split_path = os.path.join(splits_dir, test_split_filename)
 
         if not os.path.exists(test_split_path):
@@ -411,7 +413,7 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
         edge_types = []
 
         # Iterate over each row and call the GPT API
-        for _, row in tqdm(merged_df.iterrows(), total=merged_df.shape[0], desc=f"Attribute: {attribute}"):
+        for _, row in tqdm(merged_df.iterrows(), total=merged_df.shape[0], desc=f"Attribute: {attribute}, Split: {split}"):
             doi = row['doi']
             text = row['text']
             true_value = row['neighbor']
@@ -464,12 +466,12 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
     logging.debug("extract_gpt_data function completed.")
     return processed_attributes  # Return the list of processed attributes
 
-def update_restored_with_similarity_search(attributes_info, attributes_k, output_dir='llm_ft_results', processed_attributes=None):
+def update_restored_with_similarity_search(attributes_info, attributes_k, output_dir='llm_ft_results', processed_attributes=None, splits=['1st']):
     """
-    Update the 'restored' field in the GPT extraction results using similarity search.
+    Update the 'restored' field in the GPT extraction results using similarity search for each split.
     Only processes attributes that are in the 'processed_attributes' list.
     """
-    logging.debug("Starting similarity search processing for all attributes.")
+    logging.debug("Starting similarity search processing for all attributes and splits.")
     if not processed_attributes:
         logging.info("No attributes were processed in extract_gpt_data. Skipping similarity search.")
         return
@@ -481,62 +483,63 @@ def update_restored_with_similarity_search(attributes_info, attributes_k, output
         logging.error(f"Error initializing OpenAIEmbeddings: {e}")
         return
 
-    for attribute, info in attributes_info.items():
-        if attribute not in processed_attributes:
-            logging.info(f"Skipping similarity search for attribute: {attribute} as it was not processed.")
-            continue
+    for split in splits:
+        for attribute, info in attributes_info.items():
+            if attribute not in processed_attributes:
+                logging.info(f"Skipping similarity search for attribute: {attribute} as it was not processed.")
+                continue
 
-        logging.info(f"Starting similarity search processing for attribute: {attribute}")
-        input_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_1st.csv'  # Updated filename
-        input_path = os.path.join(output_dir, input_filename)
+            logging.info(f"Starting similarity search processing for attribute: {attribute}, split: {split}")
+            input_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_{split}.csv'  # Updated filename
+            input_path = os.path.join(output_dir, input_filename)
 
-        if not os.path.exists(input_path):
-            logging.warning(f"Input file {input_filename} does not exist. Skipping similarity search for attribute: {attribute}")
-            continue
+            if not os.path.exists(input_path):
+                logging.warning(f"Input file {input_filename} does not exist. Skipping similarity search for attribute: {attribute}, split: {split}")
+                continue
 
-        try:
-            faiss_index = load_faiss_index(attribute, embeddings)
-            logging.debug(f"Loaded FAISS index for attribute: {attribute}")
-        except FileNotFoundError as e:
-            logging.error(e)
-            continue
-        except Exception as e:
-            logging.error(f"Error loading FAISS index for attribute '{attribute}': {e}")
-            continue
+            try:
+                faiss_index = load_faiss_index(attribute, embeddings)
+                logging.debug(f"Loaded FAISS index for attribute: {attribute}")
+            except FileNotFoundError as e:
+                logging.error(e)
+                continue
+            except Exception as e:
+                logging.error(f"Error loading FAISS index for attribute '{attribute}': {e}")
+                continue
 
-        top_k = attributes_k.get(attribute, 1)  # Default to 1 if not specified
+            top_k = attributes_k.get(attribute, 1)  # Default to 1 if not specified
 
-        temp_file = input_path + '.temp'
+            temp_file = input_path + '.temp'
 
-        try:
-            with open(input_path, 'r', newline='', encoding='utf-8') as infile, \
-                 open(temp_file, 'w', newline='', encoding='utf-8') as outfile:
-                reader = csv.DictReader(infile)
-                writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames, quoting=csv.QUOTE_ALL)
-                writer.writeheader()
+            try:
+                with open(input_path, 'r', newline='', encoding='utf-8') as infile, \
+                     open(temp_file, 'w', newline='', encoding='utf-8') as outfile:
+                    reader = csv.DictReader(infile)
+                    writer = csv.DictWriter(outfile, fieldnames=reader.fieldnames, quoting=csv.QUOTE_ALL)
+                    writer.writeheader()
 
-                for row in tqdm(reader, desc=f"Processing rows in {os.path.basename(input_path)}"):
-                    restored_original = row['restored']
-                    row['restored'] = process_restored_field(attribute, restored_original, faiss_index, top_k)
-                    writer.writerow(row)
-            logging.info(f"Similarity search updated file saved at {temp_file}")
+                    for row in tqdm(reader, desc=f"Processing rows in {os.path.basename(input_path)}"):
+                        restored_original = row['restored']
+                        row['restored'] = process_restored_field(attribute, restored_original, faiss_index, top_k)
+                        writer.writerow(row)
+                logging.info(f"Similarity search updated file saved at {temp_file}")
 
-            # Replace the original file with the temp file
-            logging.debug(f"Attempting to replace {input_path} with {temp_file}")
-            os.replace(temp_file, input_path)
-            logging.info(f"Replaced original file {input_path} with updated file {temp_file}")
-        except Exception as e:
-            logging.error(f"Error during similarity search processing for {attribute}: {e}")
-            # Attempt to remove the temp file if it exists
-            if os.path.exists(temp_file):
-                try:
-                    os.remove(temp_file)
-                    logging.info(f"Removed temporary file {temp_file} due to error.")
-                except Exception as remove_e:
-                    logging.error(f"Failed to remove temporary file {temp_file}: {remove_e}")
-            continue
+                # Replace the original file with the temp file
+                logging.debug(f"Attempting to replace {input_path} with {temp_file}")
+                os.replace(temp_file, input_path)
+                logging.info(f"Replaced original file {input_path} with updated file {temp_file}")
+            except Exception as e:
+                logging.error(f"Error during similarity search processing for {attribute}, split: {split}: {e}")
+                # Attempt to remove the temp file if it exists
+                if os.path.exists(temp_file):
+                    try:
+                        os.remove(temp_file)
+                        logging.info(f"Removed temporary file {temp_file} due to error.")
+                    except Exception as remove_e:
+                        logging.error(f"Failed to remove temporary file {temp_file}: {remove_e}")
+                continue
 
-    logging.debug("Similarity search processing completed for all processed attributes.")
+    logging.debug("Similarity search processing completed for all processed attributes and splits.")
 
 # =====================
 # Main Execution Flow
@@ -544,7 +547,7 @@ def update_restored_with_similarity_search(attributes_info, attributes_k, output
 
 def run_gpt_processing(test_mode=False, test_size=20):
     """
-    Run the GPT processing pipeline.
+    Run the GPT processing pipeline for all splits.
 
     Parameters:
     - test_mode (bool): If True, process only the first `test_size` entries per attribute.
@@ -571,30 +574,41 @@ def run_gpt_processing(test_mode=False, test_size=20):
         extracted_text_df['doi'] = extracted_text_df['filename'].str.replace('.pdf', '').str.replace('@', '/')
         logging.debug("Extracted DOIs from filenames.")
 
-        # Step 1: GPT Extraction
-        processed_attributes = extract_gpt_data(
-            attributes_info,
-            attributes_k,
-            extracted_text_df,
-            output_dir=output_dir,
-            test_mode=test_mode,
-            test_size=test_size
-        )
+        # Define the list of splits to process
+        splits = ['2nd', '3rd', '4th']  # Add or remove splits as needed
 
-        # Step 2: Similarity Search
-        update_restored_with_similarity_search(
-            attributes_info,
-            attributes_k,
-            output_dir=output_dir,
-            processed_attributes=processed_attributes
-        )
+        for split in splits:
+            logging.info(f"Starting processing for split: {split}")
 
-        # Step 3: Evaluation
-        evaluate_all_attributes(
-            attributes_info,
-            output_dir=output_dir,
-            evaluation_output_dir='ft_evaluation_results'
-        )
+            # Step 1: GPT Extraction
+            processed_attributes = extract_gpt_data(
+                attributes_info,
+                attributes_k,
+                extracted_text_df,
+                output_dir=output_dir,
+                test_mode=test_mode,
+                test_size=test_size,
+                split=split
+            )
+
+            # Step 2: Similarity Search
+            update_restored_with_similarity_search(
+                attributes_info,
+                attributes_k,
+                output_dir=output_dir,
+                processed_attributes=processed_attributes,
+                splits=[split]  # Process only the current split
+            )
+
+            # Step 3: Evaluation
+            evaluate_all_attributes(
+                attributes_info,
+                output_dir=output_dir,
+                evaluation_output_dir='ft_evaluation_results',
+                splits=[split]  # Evaluate only the current split
+            )
+
+            logging.info(f"Completed processing for split: {split}\n")
 
         logging.debug("Master script execution completed successfully.")
     except Exception:

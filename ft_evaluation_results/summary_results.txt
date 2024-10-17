@@ -1,3 +1,11 @@
+Results from mrr_evaluation_collectionSite_2nd.csv:
+attribute,split,value
+collectionSite,2nd,0.6824836016696482
+
+Results from hits@k_evaluation_collectionSite_2nd.csv:
+attribute,split,k,value
+collectionSite,2nd,20,0.7674418604651163
+
 Results from mrr_evaluation_bioActivity_1st.csv:
 attribute,split,value
 bioActivity,1st,0.590625
@@ -14,6 +22,10 @@ Results from mrr_evaluation_collectionSpecie_1st.csv:
 attribute,split,value
 collectionSpecie,1st,0.8341785277199626
 
+Results from mrr_evaluation_collectionType_2nd.csv:
+attribute,split,value
+collectionType,2nd,0.9156626506024096
+
 Results from hits@k_evaluation_bioActivity_1st.csv:
 attribute,split,k,value
 bioActivity,1st,5,0.675
@@ -22,17 +34,37 @@ Results from hits@k_name_evaluation.csv:
 k,metric,value
 50,Hits@k,0.603399433427762
 
+Results from hits@k_evaluation_collectionType_2nd.csv:
+attribute,split,k,value
+collectionType,2nd,1,0.9156626506024096
+
 Results from hits@k_evaluation_collectionType_1st.csv:
 attribute,split,k,value
 collectionType,1st,1,0.9224137931034483
+
+Results from mrr_evaluation_collectionSpecie_2nd.csv:
+attribute,split,value
+collectionSpecie,2nd,0.8770880354213687
+
+Results from hits@k_evaluation_bioActivity_2nd.csv:
+attribute,split,k,value
+bioActivity,2nd,5,0.6886792452830188
 
 Results from mrr_evaluation_collectionType_1st.csv:
 attribute,split,value
 collectionType,1st,0.9224137931034483
 
+Results from mrr_evaluation_bioActivity_2nd.csv:
+attribute,split,value
+bioActivity,2nd,0.613993710691824
+
 Results from hits@k_evaluation_collectionSite_1st.csv:
 attribute,split,k,value
 collectionSite,1st,20,0.8181818181818182
+
+Results from hits@k_evaluation_collectionSpecie_2nd.csv:
+attribute,split,k,value
+collectionSpecie,2nd,50,0.9629629629629629
 
 Results from mrr_evaluation_collectionSite_1st.csv:
 attribute,split,value

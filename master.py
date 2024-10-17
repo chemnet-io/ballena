@@ -344,7 +344,7 @@ def evaluate_all_attributes(attributes_info, output_dir='llm_ft_results', evalua
 
     logging.debug("Evaluation completed for all attributes and splits.")
 
-def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_dir='llm_ft_results', test_mode=False, test_size=20, split='1st'):
+def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_dir='llm_ft_results', test_mode=False, test_size=20, split='2nd'):
     """
     Iterate over each attribute and split, call GPT API, and save the results.
     Skips attributes if the output file already exists.
@@ -545,7 +545,7 @@ def update_restored_with_similarity_search(attributes_info, attributes_k, output
 # Main Execution Flow
 # =====================
 
-def run_gpt_processing(test_mode=False, test_size=20):
+def main(test_mode=False, test_size=20):
     """
     Run the GPT processing pipeline for all splits.
 
@@ -575,7 +575,7 @@ def run_gpt_processing(test_mode=False, test_size=20):
         logging.debug("Extracted DOIs from filenames.")
 
         # Define the list of splits to process
-        splits = ['1st']  # Add or remove splits as needed
+        splits = ['2nd']  # Add or remove splits as needed
 
         for split in splits:
             logging.info(f"Starting processing for split: {split}")
@@ -617,7 +617,7 @@ def run_gpt_processing(test_mode=False, test_size=20):
 if __name__ == "__main__":
     # Example usage:
     # To run in test mode with 20 entries per attribute
-    # run_gpt_processing(test_mode=True, test_size=20)
+    # main(test_mode=True, test_size=20)
 
     # To run normally (process all data)
-    run_gpt_processing(test_mode=False)
+    main(test_mode=False)

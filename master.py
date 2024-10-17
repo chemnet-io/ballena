@@ -575,7 +575,7 @@ def main(test_mode=False, test_size=20):
         logging.debug("Extracted DOIs from filenames.")
 
         # Define the list of splits to process
-        splits = ['2nd']  # Add or remove splits as needed
+        splits = ['3rd', '4th']  # Add or remove splits as needed
 
         for split in splits:
             logging.info(f"Starting processing for split: {split}")

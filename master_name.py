@@ -30,14 +30,22 @@ if not OPENAI_API_KEY:
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # ===========================
+# Define Splits
+# ===========================
+
+# Define the list of splits to process
+splits = ['2nd', '3rd', '4th']  # Add or remove splits as needed
+
+# ===========================
 # Script 1: GPT Processing
 # ===========================
 
-def run_gpt_processing(test_mode=False, test_size=20):
+def run_gpt_processing(split, test_mode=False, test_size=20):
     """
     Processes extracted text data to extract compound names using a fine-tuned GPT model.
 
     Parameters:
+    - split (str): The split identifier (e.g., '2nd', '3rd', '4th').
     - test_mode (bool): If True, processes only the first `test_size` entries.
     - test_size (int): Number of entries to process in test mode.
     """
@@ -120,12 +128,12 @@ def run_gpt_processing(test_mode=False, test_size=20):
     # Define the specific fine-tuned model name for 'name' attribute
     model_name = 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-name-0-1st:AItbMK9c'
 
-    # Define the test split file path for iteration 0 and 1st split
-    test_split_filename = f'test_doi_{attribute}_0_1st.csv'
+    # Define the test split file path based on the current split
+    test_split_filename = f'test_doi_{attribute}_0_{split}.csv'
     test_split_path = os.path.join(splits_dir, test_split_filename)
 
     if not os.path.exists(test_split_path):
-        logging.error(f"Test split file {test_split_filename} does not exist. Exiting.")
+        logging.error(f"Test split file {test_split_filename} does not exist. Skipping split '{split}'.")
         return
 
     # Load the test split CSV
@@ -142,18 +150,18 @@ def run_gpt_processing(test_mode=False, test_size=20):
         return
 
     test_dois = test_split_df['node'].unique()
-    logging.info(f"Extracted {len(test_dois)} unique DOIs from the test split.")
+    logging.info(f"Extracted {len(test_dois)} unique DOIs from the test split '{split}'.")
 
     # Filter the extracted texts for the test DOIs
     test_texts_df = extracted_text_df[extracted_text_df['doi'].isin(test_dois)]
-    logging.info(f"Filtered {len(test_texts_df)} entries matching test DOIs.")
+    logging.info(f"Filtered {len(test_texts_df)} entries matching test DOIs for split '{split}'.")
 
     # Merge the true values with the texts based on DOI
     merged_df = pd.merge(test_texts_df, test_split_df, left_on='doi', right_on='node', how='inner')
-    logging.info(f"Merged dataframe has {len(merged_df)} entries.")
+    logging.info(f"Merged dataframe has {len(merged_df)} entries for split '{split}'.")
 
     if merged_df.empty:
-        logging.warning("The merged dataframe is empty. No data to process.")
+        logging.warning(f"The merged dataframe is empty for split '{split}'. No data to process.")
         return
 
     # Prepare lists to store results
@@ -161,8 +169,8 @@ def run_gpt_processing(test_mode=False, test_size=20):
     restored_values = []
     edge_types = []
 
-    # Define the specific output filename without any suffix
-    output_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_1st.csv'
+    # Define the specific output filename based on the current split
+    output_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_{split}.csv'
     output_path = os.path.join(output_dir, output_filename)
 
     # Open the output file in write mode and write header
@@ -173,7 +181,7 @@ def run_gpt_processing(test_mode=False, test_size=20):
             logging.info(f"Created output file with header: {output_filename}")
 
             # Iterate over each row and call the GPT API
-            for _, row in tqdm(merged_df.iterrows(), total=merged_df.shape[0], desc=f"Attribute: {attribute}"):
+            for _, row in tqdm(merged_df.iterrows(), total=merged_df.shape[0], desc=f"Attribute: {attribute} | Split: {split}"):
                 doi = row['doi']
                 text = row['text']
                 true_value = row['neighbor']
@@ -214,7 +222,7 @@ def run_gpt_processing(test_mode=False, test_size=20):
                 output_writer.writerow([true_entry, restored_entry, edge_type])
 
         logging.info(f"Results saved to {output_path}\n")
-        logging.info("Processing complete for the 'name' attribute.")
+        logging.info(f"Processing complete for the 'name' attribute and split '{split}'.")
     except Exception as e:
         logging.error(f"Failed to write to the output file {output_path}: {e}")
 
@@ -222,7 +230,13 @@ def run_gpt_processing(test_mode=False, test_size=20):
 # Script 2: Similarity Search
 # ===========================
 
-def run_similarity_search():
+def run_similarity_search(split):
+    """
+    Perform similarity search for a specific split.
+    
+    Parameters:
+    - split (str): The split identifier (e.g., '2nd', '3rd', '4th').
+    """
     import os
     import ast
     import csv
@@ -348,7 +362,7 @@ def run_similarity_search():
             return
 
         temp_file = file_path + '.temp'
-        batch_size = 100  # Adjust this based on your available memory
+        batch_size = 50  # Adjust this based on your available memory
 
         try:
             with open(file_path, 'r', newline='', encoding='utf-8') as infile, \
@@ -366,7 +380,7 @@ def run_similarity_search():
         except Exception as e:
             logging.error(f"Failed to process similarity search for file {file_path}: {e}")
 
-    def process_files_for_similarity_search(directory, attribute, top_k):
+    def process_files_for_similarity_search(directory, attribute, top_k, split):
         """
         Process all relevant CSV files in the specified directory for similarity search.
 
@@ -374,18 +388,19 @@ def run_similarity_search():
         - directory (str): Directory containing the CSV files.
         - attribute (str): The attribute being processed.
         - top_k (int): Number of top similar documents to retrieve.
+        - split (str): The split identifier (e.g., '2nd', '3rd', '4th').
         """
-        # Updated pattern to match the base filename without any suffix
-        pattern = re.compile(rf'llm_results_ft_4o_0\.8_doi_{re.escape(attribute)}_0_1st\.csv$')
+        # Updated pattern to match the base filename with the current split
+        pattern = re.compile(rf'llm_results_ft_4o_0\.8_doi_{re.escape(attribute)}_0_{re.escape(split)}\.csv$')
         files = [f for f in os.listdir(directory) if pattern.match(f)]
 
         if not files:
-            logging.warning(f"No files found matching pattern for attribute '{attribute}' in directory '{directory}'.")
+            logging.warning(f"No files found matching pattern for attribute '{attribute}' and split '{split}' in directory '{directory}'.")
             return
 
-        for filename in tqdm(files, desc="Processing files"):
+        for filename in tqdm(files, desc=f"Processing files for split '{split}'"):
             file_path = os.path.join(directory, filename)
-            logging.info(f"Processing file: {filename} for attribute: {attribute}")
+            logging.info(f"Processing file: {filename} for attribute: {attribute} and split: {split}")
             update_restored_with_similarity_search(file_path, attribute, top_k)
 
     # Process only the 'name' attribute with top_k=50
@@ -395,16 +410,22 @@ def run_similarity_search():
     }
 
     for attribute, top_k in attributes_and_k.items():
-        logging.info(f"Starting similarity search processing for attribute: {attribute} with top_k: {top_k}")
-        process_files_for_similarity_search(directory, attribute, top_k)
+        logging.info(f"Starting similarity search processing for attribute: {attribute} with top_k: {top_k} for split '{split}'")
+        process_files_for_similarity_search(directory, attribute, top_k, split)
 
-    logging.info("Similarity search processing completed.")
+    logging.info(f"Similarity search processing completed for split '{split}'.")
 
 # ===========================
 # Script 3: Fix Quotes
 # ===========================
 
-def run_fix_quotes():
+def run_fix_quotes(split):
+    """
+    Fix quotes in the 'true' and 'restored' fields for a specific split.
+
+    Parameters:
+    - split (str): The split identifier (e.g., '2nd', '3rd', '4th').
+    """
     import os
     import csv
     import re
@@ -492,49 +513,55 @@ def run_fix_quotes():
         except Exception as e:
             logging.error(f"Failed to process CSV {input_file}: {e}")
 
-    def process_all_files(input_directory, attribute):
+    def process_all_files(input_directory, attribute, split):
         """
-        Process all relevant CSV files in the input directory.
+        Process all relevant CSV files in the input directory for a specific split.
         """
-        # Define the pattern for 'name' CSV files without any suffix
-        pattern = r'llm_results_ft_4o_0\.8_doi_name_0_1st\.csv$'
+        # Define the pattern for the current split's 'name' CSV files without any suffix
+        pattern = rf'llm_results_ft_4o_0\.8_doi_{re.escape(attribute)}_0_{re.escape(split)}\.csv$'
 
         # Get all matching files in the input directory
-        files = glob(os.path.join(input_directory, '*.csv'))
-        name_files = [f for f in files if re.search(pattern, os.path.basename(f))]
+        files = [f for f in os.listdir(input_directory) if re.match(pattern, f)]
 
-        if not name_files:
-            logging.warning(f"No 'name' CSV files found in directory '{input_directory}'.")
+        if not files:
+            logging.warning(f"No 'name' CSV files found for split '{split}' in directory '{input_directory}'.")
             return
 
-        for input_file in tqdm(name_files, desc="Processing 'name' CSV files"):
+        for input_file in tqdm(files, desc=f"Processing 'name' CSV files for split '{split}'"):
+            file_path = os.path.join(input_directory, input_file)
             filename = os.path.basename(input_file)
             # Define the output file with a temporary suffix
             output_file = os.path.join(input_directory, f"{filename}.fixed.csv")
-            logging.info(f"Processing {filename}...")
+            logging.info(f"Processing {filename} for split '{split}'...")
 
-            process_csv(input_file, output_file)
+            process_csv(file_path, output_file)
 
             # Verify that the fixed file is not empty
             if os.path.getsize(output_file) > 0:
                 # Replace the original file with the fixed file
-                shutil.move(output_file, input_file)
-                logging.info(f"Successfully fixed and replaced {input_file}.")
+                shutil.move(output_file, file_path)
+                logging.info(f"Successfully fixed and replaced {file_path} for split '{split}'.")
             else:
-                logging.error(f"Fixed file {output_file} is empty. Original file {input_file} remains unchanged.")
+                logging.error(f"Fixed file {output_file} is empty. Original file {file_path} remains unchanged.")
 
     # Usage
     input_directory = 'llm_ft_results'  # Directory containing the original 'name' CSV files
     attribute = 'name'
-    process_all_files(input_directory, attribute)
+    process_all_files(input_directory, attribute, split)
 
-    logging.info("Quote fixing processing completed.")
+    logging.info(f"Quote fixing processing completed for split '{split}'.")
 
 # ===========================
 # Script 4: Evaluation
 # ===========================
 
-def run_evaluation():
+def run_evaluation(split):
+    """
+    Evaluate the specified split using Hits@k and MRR metrics.
+
+    Parameters:
+    - split (str): The split identifier (e.g., '2nd', '3rd', '4th').
+    """
     import os
     import pandas as pd
     import json
@@ -607,11 +634,17 @@ def run_evaluation():
                 reciprocal_ranks.append(0.0)
         return np.mean(reciprocal_ranks) if reciprocal_ranks else 0.0
 
-    def evaluate_attribute(input_file, output_dir, attribute):
+    def evaluate_attribute(input_file, output_dir, attribute, split):
         """
         Evaluate the specified attribute using Hits@k and MRR metrics.
+
+        Parameters:
+        - input_file (str): Path to the input CSV file.
+        - output_dir (str): Directory to save evaluation results.
+        - attribute (str): The attribute being evaluated.
+        - split (str): The split identifier (e.g., '2nd', '3rd', '4th').
         """
-        logging.info(f"Starting evaluation for attribute: {attribute}")
+        logging.info(f"Starting evaluation for attribute: {attribute} and split '{split}'")
 
         try:
             restored_df = pd.read_csv(input_file)
@@ -672,8 +705,8 @@ def run_evaluation():
         os.makedirs(output_dir, exist_ok=True)
 
         # Save results
-        hitsatk_output_path = os.path.join(output_dir, f'hits@k_{attribute}_evaluation.csv')
-        mrr_output_path = os.path.join(output_dir, f'mrr_{attribute}_evaluation.csv')
+        hitsatk_output_path = os.path.join(output_dir, f'hits@k_evaluation_{attribute}_{split}.csv')
+        mrr_output_path = os.path.join(output_dir, f'mrr_evaluation_{attribute}_{split}.csv')
 
         try:
             hits_at_k_df.to_csv(hitsatk_output_path, index=False)
@@ -685,13 +718,15 @@ def run_evaluation():
 
     # Usage
     path = 'llm_ft_results'
-    file_name = "llm_results_ft_4o_0.8_doi_name_0_1st.csv"
+    file_name = f"llm_results_ft_4o_0.8_doi_name_0_{split}.csv"
     name_csv_path = os.path.join(path, file_name)
     output_dir = 'ft_evaluation_results'
     attribute = 'name'
 
-    # Evaluate the attribute
-    evaluate_attribute(name_csv_path, output_dir, attribute)
+    # Evaluate the attribute for the specific split
+    evaluate_attribute(name_csv_path, output_dir, attribute, split)
+
+    logging.info(f"Evaluation processing completed for split '{split}'.")
 
 # ===========================
 # Main Execution
@@ -699,26 +734,33 @@ def run_evaluation():
 
 def main():
     """
-    Orchestrates the execution of the four scripts in the correct order.
+    Orchestrates the execution of the four scripts in the correct order for each split.
     """
-    print("Starting Script 1: GPT Processing...")
-    # Set `test_mode=True` and `test_size=20` for testing
-    run_gpt_processing(test_mode=False)
-    print("\nScript 1 Completed.\n")
+    for split in splits:
+        print("===============================")
+        print(f"Starting processing for split: {split}")
+        print("===============================")
 
-    print("Starting Script 2: Similarity Search...")
-    run_similarity_search()
-    print("\nScript 2 Completed.\n")
+        print("Starting Script 1: GPT Processing...")
+        # Set `test_mode=True` and `test_size=20` for testing if needed
+        run_gpt_processing(split=split, test_mode=False)
+        print("\nScript 1 Completed.\n")
 
-    print("Starting Script 3: Fix Quotes...")
-    run_fix_quotes()
-    print("\nScript 3 Completed.\n")
+        print("Starting Script 2: Similarity Search...")
+        run_similarity_search(split=split)
+        print("\nScript 2 Completed.\n")
 
-    print("Starting Script 4: Evaluation...")
-    run_evaluation()
-    print("\nScript 4 Completed.\n")
+        #print("Starting Script 3: Fix Quotes...")
+        #run_fix_quotes(split=split)
+        #print("\nScript 3 Completed.\n")
 
-    print("All scripts have been executed successfully.")
+        print("Starting Script 4: Evaluation...")
+        run_evaluation(split=split)
+        print("\nScript 4 Completed.\n")
+
+        print(f"Completed processing for split: {split}\n")
+
+    print("All scripts have been executed successfully for all splits.")
 
 if __name__ == "__main__":
     main()

@@ -118,7 +118,7 @@ def run_gpt_processing(test_mode=False, test_size=20):
     logging.info(f"Processing attribute: {attribute}")
 
     # Define the specific fine-tuned model name for 'name' attribute
-    model_name = 'ft:gpt-4o-2024-08-06:eccenca-gmbh:ballena-name-0-1st-train-only:AFMpNyLv'
+    model_name = 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-name-0-1st:AItbMK9c'
 
     # Define the test split file path for iteration 0 and 1st split
     test_split_filename = f'test_doi_{attribute}_0_1st.csv'
@@ -168,7 +168,7 @@ def run_gpt_processing(test_mode=False, test_size=20):
     # Open the output file in write mode and write header
     try:
         with open(output_path, 'w', newline='', encoding='utf-8') as output_f:
-            output_writer = csv.writer(output_f, quoting=csv.QUOTE_MINIMAL)
+            output_writer = csv.writer(output_f, quoting=csv.QUOTE_ALL)
             output_writer.writerow(['true', 'restored', 'edge_type'])  # Write header
             logging.info(f"Created output file with header: {output_filename}")
 
@@ -192,18 +192,19 @@ def run_gpt_processing(test_mode=False, test_size=20):
                     restored_values_list = [item.get(info['json_key'], '') for item in restored_data]
                     # Ensure all extracted values are non-empty strings
                     restored_values_list = [str(value) for value in restored_values_list if value]
-                    # Convert list to string representation with single quotes
-                    restored_values_str = "[" + ", ".join(f"'{value}'" for value in restored_values_list) + "]"
                 except json.JSONDecodeError:
                     logging.error(f"JSON decoding failed for DOI {doi}. Raw response: {assistant_reply}")
-                    restored_values_str = "[]"
+                    restored_values_list = []
                 except Exception as e:
                     logging.error(f"Unexpected error for DOI {doi}: {e}")
-                    restored_values_str = "[]"
+                    restored_values_list = []
 
-                # Assemble the data into the desired format
-                true_entry = f"['{doi}', '{true_value}']"
-                restored_entry = f"['{doi}', {restored_values_str}]"
+                # Convert list to string representation with single quotes
+                restored_values_str = json.dumps(restored_values_list)
+
+                # Assemble the data into the desired format using JSON dumps
+                true_entry = json.dumps([doi, true_value])
+                restored_entry = json.dumps([doi, restored_values_list])
 
                 true_values.append(true_entry)
                 restored_values.append(restored_entry)
@@ -297,28 +298,29 @@ def run_similarity_search():
         - faiss_index (FAISS): The FAISS index object.
         - attribute (str): The attribute being processed.
         - top_k (int): Number of top similar documents to retrieve.
+        - line_num (int): Line number in the CSV for logging purposes.
 
         Returns:
         - dict: The updated row.
         """
         try:
             restored_str = clean_restored_field(row['restored'])
-            restored = ast.literal_eval(restored_str)
+            restored = json.loads(restored_str)
             # Check if 'restored' has the expected structure
             if isinstance(restored, list) and len(restored) == 2 and isinstance(restored[1], list):
                 # Convert all predicted values to strings
                 restored[1] = [str(item) for item in restored[1]]
-                # Create a query by joining the predicted values
+                # Create a query by joining the predicted values without quotes
                 query = ' '.join(restored[1])
                 # Perform similarity search
                 docs_with_score = similarity_search(faiss_index, query, top_k)
                 if docs_with_score:
-                    # Extract the most similar entries
-                    similar_entries = [doc.page_content for doc, _ in docs_with_score]
+                    # Extract the most similar entries and wrap them in double quotes
+                    similar_entries = [f'"{doc.page_content}"' for doc, _ in docs_with_score]
                     # Update the 'restored' field with similar entries
                     new_restored_value = [restored[0], similar_entries]
                     old_value = row['restored']
-                    row['restored'] = str(new_restored_value)
+                    row['restored'] = json.dumps(new_restored_value)
                     logging.info(f"Line {line_num}: Updated 'restored' from {old_value} to {new_restored_value} for DOI {row['true']}")
             else:
                 logging.warning(f"Line {line_num}: Unexpected 'restored' format in row: {row}")
@@ -411,6 +413,7 @@ def run_fix_quotes():
     from glob import glob
     from tqdm import tqdm
     import logging
+    import json
 
     def fix_quotes(s):
         """
@@ -424,33 +427,33 @@ def run_fix_quotes():
         """
         try:
             # Attempt to parse the cell as a Python list
-            parsed = ast.literal_eval(cell)
+            parsed = json.loads(cell)
             if isinstance(parsed, list):
-                # Ensure all elements are strings
+                # Ensure all elements are strings and properly quoted
                 fixed = [str(item) for item in parsed]
-                return str(fixed)
+                return json.dumps(fixed)
             else:
                 # If not a list, treat it as a single string
-                return f'["{str(parsed)}"]'
-        except (ValueError, SyntaxError):
-            # If parsing fails, attempt to fix quotes and reformat
-            fixed_str = fix_quotes(cell)
-            # Remove any leading/trailing whitespace and ensure it starts and ends with brackets
-            fixed_str = fixed_str.strip()
-            if not (fixed_str.startswith('[') and fixed_str.endswith(']')):
-                fixed_str = f"[{fixed_str}]"
-            # Split by comma, assuming the first comma separates DOI and name
+                return json.dumps([str(parsed)])
+        except json.JSONDecodeError:
             try:
+                # If JSON parsing fails, attempt to fix quotes and reformat
+                fixed_str = fix_quotes(cell)
+                # Remove any leading/trailing whitespace and ensure it starts and ends with brackets
+                fixed_str = fixed_str.strip()
+                if not (fixed_str.startswith('[') and fixed_str.endswith(']')):
+                    fixed_str = f"[{fixed_str}]"
+                # Split by comma, assuming the first comma separates DOI and name
                 content = fixed_str[1:-1]
                 doi, name = content.split(',', 1)
                 doi = doi.strip().strip('"')
                 name = name.strip().strip('"')
                 # Escape any existing double quotes in the name
                 name = name.replace('"', '\\"')
-                return f'["{doi}", "{name}"]'
+                return json.dumps([doi, name])
             except Exception as e:
                 logging.error(f"Line {line_num}: Failed to process cell '{cell}': {e}")
-                return cell  # Return the original cell if all else fails
+                return json.dumps(cell)  # Return the original cell as a JSON string if all else fails
 
     def process_csv(input_file, output_file):
         """
@@ -470,12 +473,12 @@ def run_fix_quotes():
                         writer.writerow(row)
                         continue
 
-                    try:
-                        true_col, restored_col, edge_type = row
-                    except ValueError:
+                    if len(row) != 3:
                         logging.warning(f"Line {line_num}: Unexpected number of columns: {row}")
                         writer.writerow(row)
                         continue
+
+                    true_col, restored_col, edge_type = row
 
                     # Process 'true' and 'restored' columns
                     true_col_fixed = process_true_restored_field(true_col, line_num)
@@ -532,65 +535,77 @@ def run_fix_quotes():
 # ===========================
 
 def run_evaluation():
-    import pandas as pd
-    import numpy as np
-    import ast
-    import re
     import os
+    import pandas as pd
+    import json
+    import csv
     from tqdm import tqdm
     import logging
+    import numpy as np
+
+    # Set up logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
     def parse_list(s):
         """
         Parse a string representation of a list into an actual Python list.
+        Handles escaped quotes within the list items.
         """
         try:
-            return ast.literal_eval(s)
-        except (ValueError, SyntaxError):
-            # Attempt to fix common formatting issues
-            s = s.strip()
-            if not (s.startswith('[') and s.endswith(']')):
-                s = f"[{s}]"
+            # Load the string as JSON
+            return json.loads(s)
+        except json.JSONDecodeError:
             try:
-                return ast.literal_eval(s)
-            except:
-                # As a last resort, split by comma
-                return [item.strip().strip('"') for item in s.strip('[]').split(',')]
+                # Replace escaped double quotes with actual double quotes
+                s = s.replace('\\"', '"')
+                return json.loads(s)
+            except json.JSONDecodeError as e:
+                logging.error(f"JSON decoding failed for string: {s}. Error: {e}")
+                return []
+        except Exception as e:
+            logging.error(f"Unexpected error while parsing string: {s}. Error: {e}")
+            return []
 
-    def hits_at(k, true, list_pred):
+    def clean_predicted(pred_list):
+        """
+        Remove extra quotes from each predicted compound name.
+        """
+        if not isinstance(pred_list, list):
+            return []
+        cleaned = []
+        for item in pred_list:
+            if isinstance(item, str):
+                # Remove leading and trailing quotes if present
+                if item.startswith('"') and item.endswith('"'):
+                    item = item[1:-1]
+                cleaned.append(item)
+            else:
+                # If the item is not a string, skip it
+                continue
+        return cleaned
+
+    def hits_at_k(k, true_values, predicted_values):
         """
         Calculate the Hits@k metric.
         """
-        hits = []
-        for t, p in zip(true, list_pred):
-            if isinstance(p, list) and len(p) >= 2:
-                pred_list = p[1]
-                if isinstance(pred_list, str):
-                    pred_list = parse_list(pred_list)
-                hit = int(t[1] in pred_list[:k])
-            else:
-                hit = 0
-            hits.append(hit)
-        return np.mean(hits)
+        hits = 0
+        for true, preds in zip(true_values, predicted_values):
+            if true in preds[:k]:
+                hits += 1
+        return hits / len(true_values) if true_values else 0.0
 
-    def mrr(true, list_pred):
+    def mean_reciprocal_rank(true_values, predicted_values):
         """
         Calculate the Mean Reciprocal Rank (MRR) metric.
         """
-        rrs = []
-        for t, p in zip(true, list_pred):
-            if isinstance(p, list) and len(p) >= 2:
-                pred_list = p[1]
-                if isinstance(pred_list, str):
-                    pred_list = parse_list(pred_list)
-                try:
-                    rank = pred_list.index(t[1]) + 1
-                    rrs.append(1 / rank)
-                except ValueError:
-                    rrs.append(0)
-            else:
-                rrs.append(0)
-        return np.mean(rrs)
+        reciprocal_ranks = []
+        for true, preds in zip(true_values, predicted_values):
+            try:
+                rank = preds.index(true) + 1
+                reciprocal_ranks.append(1 / rank)
+            except ValueError:
+                reciprocal_ranks.append(0.0)
+        return np.mean(reciprocal_ranks) if reciprocal_ranks else 0.0
 
     def evaluate_attribute(input_file, output_dir, attribute):
         """
@@ -617,37 +632,41 @@ def run_evaluation():
         restored_df['true'] = restored_df['true'].apply(parse_list)
         restored_df['restored'] = restored_df['restored'].apply(parse_list)
 
-        # Extract lists
-        true_values = restored_df['true'].to_list()  # List of tuples: [(doi, true_value), ...]
-        predicted_values = restored_df['restored'].to_list()  # List of lists: [[doi, [pred1, pred2, ...]], ...]
+        # Extract true and predicted compound names
+        true_values = []
+        predicted_values = []
 
-        # Evaluation parameters
-        k_at = [50]  # You can adjust or extend these values
+        for idx, row in restored_df.iterrows():
+            # Parse 'true' field
+            if isinstance(row['true'], list) and len(row['true']) == 2:
+                doi_true, true_val = row['true']
+                true_values.append(true_val)
+            else:
+                logging.warning(f"Row {idx} has an unexpected format in 'true' column: {row['true']}")
+                true_values.append("")
 
-        # Initialize metrics storage
-        hitsatk_records = []
-        mrr_records = []
+            # Parse 'restored' field
+            if isinstance(row['restored'], list) and len(row['restored']) == 2:
+                doi_restored, preds = row['restored']
+                cleaned_preds = clean_predicted(preds)
+                predicted_values.append(cleaned_preds)
+            else:
+                logging.warning(f"Row {idx} has an unexpected format in 'restored' column: {row['restored']}")
+                predicted_values.append([])
 
-        # Calculate metrics
-        for k in k_at:
-            mean_hits = hits_at(k, true_values, predicted_values)
-            hitsatk_records.append({
-                'k': k,
-                'metric': 'hits@k',
-                'value': mean_hits
-            })
-            logging.info(f"Hits@{k}: {mean_hits}")
+        # Define evaluation parameters
+        k = 50  # As per your script
 
-        mean_mrr = mrr(true_values, predicted_values)
-        mrr_records.append({
-            'metric': 'mrr',
-            'value': mean_mrr
-        })
-        logging.info(f"MRR: {mean_mrr}")
+        # Calculate Hits@k and MRR
+        hits_at_k_score = hits_at_k(k, true_values, predicted_values)
+        mrr_score = mean_reciprocal_rank(true_values, predicted_values)
 
-        # Convert to DataFrames
-        hitsatk_df = pd.DataFrame(hitsatk_records)
-        mrr_df = pd.DataFrame(mrr_records)
+        logging.info(f"Hits@{k}: {hits_at_k_score}")
+        logging.info(f"MRR: {mrr_score}")
+
+        # Prepare results DataFrames
+        hits_at_k_df = pd.DataFrame([{'k': k, 'metric': 'Hits@k', 'value': hits_at_k_score}])
+        mrr_df = pd.DataFrame([{'metric': 'MRR', 'value': mrr_score}])
 
         # Ensure output directory exists
         os.makedirs(output_dir, exist_ok=True)
@@ -657,7 +676,7 @@ def run_evaluation():
         mrr_output_path = os.path.join(output_dir, f'mrr_{attribute}_evaluation.csv')
 
         try:
-            hitsatk_df.to_csv(hitsatk_output_path, index=False)
+            hits_at_k_df.to_csv(hitsatk_output_path, index=False)
             mrr_df.to_csv(mrr_output_path, index=False)
             logging.info(f"Hits@k results saved to {hitsatk_output_path}")
             logging.info(f"MRR results saved to {mrr_output_path}")

@@ -90,7 +90,7 @@ attributes_info = {
             "[{\"isolationType\": \"Example Isolation Type 1\"}, {\"isolationType\": \"Example Isolation Type 2\"}]. "
             "If the isolation types are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'PLACEHOLDER_MODEL_NAME'  
+        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectiontype-0-1st:AJFuGxl5'  
     }
 }
 
@@ -575,7 +575,7 @@ def run_gpt_processing(test_mode=False, test_size=20):
         logging.debug("Extracted DOIs from filenames.")
 
         # Define the list of splits to process
-        splits = ['2nd', '3rd', '4th']  # Add or remove splits as needed
+        splits = ['1st']  # Add or remove splits as needed
 
         for split in splits:
             logging.info(f"Starting processing for split: {split}")

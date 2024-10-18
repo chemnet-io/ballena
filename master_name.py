@@ -34,7 +34,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # ===========================
 
 # Define the list of splits to process
-splits = ['2nd', '3rd', '4th']  # Add or remove splits as needed
+splits = ['3rd']  # Add or remove splits as needed
 
 # ===========================
 # Script 1: GPT Processing
@@ -45,7 +45,7 @@ def run_gpt_processing(split, test_mode=False, test_size=20):
     Processes extracted text data to extract compound names using a fine-tuned GPT model.
 
     Parameters:
-    - split (str): The split identifier (e.g., '2nd', '3rd', '4th').
+    - split (str): The split identifier (e.g., '1st', '2nd', '3rd', '4th').
     - test_mode (bool): If True, processes only the first `test_size` entries.
     - test_size (int): Number of entries to process in test mode.
     """

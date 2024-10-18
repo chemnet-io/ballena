@@ -1,168 +1,22 @@
-Results from mrr_evaluation_collectionSite_2nd.csv:
-attribute,split,value
-collectionSite,2nd,0.6824836016696482
-
-Results from hits@k_evaluation_collectionSite_4th.csv:
-attribute,split,k,value
-collectionSite,4th,20,0.9230769230769231
-
-Results from hits@k_evaluation_collectionSite_2nd.csv:
-attribute,split,k,value
-collectionSite,2nd,20,0.7674418604651163
-
-Results from hits@k_evaluation_collectionSpecie_3rd.csv:
-attribute,split,k,value
-collectionSpecie,3rd,50,0.9444444444444444
-
-Results from mrr_evaluation_bioActivity_1st.csv:
-attribute,split,value
-bioActivity,1st,0.590625
-
-Results from mrr_evaluation_collectionSite_4th.csv:
-attribute,split,value
-collectionSite,4th,0.8185897435897436
-
-Results from mrr_evaluation_bioActivity_3rd.csv:
-attribute,split,value
-bioActivity,3rd,0.611904761904762
-
-Results from hits@k_evaluation_collectionSpecie_1st.csv:
-attribute,split,k,value
-collectionSpecie,1st,50,0.9435483870967742
-
-Results from mrr_name_evaluation.csv:
-metric,value
-MRR,0.28720190289081027
-
-Results from mrr_evaluation_collectionSpecie_1st.csv:
-attribute,split,value
-collectionSpecie,1st,0.8341785277199626
-
-Results from mrr_evaluation_collectionSpecie_3rd.csv:
-attribute,split,value
-collectionSpecie,3rd,0.8868641368641369
-
-Results from mrr_evaluation_collectionType_2nd.csv:
-attribute,split,value
-collectionType,2nd,0.9156626506024096
-
-Results from hits@k_evaluation_bioActivity_1st.csv:
-attribute,split,k,value
-bioActivity,1st,5,0.675
-
-Results from hits@k_name_evaluation.csv:
-k,metric,value
-50,Hits@k,0.603399433427762
-
-Results from hits@k_evaluation_collectionType_4th.csv:
-attribute,split,k,value
-collectionType,4th,1,0.9629629629629629
-
-Results from hits@k_evaluation_bioActivity_3rd.csv:
-attribute,split,k,value
-bioActivity,3rd,5,0.6714285714285714
-
-Results from hits@k_evaluation_collectionType_2nd.csv:
-attribute,split,k,value
-collectionType,2nd,1,0.9156626506024096
-
-Results from mrr_evaluation_name_3rd.csv:
-metric,value
-MRR,0.37087869238604537
-
-Results from hits@k_evaluation_name_1st.csv:
-k,metric,value
-50,Hits@k,0.603399433427762
-
-Results from mrr_evaluation_collectionType_4th.csv:
-attribute,split,value
-collectionType,4th,0.9629629629629629
-
-Results from mrr_evaluation_name_1st.csv:
-metric,value
-MRR,0.28720190289081027
-
-Results from hits@k_evaluation_name_3rd.csv:
-k,metric,value
-50,Hits@k,0.6018518518518519
-
-Results from hits@k_evaluation_name_2nd.csv:
-k,metric,value
-50,Hits@k,0.5851063829787234
-
-Results from hits@k_evaluation_collectionType_1st.csv:
-attribute,split,k,value
-collectionType,1st,1,0.9224137931034483
-
-Results from hits@k_evaluation_collectionType_3rd.csv:
-attribute,split,k,value
-collectionType,3rd,1,0.9285714285714286
-
-Results from hits@k_evaluation_bioActivity_4th.csv:
-attribute,split,k,value
-bioActivity,4th,5,0.7272727272727273
-
-Results from mrr_evaluation_name_2nd.csv:
-metric,value
-MRR,0.3288744368508431
-
-Results from mrr_evaluation_collectionSpecie_4th.csv:
-attribute,split,value
-collectionSpecie,4th,0.8714927048260382
-
-Results from mrr_evaluation_collectionSpecie_2nd.csv:
-attribute,split,value
-collectionSpecie,2nd,0.8770880354213687
-
-Results from hits@k_evaluation_bioActivity_2nd.csv:
-attribute,split,k,value
-bioActivity,2nd,5,0.6886792452830188
-
-Results from mrr_evaluation_collectionType_1st.csv:
-attribute,split,value
-collectionType,1st,0.9224137931034483
-
-Results from mrr_evaluation_name_4th.csv:
-metric,value
-MRR,0.39565841135608576
-
-Results from mrr_evaluation_collectionType_3rd.csv:
-attribute,split,value
-collectionType,3rd,0.9285714285714286
-
-Results from hits@k_evaluation_name_4th.csv:
-k,metric,value
-50,Hits@k,0.627906976744186
-
-Results from mrr_evaluation_bioActivity_2nd.csv:
-attribute,split,value
-bioActivity,2nd,0.613993710691824
-
-Results from hits@k_evaluation_collectionSite_1st.csv:
-attribute,split,k,value
-collectionSite,1st,20,0.8181818181818182
-
-Results from hits@k_evaluation_collectionSite_3rd.csv:
-attribute,split,k,value
-collectionSite,3rd,20,0.8421052631578947
-
-Results from hits@k_evaluation_collectionSpecie_2nd.csv:
-attribute,split,k,value
-collectionSpecie,2nd,50,0.9629629629629629
-
-Results from hits@k_evaluation_collectionSpecie_4th.csv:
-attribute,split,k,value
-collectionSpecie,4th,50,0.9259259259259259
-
-Results from mrr_evaluation_collectionSite_1st.csv:
-attribute,split,value
-collectionSite,1st,0.6769112349326253
-
-Results from mrr_evaluation_collectionSite_3rd.csv:
-attribute,split,value
-collectionSite,3rd,0.7271929824561404
-
-Results from mrr_evaluation_bioActivity_4th.csv:
-attribute,split,value
-bioActivity,4th,0.6590909090909091
-
+| **Attribute**        | **Split** | **MRR**       | **Hits@k (k, Value)** |
+| -------------------- | --------- | ------------- | --------------------- |
+| **bioActivity**      | 1st       | 0.590625      | 5: 0.675              |
+|                      | 2nd       | 0.61399371    | 5: 0.68867925         |
+|                      | 3rd       | 0.61190476    | 5: 0.67142857         |
+|                      | 4th       | 0.65909091    | 5: 0.72727273         |
+| **collectionSpecie** | 1st       | 0.83417853    | 50: 0.94354839        |
+|                      | 2nd       | 0.87708804    | 50: 0.96296296        |
+|                      | 3rd       | 0.88686414    | 50: 0.94444444        |
+|                      | 4th       | 0.87149270    | 50: 0.92592593        |
+| **collectionType**   | 1st       | 0.92241379    | 1: 0.92241379         |
+|                      | 2nd       | 0.91566265    | 1: 0.91566265         |
+|                      | 3rd       | 0.92857143    | 1: 0.92857143         |
+|                      | 4th       | 0.96296296    | 1: 0.96296296         |
+| **collectionSite**   | 1st       | 0.67691123    | 20: 0.81818182        |
+|                      | 2nd       | 0.68248360    | 20: 0.76744186        |
+|                      | 3rd       | 0.72719298    | 20: 0.84210526        |
+|                      | 4th       | 0.81858974    | 20: 0.92307692        |
+| **name**             | 1st       | 0.28720190    | 50: 0.60339943        |
+|                      | 2nd       | 0.32887444    | 50: 0.58510638        |
+|                      | 3rd       | 0.37087869    | 50: 0.60185185        |
+|                      | 4th       | 0.39565841    | 50: 0.62790698        |

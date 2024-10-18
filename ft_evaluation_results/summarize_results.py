@@ -13,7 +13,7 @@ def summarize_results():
     csv_files = glob.glob('*.csv')
     
     # Prepare the output file
-    output_file = 'summary_results.txt'
+    output_file = 'summary_results_automatic.txt'
     
     with open(output_file, 'w') as outfile:
         for csv_file in csv_files:

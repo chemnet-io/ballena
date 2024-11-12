@@ -1,4 +1,5 @@
 {
     "python.analysis.typeCheckingMode": "basic",
-    "outline.showVariables": false
+    "outline.showVariables": false,
+    "liveServer.settings.port": 5501
 }

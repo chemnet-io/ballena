@@ -2,7 +2,8 @@
 /.env
 /.idea
 diagrams
-splits
+splits/*
+!splits/.gitkeep
 .ipynb_checkpoints
 .idea
 __pycache__

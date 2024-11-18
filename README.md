@@ -93,7 +93,7 @@ In this repository, you can find the code and data used in the creation and eval
 
 The project evaluated multiple approaches for attribute extraction from scientific documents. Below are the results for each method using specific hits@k values:
 
-### GPT-4 Turbo (without Fuzzy Matching)
+### GPT-4 Turbo
 
 | Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
 |---------------|--------|------------|------------|------------|------------|
@@ -101,16 +101,6 @@ The project evaluated multiple approaches for attribute extraction from scientif
 | BioActivity (B) | 5 | **0.0063** | 0.0000 | 0.0000 | 0.0000 |
 | Species (S) | 50 | 0.3468 | 0.4198 | **0.4630** | 0.3704 |
 | Location (L) | 20 | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
-| Type (T) | 1 | 0.0172 | 0.0120 | 0.0179 | **0.0370** |
-
-### GPT-4 Turbo (with Fuzzy Matching)
-
-| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
-|---------------|--------|------------|------------|------------|------------|
-| Name (C) | 50 | **0.2493** | 0.2469 | 0.2216 | 0.1892 |
-| BioActivity (B) | 5 | 0.4063 | **0.4434** | 0.4000 | 0.3636 |
-| Species (S) | 50 | 0.3468 | 0.4198 | **0.4630** | 0.3704 |
-| Location (L) | 20 | 0.1653 | 0.1628 | **0.1754** | 0.1538 |
 | Type (T) | 1 | 0.0172 | 0.0120 | 0.0179 | **0.0370** |
 
 ### GPT-4 Turbo + Similarity Search

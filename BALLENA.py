@@ -45,8 +45,10 @@ if not openai.api_key:
 
 # Define directory paths
 splits_dir = 'splits'
-extracted_text_path = os.path.join('pypdfextraction', 'extracted_text.parquet')
-output_dir = 'extraction_results/Nougat_FT'
+extracted_text_path = os.path.join('pdf_extractions', 'nougat_OCR', 'nougat.parquet')
+# output_dir = 'extraction_results/Nougat_FT'
+output_dir = 'extraction_results/Nougat_SS'
+# output_dir = 'extraction_results/Nougat'
 os.makedirs(output_dir, exist_ok=True)
 
 # Define similarity search parameters
@@ -68,7 +70,8 @@ attributes_info = {
             "[{\"collectionSite\": \"Example Collection Site 1\"}, {\"collectionSite\": \"Example Collection Site 2\"}]. "
             "If the collection sites are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectionsite-0-1st:AH9eAwCH'
+        # 'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectionsite-0-1st:AH9eAwCH'
+        'model_name': 'gpt-4o-2024-08-06'
     },
     'bioActivity': {
         'json_key': 'bioActivity',
@@ -79,7 +82,8 @@ attributes_info = {
             "[{\"bioActivity\": \"Example BioActivity 1\"}, {\"bioActivity\": \"Example BioActivity 2\"}]. "
             "If the bioActivities are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-bioactivity-0-1st:AIAzKPtL'
+        # 'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-bioactivity-0-1st:AIAzKPtL'
+        'model_name': 'gpt-4o-2024-08-06'
     },
     'collectionSpecie': {
         'json_key': 'species',
@@ -90,7 +94,8 @@ attributes_info = {
             "[{\"species\": \"Example Species 1\"}, {\"species\": \"Example Species 2\"}]. "
             "If the species are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectionspecie-0-1st:AIXK9y99'
+        # 'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectionspecie-0-1st:AIXK9y99'
+        'model_name': 'gpt-4o-2024-08-06'
     },
     'collectionType': {
         'json_key': 'isolationType',
@@ -101,7 +106,8 @@ attributes_info = {
             "[{\"isolationType\": \"Example Isolation Type 1\"}, {\"isolationType\": \"Example Isolation Type 2\"}]. "
             "If the isolation types are not specified, leave it empty like \"\"."
         ),
-        'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectiontype-0-1st:AJFuGxl5'  
+        # 'model_name': 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-collectiontype-0-1st:AJFuGxl5'
+        'model_name': 'gpt-4o-2024-08-06'
     }
 }
 
@@ -139,7 +145,7 @@ def load_faiss_index(attribute, embeddings, index_directory='faiss_index'):
     index_path = os.path.join(index_directory, f'unique_{attribute}.txt.index')
     if not os.path.exists(index_path):
         raise FileNotFoundError(f"FAISS index file for attribute '{attribute}' not found at {index_path}.")
-    return FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
+    return FAISS.load_local(index_path, embeddings)
 
 def similarity_search(faiss_index, query, top_k):
     """
@@ -367,7 +373,7 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
     - split (str): The current split identifier (e.g., '1st', '2nd').
     """
     logging.debug("Starting extract_gpt_data function.")
-    processed_attributes = []
+    processed_attributes, skipped_attributes = [], []
 
     for attribute, info in attributes_info.items():
         output_filename = f'llm_results_ft_4o_0.8_doi_{attribute}_0_{split}.csv'  # Updated filename
@@ -376,6 +382,7 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
         # Check if the output file already exists
         if os.path.exists(output_path):
             logging.info(f"Output file {output_filename} already exists. Skipping attribute: {attribute}")
+            skipped_attributes.append(attribute)
             continue
 
         logging.info(f"Processing attribute: {attribute} for split: {split}")
@@ -437,6 +444,9 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
 
             # Parse the assistant's reply
             try:
+                # Clean reply of any code blocking
+                assistant_reply = re.sub('```json', '', assistant_reply) # type: ignore
+                assistant_reply = re.sub('```', '', assistant_reply)
                 restored_data = json.loads(assistant_reply)
                 # Extract the values for the attribute
                 restored_values_list = [item.get(info['json_key'], '') for item in restored_data]
@@ -475,7 +485,7 @@ def extract_gpt_data(attributes_info, attributes_k, extracted_text_df, output_di
             logging.error(f"Error writing to {output_path}: {e}")
 
     logging.debug("extract_gpt_data function completed.")
-    return processed_attributes  # Return the list of processed attributes
+    return processed_attributes, skipped_attributes  # Return the list of processed attributes
 
 def update_restored_with_similarity_search(attributes_info, attributes_k, output_dir='extraction_results/Nougat_FT', processed_attributes=None, splits=['1st']):
     """
@@ -592,7 +602,7 @@ def main(test_mode=False, test_size=20):
             logging.info(f"Starting processing for split: {split}")
 
             # Step 1: GPT Extraction
-            processed_attributes = extract_gpt_data(
+            processed_attributes, skipped_attributes = extract_gpt_data(
                 attributes_info,
                 attributes_k,
                 extracted_text_df,
@@ -607,7 +617,8 @@ def main(test_mode=False, test_size=20):
                 attributes_info,
                 attributes_k,
                 output_dir=output_dir,
-                processed_attributes=processed_attributes,
+                # processed_attributes=processed_attributes,
+                processed_attributes=skipped_attributes, # force similarity search on skipped
                 splits=[split]  # Process only the current split
             )
 
@@ -615,7 +626,7 @@ def main(test_mode=False, test_size=20):
             evaluate_all_attributes(
                 attributes_info,
                 output_dir=output_dir,
-                evaluation_output_dir='evaluation_results/Nougat_ft_evaluation_results',
+                evaluation_output_dir='evaluation_results/Nougat_ss_evaluation_results',
                 splits=[split]  # Evaluate only the current split
             )
 
@@ -628,7 +639,7 @@ def main(test_mode=False, test_size=20):
 if __name__ == "__main__":
     # Example usage:
     # To run in test mode with 20 entries per attribute
-    # main(test_mode=True, test_size=20)
+    # main(test_mode=True, test_size=2)
 
     # To run normally (process all data)
     main(test_mode=False)

@@ -45,7 +45,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # ===========================
 
 # Define the list of splits to process
-splits = ['3rd']  # Add or remove splits as needed
+splits = ['1st', '2nd', '3rd', '4th']  # Add or remove splits as needed
 
 # ===========================
 # Script 1: GPT Processing
@@ -65,8 +65,11 @@ def run_gpt_processing(split, test_mode=False, test_size=20):
 
     # Define the directory paths
     splits_dir = 'splits'
-    extracted_text_path = os.path.join('pypdfextraction', 'extracted_text.parquet')
-    output_dir = 'extraction_results/PyMuPDF_FT'
+    extracted_text_path = os.path.join('pdf_extractions', 'nougat_OCR', 'nougat.parquet')
+    # output_dir = 'extraction_results/PyMuPDF_FT'
+    # output_dir = 'extraction_results/Nougat_FT'
+    output_dir = 'extraction_results/Nougat_SS'
+    # output_dir = 'extraction_results/Nougat'
 
     # Ensure the output directory exists
     os.makedirs(output_dir, exist_ok=True)
@@ -137,7 +140,8 @@ def run_gpt_processing(split, test_mode=False, test_size=20):
     logging.info(f"Processing attribute: {attribute}")
 
     # Define the specific fine-tuned model name for 'name' attribute
-    model_name = 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-name-0-1st:AItbMK9c'
+    # model_name = 'ft:gpt-4o-2024-08-06:chemnet:ballena-nougat-name-0-1st:AItbMK9c'
+    model_name = 'gpt-4o-2024-08-06'
 
     # Define the test split file path based on the current split
     test_split_filename = f'test_doi_{attribute}_0_{split}.csv'
@@ -206,6 +210,9 @@ def run_gpt_processing(split, test_mode=False, test_size=20):
 
                 # Parse the assistant's reply
                 try:
+                    # Clean reply of any code blocking
+                    assistant_reply = re.sub('```json', '', assistant_reply) # type: ignore
+                    assistant_reply = re.sub('```', '', assistant_reply)
                     restored_data = json.loads(assistant_reply)
                     # Extract the values for the attribute
                     restored_values_list = [item.get(info['json_key'], '') for item in restored_data]
@@ -278,7 +285,7 @@ def run_similarity_search(split):
         index_path = os.path.join(index_directory, f'unique_{attribute}.txt.index')
         if not os.path.exists(index_path):
             raise FileNotFoundError(f"FAISS index file for attribute '{attribute}' not found at {index_path}.")
-        return FAISS.load_local(index_path, embeddings, allow_dangerous_deserialization=True)
+        return FAISS.load_local(index_path, embeddings)
 
     def similarity_search(faiss_index, query, top_k):
         """
@@ -414,7 +421,9 @@ def run_similarity_search(split):
             update_restored_with_similarity_search(file_path, attribute, top_k)
 
     # Process only the 'name' attribute with top_k=50
-    directory = 'extraction_results/Nougat_FT'
+    # directory = 'extraction_results/Nougat_FT'
+    directory = 'extraction_results/Nougat_SS'
+    # directory = 'extraction_results/Nougat'
     attributes_and_k = {
         'name': 50,
     }
@@ -555,7 +564,9 @@ def run_fix_quotes(split):
                 logging.error(f"Fixed file {output_file} is empty. Original file {file_path} remains unchanged.")
 
     # Usage
-    input_directory = 'extraction_results/Nougat_FT'  # Directory containing the original 'name' CSV files
+    # input_directory = 'extraction_results/Nougat_FT'  # Directory containing the original 'name' CSV files
+    input_directory = 'extraction_results/Nougat_SS'
+    # input_directory = 'extraction_results/Nougat'
     attribute = 'name'
     process_all_files(input_directory, attribute, split)
 
@@ -727,10 +738,12 @@ def run_evaluation(split):
             logging.error(f"Failed to save evaluation results: {e}")
 
     # Usage
-    path = 'extraction_results/Nougat_FT'
+    # path = 'extraction_results/Nougat_FT'
+    path = 'extraction_results/Nougat_SS'
+    # path = 'extraction_results/Nougat'
     file_name = f"llm_results_ft_4o_0.8_doi_name_0_{split}.csv"
     name_csv_path = os.path.join(path, file_name)
-    output_dir = 'evaluation_results/Nougat_ft_evaluation_results'
+    output_dir = 'evaluation_results/Nougat_ss_evaluation_results'
     attribute = 'name'
 
     # Evaluate the attribute for the specific split
@@ -760,9 +773,9 @@ def main():
         run_similarity_search(split=split)
         print("\nScript 2 Completed.\n")
 
-        #print("Starting Script 3: Fix Quotes...")
-        #run_fix_quotes(split=split)
-        #print("\nScript 3 Completed.\n")
+        # print("Starting Script 3: Fix Quotes...")
+        # run_fix_quotes(split=split)
+        # print("\nScript 3 Completed.\n")
 
         print("Starting Script 4: Evaluation...")
         run_evaluation(split=split)

@@ -11,10 +11,11 @@ unique_dict = {'bioActivity': [], 'collectionSite': [], 'collectionSpecie': [], 
 for key in unique_dict.keys():
     unique_dict[key] = df[key].unique().tolist()
 
-models = ['sentence-transformers/all-MiniLM-L6-v2',
+models = [
+            'sentence-transformers/all-MiniLM-L6-v2',
             'Qwen/Qwen3-Embedding-0.6B',
             'BAAI/bge-m3',
-            'Qwen/Qwen3-Embedding-8B',
+            'Qwen/Qwen3-Embedding-4B',
             'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',
         ]
 

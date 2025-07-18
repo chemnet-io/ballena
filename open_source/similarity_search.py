@@ -1,22 +1,70 @@
 import ast
+import json
 
-tasks = ['bioActivity', 'collectionSite', 'collectionSpecie', 'collectionType', 'name']
-evaluation_stages = ['1st', '2nd', '3rd', '4th']
-model_types = ['pre-trained', 'finetuning']
+from sklearn.neighbors import NearestNeighbors
+from sentence_transformers import SentenceTransformer
+from tqdm import tqdm
 
-# tasks = ['bioActivity']
-# evaluation_stages = ['1st']
-# model_types = ['pre-trained']
+with open("index.json", "r") as file:
+    index_dict = json.load(file)
 
-model_pred = {'model': [], 'pred_list': []}
-for model_type in model_types:
+# tasks = ['bioActivity', 'collectionSite', 'collectionSpecie', 'collectionType']
+# evaluation_stages = ['1st', '2nd', '3rd', '4th']
+# model_types = ['pre-trained', 'finetuning']
+model_names = ['qwen14b: ', 'llama8b: ', 'phi14b: ']
+embedding_models = [
+            'sentence-transformers/all-MiniLM-L6-v2',
+            'Qwen/Qwen3-Embedding-0.6B',
+            'BAAI/bge-m3',
+            'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',
+            'intfloat/multilingual-e5-large'
+        ]
+
+tasks = ['bioActivity']
+evaluation_stages = ['1st']
+model_types = ['pre-trained']
+
+def get_knn_data(index_dict, task, embedding_model):
+    item_list, vector_list = [], []
+    for item_vector_dict in index_dict[task][embedding_model]:
+        item_list.append(item_vector_dict["item"])
+        vector_list.append(item_vector_dict["embedding"])
+
+    return item_list, vector_list
+
+def run_one_nn(vector_pred, item_list, vector_list):
+    knn = NearestNeighbors(n_neighbors=1, metric='cosine')
+    knn.fit(vector_list)
+    indice = knn.kneighbors(vector_pred.reshape(1, -1), return_distance=False)
+    return item_list[indice[0][0]]
+
+for embedding_model in embedding_models:
+    print(f"Processing embedding model: {embedding_model}")
     for task in tasks:
-        for stage in evaluation_stages:
-            for fold in range(10):
-                with open(f"{model_type}/{task}_{stage}_{fold}", 'r', encoding='utf-8') as f:
-                    for line in f:
-                        split_line = line.split(': ')
-                        model_pred['model'].append(split_line[0])
-                        model_pred['pred_list'].append(ast.literal_eval(split_line[1]))
-
-print(model_pred['pred_list'][0][3][1])
+        print(f"Processing task: {task}")
+        item_list, vector_list = get_knn_data(index_dict, task, embedding_model)
+        for model_type in model_types:
+            print(f"Processing model type: {model_type}")
+            for stage in evaluation_stages:
+                print(f"Processing stage: {stage}")
+                for fold in range(1):
+                    print(f"Processing fold: {fold}")
+                    with open(f"{model_type}/{task}_{stage}_{fold}", 'r', encoding='utf-8') as f:
+                        for line in f:
+                            for model_name in model_names:
+                                if model_name in line:
+                                    split_string = model_name
+                                    break
+                            split_line = line.split(split_string)
+                            model_name = split_line[0]
+                            pred_list = ast.literal_eval(split_line[1])
+                            ss_pred_list = []
+                            for pred_l in tqdm(pred_list):
+                                ss_pred_l = []
+                                for pred in pred_l:
+                                    model = SentenceTransformer(embedding_model)
+                                    vector_pred = model.encode(pred)
+                                    ss_pred_l.append(run_one_nn(vector_pred, item_list, vector_list))
+                                ss_pred_list.append(ss_pred_l)
+                            with open(f"{model_type}_ss/{task}_{stage}_{fold}", 'a', encoding='utf-8') as f:
+                                f.write(str(model_name) + ': ' + str(ss_pred_list) + '\n')

@@ -49,7 +49,7 @@ def similarity_run(task, stage, fold, model_type, embedding_model, item_list, ve
                 vector_pred = model.encode(pred)
                 ss_pred_l.append(run_one_nn(vector_pred, item_list, vector_list))
             ss_pred_list.append(ss_pred_l)
-        with open(f"{model_type}/{task}_{stage}_{fold}_{embedding_model}_ss", 'a', encoding='utf-8') as f:
+        with open(f"{model_type}/{task}_{stage}_{fold}_{embedding_model.split('/')[1]}_ss", 'a', encoding='utf-8') as f:
             f.write(str(model_name) + ': ' + str(ss_pred_list) + '\n')
 
     def split_processing(task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs):

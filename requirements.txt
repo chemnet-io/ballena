@@ -160,3 +160,5 @@ websocket-client==1.7.0
 widgetsnbextension==4.0.10
 yarl==1.9.4
 zipp==3.17.0
+sentence_transformers
+multiprocess

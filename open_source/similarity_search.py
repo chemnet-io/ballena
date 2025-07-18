@@ -41,6 +41,7 @@ def run_one_nn(vector_pred, item_list, vector_list):
 
 def similarity_run(task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs=4):
     def process(start, end, task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list):
+        model = SentenceTransformer(embedding_model)
         ss_pred_list = []
         for pred_l in tqdm(pred_list[start:end]):
             ss_pred_l = []
@@ -68,7 +69,6 @@ def similarity_run(task, stage, fold, model_type, embedding_model, item_list, ve
 
 for embedding_model in embedding_models:
     print(f"Processing embedding model: {embedding_model}")
-    model = SentenceTransformer(embedding_model)
     for task in tasks:
         print(f"Processing task: {task}")
         item_list, vector_list = get_knn_data(index_dict, task, embedding_model)

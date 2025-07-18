@@ -1,5 +1,6 @@
 import ast
 import json
+import multiprocess
 
 from sklearn.neighbors import NearestNeighbors
 from sentence_transformers import SentenceTransformer
@@ -38,8 +39,36 @@ def run_one_nn(vector_pred, item_list, vector_list):
     indice = knn.kneighbors(vector_pred.reshape(1, -1), return_distance=False)
     return item_list[indice[0][0]]
 
+def similarity_run(task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs=4):
+    def process(start, end, task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list):
+        ss_pred_list = []
+        for pred_l in tqdm(pred_list[start:end]):
+            ss_pred_l = []
+            for pred in pred_l:
+                vector_pred = model.encode(pred)
+                ss_pred_l.append(run_one_nn(vector_pred, item_list, vector_list))
+            ss_pred_list.append(ss_pred_l)
+        with open(f"{model_type}/{task}_{stage}_{fold}_{embedding_model}_ss", 'a', encoding='utf-8') as f:
+            f.write(str(model_name) + ': ' + str(ss_pred_list) + '\n')
+
+    def split_processing(task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs):
+        split_size = round(len(pred_list) / n_jobs)
+        threads = []                                                                
+        for i in range(n_jobs):                                                 
+            start = i * split_size                                                  
+            end = len(pred_list) if i+1 == n_jobs else (i+1) * split_size                
+            threads.append(                                                         
+                multiprocess.Process(target=process, args=(start, end, task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list)))
+            threads[-1].start()            
+
+        for t in threads:
+            t.join()
+    
+    split_processing(task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs)
+
 for embedding_model in embedding_models:
     print(f"Processing embedding model: {embedding_model}")
+    model = SentenceTransformer(embedding_model)
     for task in tasks:
         print(f"Processing task: {task}")
         item_list, vector_list = get_knn_data(index_dict, task, embedding_model)
@@ -58,13 +87,4 @@ for embedding_model in embedding_models:
                             split_line = line.split(split_string)
                             model_name = split_line[0]
                             pred_list = ast.literal_eval(split_line[1])
-                            ss_pred_list = []
-                            for pred_l in tqdm(pred_list):
-                                ss_pred_l = []
-                                for pred in pred_l:
-                                    model = SentenceTransformer(embedding_model)
-                                    vector_pred = model.encode(pred)
-                                    ss_pred_l.append(run_one_nn(vector_pred, item_list, vector_list))
-                                ss_pred_list.append(ss_pred_l)
-                            with open(f"{model_type}_{embedding_model}_ss/{task}_{stage}_{fold}", 'a', encoding='utf-8') as f:
-                                f.write(str(model_name) + ': ' + str(ss_pred_list) + '\n')
+                            similarity_run(task, stage, fold, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs=4)

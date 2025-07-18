@@ -66,5 +66,5 @@ for embedding_model in embedding_models:
                                     vector_pred = model.encode(pred)
                                     ss_pred_l.append(run_one_nn(vector_pred, item_list, vector_list))
                                 ss_pred_list.append(ss_pred_l)
-                            with open(f"{model_type}_ss/{task}_{stage}_{fold}", 'a', encoding='utf-8') as f:
+                            with open(f"{model_type}_{embedding_model}_ss/{task}_{stage}_{fold}", 'a', encoding='utf-8') as f:
                                 f.write(str(model_name) + ': ' + str(ss_pred_list) + '\n')

@@ -40,7 +40,7 @@ def run_one_nn(vector_pred, item_list, vector_list):
     return item_list[indice[0][0]]
 
 def similarity_run(task, stage, fold, model_name, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs=4):
-    def process(start, end, task, stage, fold, model_name, model_type, embedding_model, item_list, vector_list, pred_list):
+    def process(start, end, embedding_model, item_list, vector_list, pred_list):
         model = SentenceTransformer(embedding_model)
         ss_pred_list = []
         for pred_l in tqdm(pred_list[start:end]):
@@ -49,23 +49,29 @@ def similarity_run(task, stage, fold, model_name, model_type, embedding_model, i
                 vector_pred = model.encode(pred)
                 ss_pred_l.append(run_one_nn(vector_pred, item_list, vector_list))
             ss_pred_list.append(ss_pred_l)
-        with open(f"{model_type}/{task}_{stage}_{fold}_{embedding_model.split('/')[1]}_ss", 'a', encoding='utf-8') as f:
-            f.write(f"{str(model_name)} : {str(ss_pred_list)}\n")
+        
 
-    def split_processing(task, stage, fold, model_name, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs):
+    def split_processing(embedding_model, item_list, vector_list, pred_list, n_jobs, return_dict):
         split_size = round(len(pred_list) / n_jobs)
         threads = []                                                                
         for i in range(n_jobs):                                                 
             start = i * split_size                                                  
             end = len(pred_list) if i+1 == n_jobs else (i+1) * split_size                
             threads.append(                                                         
-                multiprocess.Process(target=process, args=(start, end, task, stage, fold, model_name, model_type, embedding_model, item_list, vector_list, pred_list)))
+                multiprocess.Process(target=process, args=(start, end, embedding_model, item_list, vector_list, pred_list, i, return_dict)))
             threads[-1].start()            
 
         for t in threads:
             t.join()
+        
     
-    split_processing(task, stage, fold, model_name, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs)
+    return_dict = multiprocess.Manager().dict()
+    split_processing(embedding_model, item_list, vector_list, pred_list, n_jobs, return_dict)
+    ss_pred_list = []
+    for job in range(n_jobs):
+        ss_pred_list += return_dict[job]
+    with open(f"{model_type}/{task}_{stage}_{fold}_{embedding_model.split('/')[1]}_ss", 'a', encoding='utf-8') as f:
+            f.write(f"{str(model_name)} : {str(ss_pred_list)}\n")
 
 for embedding_model in embedding_models:
     print(f"Processing embedding model: {embedding_model}")
@@ -87,4 +93,4 @@ for embedding_model in embedding_models:
                             split_line = line.split(split_string)
                             model_name = split_line[0]
                             pred_list = ast.literal_eval(split_line[1])
-                            similarity_run(task, stage, fold, model_name, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs=4)
+                            similarity_run(task, stage, fold, split_string, model_type, embedding_model, item_list, vector_list, pred_list, n_jobs=4)

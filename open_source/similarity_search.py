@@ -68,8 +68,9 @@ def similarity_run(task, stage, fold, model_name, model_type, embedding_model, i
     return_dict = multiprocess.Manager().dict()
     split_processing(embedding_model, item_list, vector_list, pred_list, n_jobs, return_dict)
     ss_pred_list = []
-    for job in range(n_jobs):
-        ss_pred_list += return_dict[job]
+    return_dict = dict(return_dict)
+    for i in range(n_jobs):
+        ss_pred_list += return_dict[i]
     with open(f"{model_type}/{task}_{stage}_{fold}_{embedding_model.split('/')[1]}_ss", 'a', encoding='utf-8') as f:
             f.write(f"{str(model_name)} : {str(ss_pred_list)}\n")
 

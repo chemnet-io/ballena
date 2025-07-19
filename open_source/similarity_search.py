@@ -14,7 +14,7 @@ evaluation_stages = ['1st', '2nd', '3rd', '4th']
 model_types = ['pre-trained', 'finetuning']
 model_names = ['qwen14b: ', 'llama8b: ', 'phi14b: ']
 embedding_models = [
-            'sentence-transformers/all-MiniLM-L6-v2',
+            # 'sentence-transformers/all-MiniLM-L6-v2',
             'Qwen/Qwen3-Embedding-0.6B',
             'BAAI/bge-m3',
             'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',

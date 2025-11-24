@@ -60,12 +60,122 @@ In this repository, you can find the code and data used in the creation and eval
 
 The project evaluated multiple approaches for attribute extraction from scientific documents. Below are the results for each method using specific hits@k values:
 
+### Pre-trained Llama-3.1
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.05 | 0.05 | 0.06 | 0.07 |
+| BioActivity (B) | 5 | 0.00 | 0.00 | 0.00 | 0.00 |
+| Species (S) | 50 | 0.10 | 0.09 | 0.09 | 0.09 |
+| Location (L) | 20 | 0.01 | 0.01 | 0.01 | 0.01 |
+| Type (T) | 1 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+### Pre-trained Llama-3.1 with Similarity Search
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.49 | 0.51 | 0.50 | 0.50 |
+| BioActivity (B) | 5 | 0.44 | 0.45 | 0.44 | 0.45 |
+| Species (S) | 50 | 0.52 | 0.52 | 0.50 | 0.49 |
+| Location (L) | 20 | 0.30 | 0.31 | 0.32 | 0.31 |
+| Type (T) | 1 | 0.81 | 0.82 | 0.83 | 0.84 |
+
+### Fine-tuned Llama-3.1 with Similarity Search
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.70 | 0.72 | 0.73 | 0.74 |
+| BioActivity (B) | 5 | 0.74 | 0.74 | 0.76 | 0.77 |
+| Species (S) | 50 | 0.86 | 0.88 | 0.88 | 0.86 |
+| Location (L) | 20 | 0.63 | 0.63 | 0.64 | 0.65 |
+| Type (T) | 1 | 0.91 | 0.92 | 0.93 | 0.94 |
+
+### Pre-trained Qwen-2.5
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.09 | 0.09 | 0.08 | 0.10 |
+| BioActivity (B) | 5 | 0.06 | 0.06 | 0.05 | 0.06 |
+| Species (S) | 50 | 0.37 | 0.39 | 0.41 | 0.38 |
+| Location (L) | 20 | 0.01 | 0.01 | 0.01 | 0.01 |
+| Type (T) | 1 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+### Pre-trained Qwen-2.5 with Similarity Search
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.81 | 0.82 | 0.81 | 0.81 |
+| BioActivity (B) | 5 | 0.71 | 0.72 | 0.74 | 0.72 |
+| Species (S) | 50 | 0.86 | 0.86 | 0.86 | 0.86 |
+| Location (L) | 20 | 0.61 | 0.62 | 0.64 | 0.66 |
+| Type (T) | 1 | 0.79 | 0.80 | 0.81 | 0.84 |
+
+### Fine-tuned Qwen-2.5 with Similarity Search
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.62 | 0.64 | 0.65 | 0.67 |
+| BioActivity (B) | 5 | 0.71 | 0.73 | 0.75 | 0.76 |
+| Species (S) | 50 | 0.89 | 0.91 | 0.92 | 0.92 |
+| Location (L) | 20 | 0.62 | 0.63 | 0.64 | 0.66 |
+| Type (T) | 1 | 0.92 | 0.92 | 0.93 | 0.94 |
+
+### Pre-trained Phi-4
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.08 | 0.08 | 0.08 | 0.09 |
+| BioActivity (B) | 5 | 0.02 | 0.02 | 0.02 | 0.01 |
+| Species (S) | 50 | 0.22 | 0.23 | 0.24 | 0.23 |
+| Location (L) | 20 | 0.01 | 0.01 | 0.01 | 0.01 |
+| Type (T) | 1 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+### Pre-trained Phi-4 with Similarity Search
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.85 | 0.87 | 0.87 | 0.89 |
+| BioActivity (B) | 5 | 0.72 | 0.74 | 0.75 | 0.74 |
+| Species (S) | 50 | 0.90 | 0.90 | 0.90 | 0.89 |
+| Location (L) | 20 | 0.61 | 0.63 | 0.64 | 0.66 |
+| Type (T) | 1 | 0.66 | 0.65 | 0.66 | 0.65 |
+
+### Fine-tuned Phi-4 with Similarity Search
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.65 | 0.68 | 0.69 | 0.70 |
+| BioActivity (B) | 5 | 0.73 | 0.74 | 0.75 | 0.74 |
+| Species (S) | 50 | 0.83 | 0.84 | 0.86 | 0.87 |
+| Location (L) | 20 | 0.61 | 0.61 | 0.63 | 0.64 |
+| Type (T) | 1 | 0.91 | 0.92 | 0.93 | 0.94 |
+
+### Pre-trained GPT-4o
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.00 | 0.00 | 0.00 | 0.00 |
+| BioActivity (B) | 5 | 0.03 | 0.04 | 0.03 | 0.03 |
+| Species (S) | 50 | 0.19 | 0.20 | 0.24 | 0.22 |
+| Location (L) | 20 | 0.00 | 0.00 | 0.00 | 0.00 |
+| Type (T) | 1 | 0.00 | 0.00 | 0.00 | 0.00 |
+
+### Pre-trained GPT-4o with Similarity Search
+
+| Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
+|---------------|--------|------------|------------|------------|------------|
+| Name (C) | 50 | 0.70 | 0.74 | 0.74 | 0.81 |
+| BioActivity (B) | 5 | 0.74 | 0.77 | 0.76 | 0.76 |
+| Species (S) | 50 | 1.0 | 1.0 | 1.0 | 1.0 |
+| Location (L) | 20 | 0.69 | 0.67 | 0.75 | 0.77 |
+| Type (T) | 1 | 0.15 | 0.14 | 0.14 | 0.07 |
+
 ### Fine-tuned GPT-4o with Similarity Search
 
 | Attribute Type | hits@k | 1st Split | 2nd Split | 3rd Split | 4th Split |
 |---------------|--------|------------|------------|------------|------------|
-| Name (C) | 50 | 0.603 | 0.585 | 0.602 | **0.628** |
-| BioActivity (B) | 5 | 0.675 | 0.689 | 0.671 | **0.727** |
-| Species (S) | 50 | 0.944 | **0.963** | 0.944 | 0.926 |
-| Location (L) | 20 | 0.818 | 0.767 | 0.842 | **0.923** |
-| Type (T) | 1 | 0.922 | 0.916 | 0.929 | **0.963** |
+| Name (C) | 50 | 0.60 | 0.59 | 0.60 | 0.63 |
+| BioActivity (B) | 5 | 0.68 | 0.68 | 0.67 | 0.73 |
+| Species (S) | 50 | 0.94 | 0.96 | 0.94 | 0.92 |
+| Location (L) | 20 | 0.82 | 0.77 | 0.84 | 0.92 |
+| Type (T) | 1 | 0.92 | 0.92 | 0.93 | 0.96 |

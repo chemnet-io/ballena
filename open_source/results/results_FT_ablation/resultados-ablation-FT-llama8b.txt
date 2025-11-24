@@ -1,0 +1,24 @@
+Tarefa: collectionType | Estagio: 1st | Fold: 3 | Hits@1: 0.9292035398230089
+Tarefa: collectionType | Estagio: 2nd | Fold: 3 | Hits@1: 0.930379746835443
+Tarefa: collectionType | Estagio: 3rd | Fold: 3 | Hits@1: 0.9074074074074074
+Tarefa: collectionType | Estagio: 4th | Fold: 3 | Hits@1: 0.9444444444444444
+
+Tarefa: collectionSite | Estagio: 1st | Fold: 3 | Hits@20: 0.533625730994152
+Tarefa: collectionSite | Estagio: 2nd | Fold: 3 | Hits@20: 0.575
+Tarefa: collectionSite | Estagio: 3rd | Fold: 3 | Hits@20: 0.5925925925925926
+Tarefa: collectionSite | Estagio: 4th | Fold: 3 | Hits@20: 0.5740740740740741
+
+Tarefa: bioActivity | Estagio: 1st | Fold: 3 | Hits@5: 0.7079166666666665
+Tarefa: bioActivity | Estagio: 2nd | Fold: 3 | Hits@5: 0.7192460317460319
+Tarefa: bioActivity | Estagio: 3rd | Fold: 3 | Hits@5: 0.7456140350877193
+Tarefa: bioActivity | Estagio: 4th | Fold: 3 | Hits@5: 0.7586206896551724
+
+Tarefa: collectionSpecie | Estagio: 1st | Fold: 3 | Hits@50: 0.5258620689655172
+Tarefa: collectionSpecie | Estagio: 2nd | Fold: 3 | Hits@50: 0.5277777777777778
+Tarefa: collectionSpecie | Estagio: 3rd | Fold: 3 | Hits@50: 0.6545454545454545
+Tarefa: collectionSpecie | Estagio: 4th | Fold: 3 | Hits@50: 0.7037037037037037
+
+Tarefa: name | Estagio: 1st | Fold: 3 | Hits@50: 0.3179423868312757
+Tarefa: name | Estagio: 2nd | Fold: 3 | Hits@50: 0.26783625730994154
+Tarefa: name | Estagio: 3rd | Fold: 3 | Hits@50: 0.2875641025641026
+Tarefa: name | Estagio: 4th | Fold: 3 | Hits@50: 0.32954545454545453

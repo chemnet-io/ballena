@@ -10,3 +10,6 @@ __pycache__
 __pycache__/*
 # just ignore the pdfs
 /pdfs/*.pdf
+pdf_extractions/nougat_OCR/nougat_output
+pdf_extractions/nougat_OCR/*.parquet
+pdf_extractions/pypdfextraction/*.parquet

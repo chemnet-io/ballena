@@ -18,6 +18,30 @@ The system aims to accelerate:
 
 By automating the extraction of relevant information about natural compounds, including their chemical properties, bioactivities, and origins, BALLENA contributes to more efficient research processes and faster scientific discoveries in medicine and pharmaceutics.
 
+## Hugging Face fine-tuned models
+
+The following available fine-tuned single-task models were fine-tuned using all the data available in the original NatUKE dataset. Therefore, they are not suitable for evaluation in the original benchmark, however they should have better performance in the real-world.
+
+* [`Bike-name`](https://huggingface.co/aksw/Bike-name) is a Medium fine-tuned language model designed to **extract biochemical names from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
+* [`Bike-bioactivity`](https://huggingface.co/aksw/Bike-bioactivity) is a Medium fine-tuned language model designed to **extract biochemical biological activities from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
+* [`Bike-specie`](https://huggingface.co/aksw/Bike-specie) is a Medium fine-tuned language model designed to **extract biochemical collection species from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
+* [`Bike-site`](https://huggingface.co/aksw/Bike-site) is a Medium fine-tuned language model designed to **extract biochemical collection sites from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
+* [`Bike-isolation`](https://huggingface.co/aksw/Bike-isolation) is a Medium fine-tuned language model designed to **extract biochemical isolation types from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
+
+## Citation
+
+If you use this code or any of the fine-tuned models in your work, please cite it as:
+
+```
+@inproceedings{ref:doCarmo2025,
+  title={Improving Natural Product Knowledge Extraction from Academic Literature with Enhanced PDF Text Extraction and Large Language Models},
+  author={Viviurka do Carmo, Paulo and Silva G{\^o}lo, Marcos Paulo and Gwozdz, Jonas and Marx, Edgard and Marcondes Marcacini, Ricardo},
+  booktitle={Proceedings of the 40th ACM/SIGAPP Symposium on Applied Computing},
+  pages={980--987},
+  year={2025}
+}
+```
+
 ## Overview of the Project
 
 In this repository, you can find the code and data used in the creation and evaluation of the BALLENA project. Note that downloading the PDFs and splits is only necessary if you want to run the code yourself.
@@ -183,27 +207,3 @@ The model was evaluated using Hits@k on the test sets of the NatUKE Benchmark (d
 ---
 
 Do Carmo, Paulo Viviurka, et al. "NatUKE: A Benchmark for Natural Product Knowledge Extraction from Academic Literature." 2023 IEEE 17th International Conference on Semantic Computing (ICSC). IEEE, 2023.
-
-## Hugging Face fine-tuned models
-
-The following available fine-tuned single-task models were fine-tuned using all the data available in the original NatUKE dataset. Therefore, they are not suitable for evaluation in the original benchmark, however they should have better performance in the real-world.
-
-* [`Bike-name`](https://huggingface.co/aksw/Bike-name) is a Medium fine-tuned language model designed to **extract biochemical names from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
-* [`Bike-bioactivity`](https://huggingface.co/aksw/Bike-bioactivity) is a Medium fine-tuned language model designed to **extract biochemical biological activities from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
-* [`Bike-specie`](https://huggingface.co/aksw/Bike-specie) is a Medium fine-tuned language model designed to **extract biochemical collection species from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
-* [`Bike-site`](https://huggingface.co/aksw/Bike-site) is a Medium fine-tuned language model designed to **extract biochemical collection sites from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
-* [`Bike-isolation`](https://huggingface.co/aksw/Bike-isolation) is a Medium fine-tuned language model designed to **extract biochemical isolation types from scientific text articles**. It is ideal for Information Retrieval systems based on Biohemical Knowledge Extraction.
-
-## Citation
-
-If you use this code or any of the fine-tuned models in your work, please cite it as:
-
-```
-@inproceedings{ref:doCarmo2025,
-  title={Improving Natural Product Knowledge Extraction from Academic Literature with Enhanced PDF Text Extraction and Large Language Models},
-  author={Viviurka do Carmo, Paulo and Silva G{\^o}lo, Marcos Paulo and Gwozdz, Jonas and Marx, Edgard and Marcondes Marcacini, Ricardo},
-  booktitle={Proceedings of the 40th ACM/SIGAPP Symposium on Applied Computing},
-  pages={980--987},
-  year={2025}
-}
-```

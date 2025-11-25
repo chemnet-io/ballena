@@ -48,22 +48,24 @@ In this repository, you can find the code and data used in the creation and eval
 
 ### Repository Structure
 
-#### Evaluation GPT models
+#### Proprietary models
+
+##### Evaluation
 - **`extraction_results` and `evaluation_results`**: Contains the results of the extraction and evaluation of attributes for all methodologies described in the thesis
   - An interactive HTML viewer is available at `extraction_results/Nougat_FT/viewer.html`
 
-#### Similarity Search GPT models
+##### Similarity Search
 - **`faiss_index`**: Contains the FAISS index created for similarity search of extracted attributes
   - Index was created using the `FAISS_workflow.ipynb` notebook
 
-#### Finetune Data GPT models
+##### Finetune Data
 - **`finetune_data`**: Contains training data for model fine-tuning
   - `finetune_data_nougat`: Data for Nougat model
   - `finetune_data_pymupdf`: Data for PyMuPDF model
   - Data was created from PDF extractions in `pdf_extractions` folder using `create_finetuning_data.ipynb`
   - For better visualization of the training data, view `finetune_data/finetune_data_nougat/check_finetune_dataviewer.html`
 
-#### Core Scripts GPT models
+##### Core Scripts
 - **`BALLENA.py`**: Processes all attributes except names
   - Handles extraction of bioActivity, collectionSite, collectionSpecie, and collectionType attributes
   - Uses fine-tuned GPT-4o models for each attribute type
@@ -77,7 +79,29 @@ In this repository, you can find the code and data used in the creation and eval
     - Processing selected splits
     - Testing mode for specified number of rows
 
-#### Additional Files GPT models
+##### Additional Files
+- **`misc`**: Contains miscellaneous development files (included for transparency)
+
+#### Open-source models
+
+##### Results and Outputs
+- **`model_outputs`** directory contains the raw list outputs from the models per configuration
+- **`results`** directory contains the hits@k results from the models per configuration
+
+##### Training, Executing and Evaluation
+- **`finetuning.py`** script fine-tunes and evaluates the models with fine-tuning on the first stage
+  - handles arguments according to the task, stage, fold, model and evaluation to parse as arguments
+- **`pre-trained.py`** script executes and evaluates directly on the pre-trained models
+- **`generate_index.py`** uses the `flat-data.csv` and creates embeddings according to a list of models
+  - can create embeddings with hugging face sentence transformer models in the list
+  - saves the embeddings for each task, item and embedding model in the `index.json` file
+- **`similarity_search.py`** using the pre-trained and fine-tuned `model_outputs` creates the `SS` outputs
+  - handles the reordering of the outputs according to the similarity search of the embeddings
+  - creates embeddings for each model output per task and embedding model listed
+  - saves the similarity search outputs into a file with the same format as the `model_outputs`
+- **`eval-SS.ipynb`** notebook executes the evaluation process for the similarity search `model_outputs`
+
+##### Additional Files
 - **`misc`**: Contains miscellaneous development files (included for transparency)
 
 ## Results
